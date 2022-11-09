@@ -84,7 +84,7 @@ const render = () => {
     const getType = document.querySelector(".type");
     submit.onclick = () => {
       const product = {
-        id: Number(getId.value),
+        id: getId.value,
         name: getName.value,
         price: getPrice.value,
         description: getDescription.value,
@@ -92,23 +92,15 @@ const render = () => {
         type: getType.value,
       };
       // Validate values
-      for (let i = 0; i < productList.length; i++) {
-        if (
-          productList[i].id === product.id ||
-          isNaN(product.id) ||
-          product.id === null
-        ) {
-          console.error("ID maybe exists or not valid. Please check!");
-          return;
-        }
-      }
-      for (let i = 0; i < Object.keys(product).length - 1; i++) {
-        if (Object.values(product)[i] === null) {
-          console.error("thiếu", Object.keys(product)[i]);
-          return;
-        }
-      }
-      if (!validateValue(productList, product, "Lỗi", "Miss")) return;
+      if (
+        !validateValue(
+          productList,
+          product,
+          "ID đã tồn tại hoặc không hợp lệ",
+          "Thiếu"
+        )
+      )
+        return;
       getId.value = "";
       getName.value = "";
       getPrice.value = "";
@@ -130,7 +122,7 @@ const render = () => {
     getBtn.forEach((element) => {
       element.onclick = () => {
         // if (!confirm("Xoá")) return;
-        deleteProduct(parseInt(element.dataset.product, 10));
+        deleteProduct(element.dataset.product);
         render();
       };
     });
@@ -139,37 +131,34 @@ const render = () => {
   // handleUpdateProduct
   const handleUpdateProduct = () => {
     const submit = document.querySelectorAll(".submit");
-    submit &&
-      submit.forEach((item) => {
-        const index = Number(item.dataset.product);
-        const getId = document.querySelector(`.id[data-product="${index}"]`);
-        const getName = document.querySelector(
-          `.name[data-product="${index}"]`
-        );
-        const getPrice = document.querySelector(
-          `.price[data-product="${index}"]`
-        );
-        const getDescription = document.querySelector(
-          `.description[data-product="${index}"]`
-        );
-        const getImg = document.querySelector(`.img[data-product="${index}"]`);
-        const getType = document.querySelector(
-          `.type[data-product="${index}"]`
-        );
-        item.onclick = () => {
-          const product = {
-            id: Number(getId.value),
-            name: getName.value,
-            price: getPrice.value,
-            description: getDescription.value,
-            img: getImg.value,
-            type: getType.value,
-          };
-          updateProduct(index, product);
-          console.log(productList);
-          render();
+    submit.forEach((item) => {
+      const index = Number(item.dataset.product);
+      const getId = document.querySelector(`.id[data-product="${index}"]`);
+      const getName = document.querySelector(`.name[data-product="${index}"]`);
+      const getPrice = document.querySelector(
+        `.price[data-product="${index}"]`
+      );
+      const getDescription = document.querySelector(
+        `.description[data-product="${index}"]`
+      );
+      const getImg = document.querySelector(`.img[data-product="${index}"]`);
+      const getType = document.querySelector(`.type[data-product="${index}"]`);
+      item.onclick = () => {
+        const product = {
+          id: Number(getId.value),
+          name: getName.value,
+          price: getPrice.value,
+          description: getDescription.value,
+          img: getImg.value,
+          type: getType.value,
         };
-      });
+        if (!validateValue(productList, product, "ID đã tồn tại", "Thiếu"))
+          return;
+        updateProduct(index, product);
+        console.log(productList);
+        render();
+      };
+    });
   };
   // handleUpdateProduct();
   // add user
@@ -191,18 +180,7 @@ const render = () => {
         cart: getCart.value,
       };
       // Validate values
-      // for (let i = 0; i < userList.length; i++) {
-      //   if (userList[i].id === user.id || user.id === null) {
-      //     console.error("ID maybe exists or not valid. Please check!");
-      //     return;
-      //   }
-      // }
-      // for (let i = 0; i < Object.keys(user).length - 1; i++) {
-      //   if (Object.values(user)[i] === null) {
-      //     console.error("thiếu", Object.keys(user)[i]);
-      //     return;
-      //   }
-      // }
+      if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu")) return;
       getId.value = "";
       getName.value = "";
       getPrice.value = "";
@@ -230,35 +208,36 @@ const render = () => {
       };
     });
   };
-  handleDeleteUser();
+  // handleDeleteUser();
   // handleUpdateuser
   const handleUpdateUser = () => {
     const submit = document.querySelectorAll(".submit");
-    submit &&
-      submit.forEach((item) => {
-        const index = Number(item.dataset.user);
-        const getId = document.querySelector(`.id[data-user="${index}"]`);
-        const getName = document.querySelector(`.name[data-user="${index}"]`);
-        const getPrice = document.querySelector(`.price[data-user="${index}"]`);
-        const getDescription = document.querySelector(
-          `.description[data-user="${index}"]`
-        );
-        const getImg = document.querySelector(`.img[data-user="${index}"]`);
-        const getType = document.querySelector(`.type[data-user="${index}"]`);
-        item.onclick = () => {
-          const user = {
-            id: Number(getId.value),
-            name: getName.value,
-            price: getPrice.value,
-            description: getDescription.value,
-            img: getImg.value,
-            type: getType.value,
-          };
-          updateUser(index, user);
-          console.log(userList);
-          render();
+    submit.forEach((item) => {
+      const index = Number(item.dataset.user);
+      const getId = document.querySelector(`.id[data-user="${index}"]`);
+      const getName = document.querySelector(`.name[data-user="${index}"]`);
+      const getPrice = document.querySelector(`.price[data-user="${index}"]`);
+      const getDescription = document.querySelector(
+        `.description[data-user="${index}"]`
+      );
+      const getImg = document.querySelector(`.img[data-user="${index}"]`);
+      const getType = document.querySelector(`.type[data-user="${index}"]`);
+      item.onclick = () => {
+        const user = {
+          id: Number(getId.value),
+          name: getName.value,
+          price: getPrice.value,
+          description: getDescription.value,
+          img: getImg.value,
+          type: getType.value,
         };
-      });
+        if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu"))
+          return;
+        updateUser(index, user);
+        console.log(userList);
+        render();
+      };
+    });
   };
   // handleUpdateUser();
 };

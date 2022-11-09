@@ -2,19 +2,19 @@
   .container {
     width: 100%;
   }
-  .container--left {
+  .img {
     display: none;
   }
   h1 span {
     font-size: 1.625rem;
   }
-  .form-group {
-    width: 95%;
-  }
   .description {
     font-size: 0.9375rem;
   }
-  .container--right{
-    animation: none;
+  #float:checked ~ .container.login {
+    display: none;
+  }
+  #float:not(:checked) ~ .container.register {
+    display: none;
   }
 }

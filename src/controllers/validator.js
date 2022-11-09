@@ -108,17 +108,20 @@ Validator.isPasswordConfirm = function (seclector, confirm, message) {
 };
 
 const validateValue = (list, obj, messageInvalid, messageMissing) => {
+  let valid = false;
   for (let i = 0; i < list.length; i++) {
     if (list[i].id === obj.id || obj.id === null) {
-      console.error(messageInvalid);
-      return false;
-    }
+      alert(messageInvalid);
+      valid = false;
+    } else valid = true;
   }
   for (let i = 0; i < Object.keys(obj).length - 1; i++) {
-    if (Object.values(obj)[i] === null) {
-      console.error(messageMissing, Object.keys(obj)[i]);
-      return false;
+    if (!Object.values(obj)[i]) {
+      alert(`${messageMissing} ${Object.keys(obj)[i]}`);
+      valid = false;
+      return;
     }
   }
+  return valid;
 };
 export { validateValue };

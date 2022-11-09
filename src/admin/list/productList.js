@@ -22,7 +22,7 @@ const type = {
 
 const defaultProductList = [
   {
-    id: 0,
+    id: "0",
     name: "armchair",
     price: 13.5,
     description:
@@ -31,7 +31,7 @@ const defaultProductList = [
     type: type.chair,
   },
   {
-    id: 1,
+    id: "1",
     name: "chair",
     price: 13.5,
     description:
@@ -40,7 +40,7 @@ const defaultProductList = [
     type: type.chair,
   },
   {
-    id: 2,
+    id: "2",
     name: "clock",
     price: 13.5,
     description:
@@ -49,7 +49,7 @@ const defaultProductList = [
     type: type.clock,
   },
   {
-    id: 3,
+    id: "3",
     name: "all",
     price: 13.5,
     description:
@@ -58,7 +58,7 @@ const defaultProductList = [
     type: type.combo,
   },
   {
-    id: 4,
+    id: "4",
     name: "easel",
     price: 13.5,
     description:
@@ -67,7 +67,7 @@ const defaultProductList = [
     type: "",
   },
   {
-    id: 5,
+    id: "5",
     name: "electricClock",
     price: 13.5,
     description:
@@ -76,7 +76,7 @@ const defaultProductList = [
     type: type.clock,
   },
   {
-    id: 6,
+    id: "6",
     name: "lamp",
     price: 13.5,
     description:
@@ -85,7 +85,7 @@ const defaultProductList = [
     type: type.lamp,
   },
   {
-    id: 7,
+    id: "7",
     name: "pencil",
     price: 13.5,
     description:
@@ -94,7 +94,7 @@ const defaultProductList = [
     type: "",
   },
   {
-    id: 8,
+    id: "8",
     name: "lamp",
     price: 13.5,
     description:
@@ -103,7 +103,7 @@ const defaultProductList = [
     type: type.lamp,
   },
   {
-    id: 9,
+    id: "9",
     name: "sofa",
     price: 13.5,
     description:
@@ -112,7 +112,7 @@ const defaultProductList = [
     type: "",
   },
   {
-    id: 10,
+    id: "10",
     name: "table2",
     price: 13.5,
     description:
@@ -121,7 +121,7 @@ const defaultProductList = [
     type: type.table,
   },
   {
-    id: 11,
+    id: "11",
     name: "table",
     price: 13.5,
     description:
