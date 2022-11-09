@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/setup.css" />
+    <link rel="stylesheet" href="../public/css/base.css" />
+    <link rel="stylesheet" href="../public/css/form.css" />
+    <link rel="stylesheet" href="../public/css/responsive.css" />
+    <title>Document</title>
+    <style>
+      #app {
+        min-height: 680px;
+      }
+      .container--left {
+        background-color: #fddfd7;
+        order: 2;
+      }
+      .container--right {
+        animation: slideInFromRight 0.45s linear;
+      }
+      h1 span {
+        animation: typing 2.5s steps(30, end),
+          blinking-cursor 0.5s step-end infinite;
+      }
+      @media (max-width: 46.1875em) {
+        .container--right {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="flex-center">
+      <main>
+        <div class="container container--left flex-center">
+          <div class="img-list">
+            <img
+              class="container__img"
+              src="../public/img/Composition-table-laptop_preview.png"
+              alt="" />
+            <img
+              class="container__img"
+              src="../public/img/Composition-table-laptop_preview.png"
+              alt="" />
+            <img
+              class="container__img"
+              src="../public/img/Composition-table-laptop_preview.png"
+              alt="" />
+          </div>
+        </div>
+        <div class="container container--right flex-center">
+          <form
+            action=""
+            method="GET"
+            class="form flex-center"
+            id="form"
+            name="register">
+            <div style="left: 0; margin-left: 1.75rem" class="direction">
+              <span>Already A Member? </span>
+              <a class="text-rose-500" href="./login.html"
+                ><span>Log in</span></a
+              >
+            </div>
+            <h1 title="register" class="title">
+              <span>Create New Account!</span>
+            </h1>
+            <span class="description">Wellcome back you've been missed!</span>
+            <div class="form-group">
+              <input
+                title="Enter Username"
+                id="username"
+                name="username"
+                type="text"
+                placeholder=" "
+                class="form-control" />
+              <label for="username" class="form-title">Enter Username</label>
+              <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+              <input
+                title="Enter Passwords"
+                id="password"
+                name="password"
+                type="password"
+                placeholder=" "
+                class="form-control" />
+              <label for="password" class="form-title">Enter Password</label>
+              <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+              <input
+                title="Confirm Password"
+                id="password_confirmation"
+                name="password_confirmation"
+                type="password"
+                placeholder=" "
+                class="form-control" />
+              <label for="password_confirmation" class="form-title"
+                >Confirm Password</label
+              >
+              <span class="form-message"></span>
+            </div>
+            <a title="password-recovery" href="#"
+              ><span>Recovery Password</span></a
+            >
+            <button class="form-submit">
+              <span>Sign up</span>
+            </button>
+            <span>Or continue with</span>
+            <div class="form-another-login" style="width: 65%">
+              <div class="login-option flex-center">
+                <button
+                  title="selection"
+                  class="login__selection-btn login__with-google-account">
+                  <div class="btn__background-color"></div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 14 14"
+                    height="24"
+                    width="24">
+                    <path
+                      d="M11.36,5.83H8.87a.51.51,0,0,0-.51.52V7.76a.51.51,0,0,0,.51.51h1.29a2.75,2.75,0,0,1-3,2.79c-2.24,0-3.32-1.9-3.32-4.06S5,2.94,7.16,2.94A4.07,4.07,0,0,1,9.8,3.8a.49.49,0,0,0,.72-.22l.63-1.44A.51.51,0,0,0,11,1.51a7.07,7.07,0,0,0-3.8-1C3.56.5,1.08,3.33,1.08,7s2.49,6.5,6.08,6.5,5.76-2.56,5.76-6C12.92,6.4,12.48,5.83,11.36,5.83Z"
+                      fill="#fff"
+                      stroke="#000000"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+                <button
+                  title="selection"
+                  class="login__selection-btn login__with-facebook-account">
+                  <div class="btn__background-color"></div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0.125 0.125 13.75 13.75"
+                    height="24"
+                    width="24"
+                    stroke-width="0.75">
+                    <path
+                      d="M8,4C8,3,8.5,3,9,3h.6a.75.75,0,0,0,.76-.76V1.3A.76.76,0,0,0,9.59.54L8.17.52a2.86,2.86,0,0,0-2.95,3.2V5.17H4.43a.76.76,0,0,0-.76.76v.94a.76.76,0,0,0,.76.76h.79V13a.5.5,0,0,0,.5.5H7.53A.5.5,0,0,0,8,13V7.63h.88a.76.76,0,0,0,.76-.76V5.93a.76.76,0,0,0-.76-.76H8Z"
+                      fill="#fff"
+                      stroke="#000000"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+                <button
+                  title="selection"
+                  class="login__selection-btn login__with-apple-id">
+                  <div class="btn__background-color"></div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 14 14"
+                    height="26"
+                    width="26">
+                    <g>
+                      <path
+                        d="M10.18,7.5a2.49,2.49,0,0,1,1.74-2.37,2.91,2.91,0,0,0-4.22-1,1,1,0,0,1-1,0A3.09,3.09,0,0,0,2.29,5.34,5.13,5.13,0,0,0,1.75,8.7a7.25,7.25,0,0,0,1.94,4.21,2.09,2.09,0,0,0,2.7.15h0a1.32,1.32,0,0,1,1.57,0A2.06,2.06,0,0,0,10.62,13a6.58,6.58,0,0,0,1.7-3A2.48,2.48,0,0,1,10.18,7.5Z"
+                        fill="#fff"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                      <line
+                        x1="8.18"
+                        y1="2"
+                        x2="9.68"
+                        y2="0.5"
+                        fill="none"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></line>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+    <script src="../controllers/validator.js"></script>
+    <script>
+      Validator({
+        form: "#form",
+        errorSelector: ".form-message",
+        rules: [
+          Validator.isRequired("#username", "Please enter a valid username"),
+          Validator.isRequired("#password", "Please enter a valid password"),
+          Validator.isPassword("#password", 8),
+          Validator.isRequired(
+            "#password_confirmation",
+            "Please confirm your password"
+          ),
+          Validator.isPasswordConfirm(
+            "#password_confirmation",
+            function () {
+              return document.querySelector("#form #password").value;
+            },
+            "Your password is not correct"
+          ),
+        ],
+        onSubmit(data) {
+          let inputs = document.querySelectorAll("input");
+          let username = data.username;
+          let useremail = data.email;
+          let userpassword = data.password;
+          let getUsers = localStorage.getItem(username);
+          let config = JSON.parse(getUsers);
+          let user = {
+            username,
+            userpassword,
+          };
+          inputs.forEach((element) => {
+            element.blur();
+          });
+          if (getUsers == null) {
+            let json = JSON.stringify(user);
+            localStorage.setItem(username, json);
+            window.location = "./login.html";
+          } else if (username != config.username) {
+          } else {
+            alert('This "Username" was exist. Please try another one.');
+            inputs.forEach((element) => {
+              element.value = null;
+            });
+            document.querySelector("input").focus();
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

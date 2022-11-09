@@ -1,0 +1,20 @@
+@media (max-width: 46.1875em) {
+  .container {
+    width: 100%;
+  }
+  .container--left {
+    display: none;
+  }
+  h1 span {
+    font-size: 1.625rem;
+  }
+  .form-group {
+    width: 95%;
+  }
+  .description {
+    font-size: 0.9375rem;
+  }
+  .container--right{
+    animation: none;
+  }
+}
