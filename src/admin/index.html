@@ -4,14 +4,197 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/admin.css" />
+    <link rel="stylesheet" href="../public/css/admin.responsive.css" />
+    <link rel="stylesheet" href="../public/css/base.css" />
+    <link rel="stylesheet" href="../public/css/setup.css" />
     <title>Document</title>
   </head>
   <body>
-    <div>Product</div>
-    <ul class="product"></ul>
-    <div>User</div>
-    <ul class="user"></ul>
-    <input type="checkbox" />
+    <div class="app">
+      <input type="checkbox" checked id="navbar-input" />
+      <div class="content">
+        <div class="header__navbar flex justify-between item-center">
+          <label for="navbar-input" class="menu-btn">
+            <img src="../public/icon/menu.svg" alt="" />
+          </label>
+          <form class="header__navbar-search">
+            <input
+              type="text"
+              class="header__search-input flex item-center"
+              placeholder="Search" />
+            <button class="header__search-btn">
+              <img
+                class="header__search-btn-icon"
+                src="../public/icon/search.svg"
+                alt="" />
+            </button>
+          </form>
+          <div class="header__navbar-admin flex">
+            <img src="../public/icon/admin.svg" alt="" />
+            <span class="admin">Admin</span>
+          </div>
+        </div>
+        <input type="radio" checked name="menu" id="product" />
+        <section class="product flex-col flex-center">
+          <h2>Products list</h2>
+          <div></div>
+        </section>
+        <input type="radio" name="menu" id="user" />
+        <section class="user flex-col flex-center">
+          <h2>Users list</h2>
+          <div></div>
+        </section>
+        <div
+          class="add-product"
+          style="display: none; background: #fff; border-radius: 10px">
+          <h2 class="heading">Adding products</h2>
+          <form action="">
+            <table class="form__add">
+              <tr>
+                <td><label for="name-product">Product name:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength="max-content"
+                    id="nameproduct"
+                    name="nameproduct"
+                    value="" />
+                </td>
+              </tr>
+              <tr>
+                <td><label for="type-product">Product types:</label></td>
+                <td>
+                  <select id="type-select" name="typeproduct">
+                    <option value="">Select Product Type</option>
+                    <option value="table">Table</option>
+                    <option value="chair">Chair</option>
+                    <option value="clock">Clock</option>
+                    <option value="light">Light</option>
+                    <option value="sofa">Sofa</option>
+                    <option value="other">Other</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="price-product">Price:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength=""
+                    id="priceproduct"
+                    name="price"
+                    value="" />
+                </td>
+              </tr>
+              <tr>
+                <td><label for="img-product">Product image:</label></td>
+                <td>
+                  <input
+                    type="file"
+                    id="imgproduct"
+                    name="imgproduct"
+                    value="" />
+                </td>
+              </tr>
+              <tr>
+                <td>Description:</td>
+                <td>
+                  <input id="description-product" name="description" />
+                </td>
+              </tr>
+            </table>
+            <button type="button" class="submit">Add</button>
+          </form>
+        </div>
+
+        <div
+          class="add-user"
+          style="display: none; background: #fff; border-radius: 10px">
+          <h2 class="heading">Adding users</h2>
+          <form action="">
+            <table class="form__add">
+              <tr>
+                <td>User name:</td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength="max-content"
+                    id="nameuser"
+                    name="nameuser"
+                    value="" />
+                </td>
+              </tr>
+              <tr>
+                <td>User address:</td>
+                <td>
+                  <input type="text" maxlength="" id="useraddress" value="" />
+                </td>
+              </tr>
+              <tr>
+                <td>User phone numbers</td>
+                <td>
+                  <input type="text" id="phoneuser" value="" />
+                </td>
+              </tr>
+              <tr>
+                <td>User info:</td>
+                <td>
+                  <input id="info-user" name="info" />
+                </td>
+              </tr>
+            </table>
+            <button type="button" class="submit">Add</button>
+          </form>
+        </div>
+      </div>
+      <nav class="flex flex-col">
+        <label for="navbar-input" id="logo" class="flex item-center">
+          <img
+            src="../public/img/Composition-table-laptop_preview.png"
+            alt="" />
+        </label>
+        <hr />
+        <menu class="navbar justify-between">
+          <li class="navbar-item">
+            <a
+              ><img
+                src="../public/icon/house.svg"
+                style="padding: 2px"
+                alt="" />Trang chủ</a
+            >
+          </li>
+          <li class="navbar-item">
+            <label for="user">
+              <a
+                ><img src="../public/icon/users.svg" alt="" />Quản lý khách hàng
+              </a>
+            </label>
+          </li>
+          <li class="navbar-item">
+            <label for="product">
+              <a
+                ><img src="../public/icon/products.svg" alt="" /> Quản lý sản
+                phẩm</a
+              ></label
+            >
+          </li>
+          <li class="navbar-item">
+            <a
+              ><img src="../public/icon/orders.svg" alt="" /> Quản lý đơn
+              hàng</a
+            >
+          </li>
+          <li class="navbar-item">
+            <a><img src="../public/icon/stats.svg" alt="" /> Thống kê</a>
+          </li>
+          <div class="app__logout">
+            <a><img src="../public/icon/logout.svg" alt="" />Logout</a>
+          </div>
+        </menu>
+      </nav>
+      <label for="navbar-input" class="layer"></label>
+    </div>
     <script type="module" src="./index.js"></script>
   </body>
 </html>

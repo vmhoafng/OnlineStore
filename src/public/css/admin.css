@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+* {
+  font-family: "Roboto", sans-serif;
+}
+:root {
+  --tr-height: 80px;
+}
+/* Header */
+
+.app {
+  display: flex;
+  position: relative;
+  flex-direction: row-reverse;
+}
+
+nav {
+  width: 200px;
+  min-height: 100vh;
+  z-index: 2;
+  background-color: var(--bg-color);
+  overflow: hidden;
+  transition: 0.5s;
+}
+nav menu li {
+  width: 200px;
+}
+nav a {
+  padding: 0.875rem;
+  text-decoration: none;
+  font-size: 1rem;
+  display: block;
+  transition: 0.3s;
+  color: black;
+}
+nav a:hover {
+  color: #ff731d;
+}
+.layer {
+  display: none;
+}
+#navbar-input {
+  display: none;
+}
+#logo {
+  height: 100px;
+}
+#logo img {
+  object-fit: cover;
+  width: 50%;
+}
+.navbar-item {
+  padding: 8px 0;
+}
+.app__logout {
+  padding: 32px 0;
+}
+.header__navbar {
+  width: 80%;
+}
+.header__navbar > img {
+  height: 28px;
+  width: 28px;
+  /* display: none; */
+  margin-left: 8px;
+}
+.header__navbar-search {
+  position: relative;
+  height: 40px;
+  width: 550px;
+  margin: 20px 20px;
+}
+.header__search-input {
+  outline: none;
+  width: 100%;
+  height: 100%;
+  font-size: 1.2rem;
+  background-color: white;
+  padding: 4px 16px;
+  border: 1px solid #ccc;
+  /* border-radius: 2px; */
+}
+.header__search-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.header__search-btn:hover {
+  background-color: var(--bg-color);
+  cursor: pointer;
+}
+.header__search-btn-icon {
+  font-size: 1.4rem;
+  color: var(--white-color);
+}
+.header__navbar-admin {
+  padding-right: 8px;
+  align-items: center;
+}
+.header__navbar-admin span {
+  padding: 24px;
+}
+
+/* Content */
+
+/* User */
+.content {
+  flex: 1;
+  width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product {
+  justify-content: space-around;
+}
+.product h1 {
+  margin: 16px 0;
+  font-size: 1.6rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  padding: 10px;
+}
+
+td {
+  border-right: 1px solid #ddd;
+  height: var(--tr-height);
+}
+td div {
+  height: var(--tr-height);
+  overflow-y: scroll;
+}
+tr {
+  border-bottom: 2px solid #ddd;
+  height: var(--tr-height);
+}
+tr,
+td {
+  text-align: center;
+  outline: none;
+  padding: 10px;
+}
+td img {
+  width: 110px;
+  height: var(--tr-height);
+}
+.description {
+  overflow-y: scroll;
+}
+.btn {
+  width: 100px;
+  height: 50%;
+  margin: 0 10px;
+  border-radius: 10px;
+  color: #fff;
+}
+button[type="delete"] {
+  background-color: red;
+}
+button[type="update"] {
+  background-color: rgb(28, 223, 28);
+}
+button[type="save"] {
+  background-color: aquamarine;
+}
+button:hover {
+  background-color: rgb(229, 226, 226);
+  cursor: pointer;
+}
+
+.product table thead tr th:nth-child(1) {
+  width: 7%;
+}
+.product table thead tr th:nth-child(2) {
+  width: 7%;
+}
+.product table thead tr th:nth-child(3) {
+  width: 7%;
+}
+.product table thead tr th:nth-child(4) {
+  width: 7%;
+}
+.product table thead tr th:nth-child(5) {
+  width: 7%;
+}
+/* .description */
+.product table tbody tr td:nth-child(6) {
+  text-align: left;
+}
+
+.user table thead tr th:nth-child(6) {
+  width: 15%;
+}
+.content input[name="menu"] {
+  display: none;
+}
+.content input:not(:checked) + section {
+  display: none;
+}

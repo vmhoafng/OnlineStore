@@ -16,8 +16,8 @@ const addProduct = (product) => {
   productList = controllers.add(productList, product);
   localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
 };
-const updateProduct = (index, product) => {
-  productList = controllers.update(productList, index, product);
+const updateProduct = (updateId, product) => {
+  productList = controllers.update(productList, updateId, product);
   localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
 };
 const deleteProduct = (index) => {
@@ -42,35 +42,165 @@ const deleteUser = (index) => {
 const render = () => {
   // RenderProduct
   const renderProduct = productList.map((product) => {
-    return `
-    <li>
-      <input data-product="${product.id}" class="id" type="text" />
-      <input data-product="${product.id}" class="name" type="text" />
-      <input data-product="${product.id}" class="price" type="text" />
-      <input data-product="${product.id}" class="description" type="text" />
-      <input data-product="${product.id}" class="img" type="text" />
-      <input data-product="${product.id}" class="type" type="text" />
-      <button data-product="${product.id}" class="submit">Submit</button>
-      <button data-product="${product.id}" class="button">Delete</button>
-    </li>
-    `;
+    if (window.innerWidth < 1024) {
+      return `
+      <table>
+        <tr>
+          <th>ID</th>
+          <td data-product=${product.id} class="id">${product.id}</td>
+        </tr>
+        <tr>
+          <th>Product name</th>
+          <td data-product=${product.id} class="name">${product.name}</td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td data-product=${product.id} class="type">${product.type}</td>
+        </tr>
+        <tr>
+          <th>Price</th>
+          <td data-product=${product.id} class="price">${product.price}</td>
+        </tr>
+        <tr>
+          <th>Image</th>
+          <td><img data-product=${product.id} class="img" src="${product.img}" alt=""></td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td data-product=${product.id} class="description"><div>${product.description}</div></td>
+        </tr>
+        <tr>
+          <th>Action</th>
+          <td>
+            <div class="flex item-center">
+            <button class="btn" data-product=${product.id} type="delete">Delete</button>
+            <button class="btn" data-product=${product.id} type="update">Update</button>
+            <button class="btn" data-product=${product.id} type="save">save</button>
+            </div>
+          </td>
+        </tr>
+    </table>
+  `;
+    } else {
+      return `
+    <tr>
+    <td class="id" data-product=${product.id}>${product.id}</td>
+    <td class="name" data-product=${product.id}>${product.name}</td>
+    <td class="type" data-product=${product.id}>${product.type}</td>
+    <td class="price" data-product=${product.id}>${product.price}</td>
+    <td><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
+    <td><div class="description" data-product=${product.id}>${product.description}</div></td>
+    <td>
+      <div class="flex item-center">
+      <button class="btn" data-product=${product.id} type="delete">Delete</button>
+      <button class="btn" data-product=${product.id} type="update">Update</button>
+      <button class="btn" data-product=${product.id} type="save">save</button>
+      </div>
+    </td>
+    </tr>
+  `;
+    }
   });
-  document.querySelector(".product").innerHTML = renderProduct.join("");
+  if (window.innerWidth < 1024) {
+    document.querySelector(".product div").innerHTML = renderProduct.join("");
+  } else {
+    document.querySelector(".product div").innerHTML = `
+    <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Product name </th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>`;
+    document.querySelector(".product div table tbody").innerHTML =
+      renderProduct.join("");
+  }
   // RenderUser
   const renderUser = userList.map((user) => {
-    return ` 
-    <li>
-    <input data-user="${user.id}" class="name" type="text" />
-    <input data-user="${user.id}" class="password" type="text" />
-    <input data-user="${user.id}" class="isAdmin" type="text" />
-    <input data-user="${user.id}" class="addresses" type="text" />
-    <input data-user="${user.id}" class="phoneNumber" type="text" />
-    <input data-user="${user.id}" class="cart" type="text" />
-    <button data-user="${user.id}" class="submit">Submit</button>
-    <button data-user="${user.id}" class="button">Delete</button>
-  </li>`;
+    if (window.innerWidth < 1024) {
+      return `  
+      <table>
+      <tr>
+        <th>ID</th>
+        <td>${user.id}</td>
+      </tr>
+      <tr>
+        <th>Password</th>
+        <td> ${user.password}</td>
+      </tr>
+      <tr>
+        <th>isAdmin</th>
+        <td>${user.isAdmin}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>${user.addresses}</td>
+      </tr>
+      <tr>
+        <th>Phone numbers</th>
+        <td>${user.phoneNumbers}</td>
+      </tr>
+      <tr>
+        <th>Cart</th>
+        <td>${user.cart}</td>
+      </tr>
+      <tr>
+        <th>Action</th>
+        <td>
+          <div class="flex item-center">
+            <button class="btn" data-user=${user.id} type="delete">Delete</button>
+            <button class="btn" type="update">Update</button>
+            <button class="btn" type="save">save</button>
+          </div>
+        </td>
+    </tr>
+  </table>`;
+    } else {
+      return `<tr>
+    <td>${user.id}</td>
+    <td> ${user.password}</td>
+    <td>${user.isAdmin}</td>
+    <td>${user.addresses}</td>
+    <td>${user.phoneNumbers}</td>
+    <td>${user.cart}</td>
+    <td>
+    <div class="flex item-center">
+      <button class="btn" data-user=${user.id} type="delete">Delete</button>
+      <button class="btn" type="update">Update</button>
+      </div>
+    </td>
+    </tr>
+  `;
+    }
   });
-  document.querySelector(".user").innerHTML = renderUser.join("");
+  if (window.innerWidth < 1024) {
+    document.querySelector(".user div").innerHTML = renderUser.join("");
+  } else {
+    document.querySelector(".user div").innerHTML = `
+    <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Password </th>
+        <th>isAdmin</th>
+        <th>Address</th>
+        <th>Phone numbers</th>
+        <th>Cart</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>`;
+    document.querySelector(".user div table tbody").innerHTML =
+      renderUser.join("");
+  }
 
   // handleEvents
   // add product
@@ -118,7 +248,9 @@ const render = () => {
   handleAddProduct();
   // delete product
   const handleDeleteProduct = () => {
-    const getBtn = document.querySelectorAll(".button[data-product]");
+    const getBtn = document.querySelectorAll(
+      "button[data-product][type=delete]"
+    );
     getBtn.forEach((element) => {
       element.onclick = () => {
         // if (!confirm("Xoá")) return;
@@ -130,8 +262,33 @@ const render = () => {
   handleDeleteProduct();
   // handleUpdateProduct
   const handleUpdateProduct = () => {
-    const submit = document.querySelectorAll(".submit");
-    submit.forEach((item) => {
+    const update = document.querySelectorAll(
+      "button[data-product][type=update]"
+    );
+    const save = document.querySelectorAll("button[data-product][type=save]");
+    update.forEach((item) => {
+      const index = Number(item.dataset.product);
+      const getId = document.querySelector(`.id[data-product="${index}"]`);
+      const getName = document.querySelector(`.name[data-product="${index}"]`);
+      const getPrice = document.querySelector(
+        `.price[data-product="${index}"]`
+      );
+      const getDescription = document.querySelector(
+        `.description[data-product="${index}"]`
+      );
+      const getImg = document.querySelector(`.img[data-product="${index}"]`);
+      const getType = document.querySelector(`.type[data-product="${index}"]`);
+      item.onclick = () => {
+        console.log(item);
+        getId.setAttribute("contenteditable", "true");
+        getName.setAttribute("contenteditable", "true");
+        getPrice.setAttribute("contenteditable", "true");
+        getDescription.setAttribute("contenteditable", "true");
+        getImg.setAttribute("contenteditable", "true");
+        getType.setAttribute("contenteditable", "true");
+      };
+    });
+    save.forEach((item) => {
       const index = Number(item.dataset.product);
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
@@ -145,22 +302,26 @@ const render = () => {
       const getType = document.querySelector(`.type[data-product="${index}"]`);
       item.onclick = () => {
         const product = {
-          id: Number(getId.value),
-          name: getName.value,
-          price: getPrice.value,
-          description: getDescription.value,
-          img: getImg.value,
-          type: getType.value,
+          id: getId.innerHTML,
+          name: getName.innerHTML,
+          price: getPrice.innerHTML,
+          description: getDescription.innerHTML,
+          img: getImg.src,
+          type: getType.innerHTML,
         };
-        if (!validateValue(productList, product, "ID đã tồn tại", "Thiếu"))
-          return;
-        updateProduct(index, product);
-        console.log(productList);
+        console.log(index.toString(), product, productList);
+        updateProduct(index.toString(), product);
+        getId.setAttribute("contenteditable", "false");
+        getName.setAttribute("contenteditable", "false");
+        getPrice.setAttribute("contenteditable", "false");
+        getDescription.setAttribute("contenteditable", "false");
+        getImg.setAttribute("contenteditable", "false");
+        getType.setAttribute("contenteditable", "false");
         render();
       };
     });
   };
-  // handleUpdateProduct();
+  handleUpdateProduct();
   // add user
   const handleAdduser = () => {
     const submit = document.querySelector(".submit");
@@ -198,17 +359,16 @@ const render = () => {
   // handleAdduser();
   // delete user
   const handleDeleteUser = () => {
-    const getBtn = document.querySelectorAll(".button[data-user]");
+    const getBtn = document.querySelectorAll("button[data-user][type=delete]");
     getBtn.forEach((element) => {
       element.onclick = () => {
-        console.log(element);
         // if (!confirm("Xoá")) return;
         deleteUser(element.dataset.user);
         render();
       };
     });
   };
-  // handleDeleteUser();
+  handleDeleteUser();
   // handleUpdateuser
   const handleUpdateUser = () => {
     const submit = document.querySelectorAll(".submit");
@@ -240,6 +400,9 @@ const render = () => {
     });
   };
   // handleUpdateUser();
+  window.onresize = () => {
+    render();
+  };
 };
 render();
 

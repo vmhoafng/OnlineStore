@@ -90,7 +90,7 @@ form {
   color: rgb(244 63 94);
 }
 
-.title {
+h1 {
   color: var(--title-color);
   font-weight: 500;
 }

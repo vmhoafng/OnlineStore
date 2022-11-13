@@ -11,10 +11,10 @@
   .description {
     font-size: 0.9375rem;
   }
-  #float:checked ~ .container.login {
+  #float:checked ~ .container.register {
     display: none;
   }
-  #float:not(:checked) ~ .container.register {
+  #float:not(:checked) ~ .container.login {
     display: none;
   }
 }

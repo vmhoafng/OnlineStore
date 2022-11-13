@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="../public/css/setup.css" />
     <link rel="stylesheet" href="../public/css/base.css" />
     <link rel="stylesheet" href="../public/css/form.css" />
-    <link rel="stylesheet" href="../public/css/responsive.css" />
+    <link rel="stylesheet" href="../public/css/form.responsive.css" />
     <title>Document</title>
     <style>
       #app {
         min-height: 600px;
       }
-      #login h1 span {
+      h1 span {
         animation: typing 3.5s steps(15, end) infinite,
           blinking-cursor 0.5s step-end infinite;
       }
-      #register h1 span {
+      h1 span {
         animation: typing 3.5s steps(30, end) infinite,
           blinking-cursor 0.5s step-end infinite;
       }
@@ -47,20 +47,21 @@
             action=""
             method="GET"
             class="flex-center"
-            id="login"
+            id="formLogin"
             name="login">
             <div style="right: 0; margin-right: 1.75rem" class="direction">
               <span>Not A Member? </span>
               <a class="text-rose-500"><label for="float">Register</label></a>
             </div>
-            <h1 title="login" class="title">
+            <h1 title="login">
               <span>Hello Again!</span>
             </h1>
-            <span class="description">Wellcome back you've been missed!</span>
+            <span>Wellcome back you've been missed!</span>
             <div class="form-group">
               <input
                 title="Enter Username"
-                name="username"
+                name="id"
+                id="usernameLogin"
                 type="text"
                 placeholder=" "
                 class="form-control" />
@@ -70,6 +71,7 @@
             <div class="form-group">
               <input
                 title="Enter Password"
+                id="passwordLogin"
                 name="password"
                 type="password"
                 placeholder=" "
@@ -158,20 +160,21 @@
             action=""
             method="GET"
             class="flex-center"
-            id="register"
+            id="formRegister"
             name="register">
             <div style="left: 0; margin-left: 1.75rem" class="direction">
               <span>Already A Member? </span>
               <a class="text-rose-500"><label for="float">Log in</label></a>
             </div>
-            <h1 title="register" class="title">
+            <h1 title="register">
               <span>Create New Account!</span>
             </h1>
-            <span class="description">Wellcome back you've been missed!</span>
+            <span>Wellcome back you've been missed!</span>
             <div class="form-group">
               <input
                 title="Enter Username"
-                name="username"
+                id="usernameRegister"
+                name="id"
                 type="text"
                 placeholder=" "
                 class="form-control" />
@@ -181,6 +184,7 @@
             <div class="form-group">
               <input
                 title="Enter Passwords"
+                id="passwordRegister"
                 name="password"
                 type="password"
                 placeholder=" "
@@ -191,7 +195,7 @@
             <div class="form-group">
               <input
                 title="Confirm Password"
-                id="password_confirmation"
+                id="password_confirmationRegister"
                 name="password_confirmation"
                 type="password"
                 placeholder=" "
@@ -280,5 +284,107 @@
       </main>
     </div>
     <script type="module" src="../controllers/validator.js"></script>
+    <script type="module">
+      import Validator from "../controllers/validator.js";
+      Validator({
+        form: "#formLogin",
+        errorSelector: ".form-message",
+        rules: [
+          Validator.isRequired(
+            "#usernameLogin",
+            "Please enter a valid username"
+          ),
+          Validator.isRequired(
+            "#passwordLogin",
+            "Please enter a valid password"
+          ),
+        ],
+        onSubmit(data) {
+          console.log(data);
+          let inputs = document.querySelectorAll("input");
+          let id = data.id;
+          let password = data.password;
+          let user = localStorage.getItem(id);
+          let config = JSON.parse(user);
+          inputs.forEach((element) => {
+            element.blur();
+          });
+          if (user == null) {
+            alert("This account does not exist. Please try again.");
+            inputs.forEach((element) => {
+              element.value = null;
+            });
+            document.querySelector("input").focus();
+          } else if (id == config.id && password == config.password) {
+            const userConfig = "currentUser";
+            let json = JSON.stringify(id);
+            localStorage.setItem(userConfig, json);
+            console.log("verify");
+            window.location = "./index.html";
+          } else {
+          }
+        },
+      });
+    </script>
+    <script type="module">
+      import Validator from "../controllers/validator.js";
+      Validator({
+        form: "#formRegister",
+        errorSelector: ".form-message",
+        rules: [
+          Validator.isRequired(
+            "#usernameRegister",
+            "Please enter a valid username"
+          ),
+          Validator.isRequired(
+            "#passwordRegister",
+            "Please enter a valid password"
+          ),
+          Validator.isPassword("#passwordRegister", 8),
+          Validator.isRequired(
+            "#password_confirmationRegister",
+            "Please confirm your password"
+          ),
+          Validator.isPasswordConfirm(
+            "#password_confirmationRegister",
+            function () {
+              return document.querySelector("#formRegister #passwordRegister")
+                .value;
+            },
+            "Your password is not correct"
+          ),
+        ],
+        onSubmit(data) {
+          let inputs = document.querySelectorAll("input");
+          let id = data.id;
+          let password = data.password;
+          let getUsers = localStorage.getItem(id);
+          let config = JSON.parse(getUsers);
+          let user = {
+            id,
+            password,
+            isAdmin: false,
+            addresses: "",
+            phoneNumber: "",
+            cart: [],
+          };
+          inputs.forEach((element) => {
+            element.value = "";
+            element.blur();
+          });
+          if (getUsers == null) {
+            let json = JSON.stringify(user);
+            localStorage.setItem(id, json);
+          } else if (id != config.id) {
+          } else {
+            alert('This "Username" is exist. Please try another one.');
+            inputs.forEach((element) => {
+              element.value = null;
+            });
+            document.querySelector("#usernameRegister").focus();
+          }
+        },
+      });
+    </script>
   </body>
 </html>
