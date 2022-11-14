@@ -37,13 +37,13 @@ const removeOutOfCart = (index) => {
   }
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
 };
-// render
-const render = () => {
+// App
+const App = () => {
   // Paginators
   let current = 1;
   const limit = 4;
   const totalPage = Math.ceil(productList.length / limit);
-  const loadItems = () => {
+  const render = () => {
     const start = limit * (current - 1);
     const end = limit * current - 1;
     const newProductList = productList.map((product, index) => {
@@ -85,8 +85,9 @@ const render = () => {
           const getQuantity = document.querySelector(
             `.quantity[data-product="${item.dataset.product}"]`
           );
-          if (currentUser == null) {
+          if (JSON.parse(localStorage.getItem("currentUser")) === null) {
             alert("Use need to login to buy products");
+            document.querySelector("#toggleForm").click();
             return;
           }
           const product = {
@@ -99,7 +100,7 @@ const render = () => {
             type: "",
           };
           addIntoCart(product);
-          loadItems();
+          render();
         };
       });
     };
@@ -120,13 +121,13 @@ const render = () => {
           )
             return;
           removeOutOfCart(element.dataset.product);
-          loadItems();
+          render();
         };
       });
     };
     handleRemoveOutOfCart();
   };
-  loadItems();
+  render();
   const listPage = () => {
     let pageArr = [];
     for (let index = 1; index < totalPage + 1; index++) {
@@ -145,7 +146,7 @@ const render = () => {
             .querySelector("li[data-key='1'].active")
             .classList.remove("active");
         page.classList.add("active");
-        loadItems();
+        render();
       };
     });
     document.querySelector("li[data-key='1']").classList.add("active");
@@ -160,4 +161,4 @@ const render = () => {
   };
   handleLogOut();
 };
-render();
+App();

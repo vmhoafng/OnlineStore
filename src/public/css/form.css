@@ -2,10 +2,53 @@
 * {
   font-family: "Roboto", sans-serif;
 }
-#app {
+
+#form {
+  position: fixed;
+  top: 0;
+  display: none;
+  width: 100vw;
   height: 100vh;
+  z-index: 10;
 }
-main {
+@keyframes formShow {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes formHide {
+  from {
+    opacity: 1;
+    display: flex;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    display: none;
+    transform: translateY(-100%);
+  }
+}
+#form > label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+#toggleForm:checked ~ #form {
+  display: flex;
+  transform: translateY(0);
+  animation: formShow 1.5s ease-in-out;
+}
+#toggleForm:not(:checked) ~ #form {
+  transform: translateY(-100%);
+  animation: formHide 1.5s ease-in-out;
+}
+#form .wrapper {
   width: 960px;
   display: flex;
   align-items: center;
@@ -15,6 +58,8 @@ main {
   border-radius: var(--bdr-outline);
   position: relative;
   margin: 0 1rem;
+  z-index: 10;
+  background-color: #fff;
 }
 .container {
   height: 97%;
@@ -139,6 +184,7 @@ h1 {
   font-size: 0.875rem;
   margin-left: 0.75rem;
   color: var(--submit-color);
+  z-index: 10;
 }
 .form-group ~ a {
   width: 70%;

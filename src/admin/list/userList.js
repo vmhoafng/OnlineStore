@@ -5,7 +5,7 @@ export const USER_LIST = "USER_LIST";
 const defaultUserList = [
   {
     id: "Administrator",
-    password: "vmhoafng",
+    password: "Administrator",
     isAdmin: true,
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
@@ -29,6 +29,7 @@ const defaultUserList = [
   },
 ];
 defaultUserList.forEach((user) => {
-  localStorage.setItem(user.id, JSON.stringify(user));
+  localStorage.getItem(user.id) ||
+    localStorage.setItem(user.id, JSON.stringify(user));
 });
 export default defaultUserList;
