@@ -373,8 +373,9 @@
             element.blur();
           });
           if (getUsers == null) {
-            let json = JSON.stringify(user);
-            localStorage.setItem(id, json);
+            const userConfig = "currentUser";
+            localStorage.setItem(userConfig, JSON.stringify(user.id));
+            localStorage.setItem(id, JSON.stringify(user));
           } else if (id != config.id) {
           } else {
             alert('This "Username" is exist. Please try another one.');

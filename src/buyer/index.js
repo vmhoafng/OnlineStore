@@ -1,11 +1,17 @@
 import controllers from "../controllers/controller.js";
 import { PRODUCT_LIST } from "../admin/list/productList.js";
+import { USER_LIST } from "../admin/list/userList.js";
+import defaultUserList from "../admin/list/userList.js";
 import defaultProductList from "../admin/list/productList.js";
 let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
+let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
 localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let userStatus = JSON.parse(localStorage.getItem(currentUser));
+userStatus &&
+  !userList.find((item) => item.id === userStatus.id) &&
+  localStorage.setItem(USER_LIST, JSON.stringify([...userList, userStatus]));
 
 const addIntoCart = (product) => {
   const existProduct = userStatus.cart.find((item) => item.id === product.id);
@@ -35,7 +41,7 @@ const removeOutOfCart = (index) => {
 const render = () => {
   // Paginators
   let current = 1;
-  const limit = 3;
+  const limit = 4;
   const totalPage = Math.ceil(productList.length / limit);
   const loadItems = () => {
     const start = limit * (current - 1);
@@ -56,18 +62,20 @@ const render = () => {
       }
     });
     document.querySelector("#app").innerHTML = newProductList.join("");
-    const cartList = userStatus.cart.map((product) => {
-      if (userStatus) {
-        return `
+    const cartList =
+      userStatus &&
+      userStatus.cart.map((product) => {
+        if (userStatus) {
+          return `
       <div>
         <span data-product="${product.id}" class="id">${product.id}</span>
         <span data-product="${product.id}" class="quantity">${product.quantity}</span>
         <button type="delete" data-product="${product.id}">Delete</button>
       </div>
           `;
-      }
-    });
-    document.querySelector(".cart").innerHTML = cartList.join("");
+        }
+      });
+    document.querySelector(".cart").innerHTML = userStatus && cartList.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -143,5 +151,13 @@ const render = () => {
     document.querySelector("li[data-key='1']").classList.add("active");
   };
   pageNumber();
+  const handleLogOut = () => {
+    const getBtn = document.querySelector(".logout");
+    getBtn.onclick = () => {
+      localStorage.setItem("currentUser", JSON.stringify(null));
+      window.location.reload();
+    };
+  };
+  handleLogOut();
 };
 render();

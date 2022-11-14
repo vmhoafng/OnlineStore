@@ -9,7 +9,7 @@ const defaultUserList = [
     isAdmin: true,
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
-    cart: [1, 2, 3],
+    cart: [],
   },
   {
     id: "kophaiminhhoang",
@@ -17,7 +17,7 @@ const defaultUserList = [
     isAdmin: false,
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
-    cart: [1, 2, 3],
+    cart: [],
   },
   {
     id: "vmhoafng",
@@ -25,8 +25,10 @@ const defaultUserList = [
     isAdmin: false,
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
-    cart: [1, 2, 3],
+    cart: [],
   },
 ];
-
+defaultUserList.forEach((user) => {
+  localStorage.setItem(user.id, JSON.stringify(user));
+});
 export default defaultUserList;
