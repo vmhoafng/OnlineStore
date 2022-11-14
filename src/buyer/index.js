@@ -14,21 +14,20 @@ userStatus &&
   localStorage.setItem(USER_LIST, JSON.stringify([...userList, userStatus]));
 
 const updateUserList = () => {
-  if (userStatus && userList.find((item) => item.id === userStatus.id)) {
+  if (userList.find((item) => item.id === userStatus.id)) {
     userList = controllers.update(userList, userStatus.id, userStatus);
     localStorage.setItem(USER_LIST, JSON.stringify(userList));
   }
 };
 
 const addIntoCart = (product) => {
-  const existProduct =
-    userStatus && userStatus.cart.find((item) => item.id === product.id);
+  const existProduct = userStatus.cart.find((item) => item.id === product.id);
   if (existProduct) {
     userStatus.cart = controllers.update(userStatus.cart, existProduct.id, {
       ...existProduct,
       quantity: ++existProduct.quantity,
     });
-  } else {
+  } else if (userStatus) {
     userStatus.cart = controllers.add(userStatus.cart, product);
   }
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
@@ -71,19 +70,18 @@ const App = () => {
     });
     document.querySelector("#app").innerHTML = newProductList.join("");
     const cartList =
-      userStatus &&
+      currentUser &&
       userStatus.cart.map((product) => {
-        if (userStatus) {
-          return `
+        return `
       <div>
         <span data-product="${product.id}" class="id">${product.id}</span>
         <span data-product="${product.id}" class="quantity">${product.quantity}</span>
         <button type="delete" data-product="${product.id}">Delete</button>
       </div>
           `;
-        }
       });
-    document.querySelector(".cart").innerHTML = userStatus && cartList.join("");
+    document.querySelector(".cart").innerHTML =
+      currentUser && cartList.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
