@@ -11,7 +11,7 @@ const addIntoCart = (product) => {
   const existProduct = userStatus.cart.find((item) => item.id === product.id);
   if (existProduct) {
     userStatus.cart = controllers.update(userStatus.cart, existProduct.id, {
-      id: existProduct.id,
+      ...existProduct,
       quantity: ++existProduct.quantity,
     });
   } else {
@@ -23,7 +23,7 @@ const removeOutOfCart = (index) => {
   const existProduct = userStatus.cart.find((item) => item.id === index);
   if (existProduct && existProduct.quantity > 1) {
     userStatus.cart = controllers.update(userStatus.cart, index, {
-      id: index,
+      ...existProduct,
       quantity: --existProduct.quantity,
     });
   } else {
@@ -84,6 +84,11 @@ const render = () => {
           const product = {
             id: item.dataset.product,
             quantity: (getQuantity && getQuantity.innerHTML) || 1,
+            name: "",
+            price: "",
+            description: "",
+            img: "",
+            type: "",
           };
           addIntoCart(product);
           loadItems();
