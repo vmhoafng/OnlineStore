@@ -9,7 +9,7 @@ let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 console.log("🚀 ~ file: index.js ~ line 9 ~ productList", productList);
 let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
-console.log("🚀 ~ file: index.js ~ line 12 ~ userList", userList);
+console.log("🚀 ~ file: index.js ~ line 12 ~ userList", userList[2].cart);
 
 // Control productList
 const addProduct = (product) => {
@@ -123,7 +123,7 @@ const render = () => {
       renderProduct.join("");
   }
   // RenderUser
-  const renderUser = userList.map((user) => {
+  const renderUser = userList.map((user, index) => {
     if (window.innerWidth < 1024) {
       return `  
       <table>
@@ -149,13 +149,30 @@ const render = () => {
       </tr>
       <tr>
         <th>Cart</th>
-        <td>${user.cart}</td>
+        <td>${
+          user.cart &&
+          user.cart
+            .map((item) => {
+              return `{
+                id: ${item.id},
+                quantity: ${item.quantity},
+                description: ${item.description},
+                img: ${item.img},
+                name: ${item.name},
+                price: ${item.price},
+                type: ${item.quantity},
+              }`;
+            })
+            .join(`, `)
+        }</td>
       </tr>
       <tr>
         <th>Action</th>
         <td>
           <div class="flex item-center">
-            <button class="btn" data-user=${user.id} type="delete">Delete</button>
+            <button class="btn" data-user=${
+              user.id
+            } type="delete">Delete</button>
             <button class="btn" type="update">Update</button>
             <button class="btn" type="save">save</button>
           </div>

@@ -13,6 +13,13 @@ userStatus &&
   !userList.find((item) => item.id === userStatus.id) &&
   localStorage.setItem(USER_LIST, JSON.stringify([...userList, userStatus]));
 
+const updateUserList = () => {
+  if (userStatus && userList.find((item) => item.id === userStatus.id)) {
+    userList = controllers.update(userList, userStatus.id, userStatus);
+    localStorage.setItem(USER_LIST, JSON.stringify(userList));
+  }
+};
+
 const addIntoCart = (product) => {
   const existProduct = userStatus.cart.find((item) => item.id === product.id);
   if (existProduct) {
@@ -100,6 +107,7 @@ const App = () => {
             type: "",
           };
           addIntoCart(product);
+          updateUserList();
           render();
         };
       });
@@ -121,6 +129,7 @@ const App = () => {
           )
             return;
           removeOutOfCart(element.dataset.product);
+          updateUserList();
           render();
         };
       });
