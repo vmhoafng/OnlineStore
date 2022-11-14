@@ -9,7 +9,7 @@ let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 console.log("🚀 ~ file: index.js ~ line 9 ~ productList", productList);
 let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
-console.log("🚀 ~ file: index.js ~ line 12 ~ userList", userList[2].cart);
+console.log("🚀 ~ file: index.js ~ line 12 ~ userList", userList);
 
 // Control productList
 const addProduct = (product) => {
@@ -145,15 +145,16 @@ const render = () => {
       </tr>
       <tr>
         <th>Phone numbers</th>
-        <td>${user.phoneNumbers}</td>
+        <td>${user.phoneNumber}</td>
       </tr>
       <tr>
         <th>Cart</th>
-        <td>${
-          user.cart &&
-          user.cart
-            .map((item) => {
-              return `{
+        <td>
+          <ul>${
+            user.cart &&
+            user.cart
+              .map((item) => {
+                return `<li>
                 id: ${item.id},
                 quantity: ${item.quantity},
                 description: ${item.description},
@@ -161,10 +162,12 @@ const render = () => {
                 name: ${item.name},
                 price: ${item.price},
                 type: ${item.quantity},
-              }`;
-            })
-            .join(`, `)
-        }</td>
+              </li>`;
+              })
+              .join("")
+          }
+            </ul>
+          </td>
       </tr>
       <tr>
         <th>Action</th>
@@ -185,7 +188,7 @@ const render = () => {
     <td> ${user.password}</td>
     <td>${user.isAdmin}</td>
     <td>${user.addresses}</td>
-    <td>${user.phoneNumbers}</td>
+    <td>${user.phoneNumber}</td>
     <td>${user.cart}</td>
     <td>
     <div class="flex item-center">
@@ -346,7 +349,7 @@ const render = () => {
     const getPassword = document.querySelector(".password");
     const getIsAdmin = document.querySelector(".isAdmin");
     const getAddresses = document.querySelector(".addresses");
-    const getPhoneNumbers = document.querySelector(".phoneNumbers");
+    const getPhoneNumber = document.querySelector(".phoneNumber");
     const getCart = document.querySelector(".cart");
     submit.onclick = () => {
       const user = {
@@ -354,7 +357,7 @@ const render = () => {
         password: getPassword.value,
         isAdmin: getIsAdmin.value,
         addresses: getAddresses.value,
-        phoneNumbers: getPhoneNumbers.value,
+        phoneNumber: getPhoneNumber.value,
         cart: getCart.value,
       };
       // Validate values

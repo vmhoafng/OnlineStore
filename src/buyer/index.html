@@ -389,7 +389,7 @@
             element.blur();
           });
           if (getUsers == null) {
-            localStorage.setItem(userConfig, JSON.stringify(user.id));
+            localStorage.setItem("currentUser", JSON.stringify(user.id));
             localStorage.setItem(id, JSON.stringify(user));
             document.querySelector("#toggleForm").click();
           } else if (id != config.id) {

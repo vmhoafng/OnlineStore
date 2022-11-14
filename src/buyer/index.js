@@ -21,7 +21,8 @@ const updateUserList = () => {
 };
 
 const addIntoCart = (product) => {
-  const existProduct = userStatus.cart.find((item) => item.id === product.id);
+  const existProduct =
+    userStatus && userStatus.cart.find((item) => item.id === product.id);
   if (existProduct) {
     userStatus.cart = controllers.update(userStatus.cart, existProduct.id, {
       ...existProduct,
