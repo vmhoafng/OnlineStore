@@ -3,6 +3,7 @@ import { PRODUCT_LIST } from "../admin/list/productList.js";
 import { USER_LIST } from "../admin/list/userList.js";
 import defaultUserList from "../admin/list/userList.js";
 import defaultProductList from "../admin/list/productList.js";
+import removeTones from "./removeTones.js";
 let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
@@ -53,19 +54,18 @@ const removeOutOfCart = (index) => {
 };
 // App
 const App = () => {
-  const getInput = document.querySelector("input");
+  const getInputValue = removeTones(document.querySelector("input").value);
   // Paginators
   let current = 1;
   const limit = 4;
-  let totalPage = Math.ceil(searchFilter(getInput.value).length / limit);
+  let totalPage = Math.ceil(searchFilter(getInputValue).length / limit);
   const render = () => {
     const start = limit * (current - 1);
     const end = limit * current - 1;
     console.log();
-    const newProductList = searchFilter(getInput.value).map(
-      (product, index) => {
-        if (index >= start && index <= end) {
-          return `
+    const newProductList = searchFilter(getInputValue).map((product, index) => {
+      if (index >= start && index <= end) {
+        return `
         <div data-product="${product.id}">
           <span data-product="${product.id}" class="id">${product.id}</span>
           <span data-product="${product.id}" class="name">${product.name}</span>
@@ -76,9 +76,8 @@ const App = () => {
           <button data-product="${product.id}" class="submit">Submit</button>
         </div>
             `;
-        }
       }
-    );
+    });
     document.querySelector("#app").innerHTML = newProductList.join("");
     const cartList =
       currentUser &&
@@ -145,7 +144,6 @@ const App = () => {
       });
     };
     handleRemoveOutOfCart();
-    console.log("render");
   };
   render();
   const listPage = () => {
@@ -157,6 +155,7 @@ const App = () => {
   };
   listPage();
   const handleSearch = () => {
+    const getInput = document.querySelector("input");
     getInput.oninput = () => {
       App();
     };
