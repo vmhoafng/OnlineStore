@@ -19,7 +19,6 @@ const updateUserList = () => {
     localStorage.setItem(USER_LIST, JSON.stringify(userList));
   }
 };
-
 const searchFilter = (value = "") => {
   return productList.filter(
     (item) =>
@@ -50,6 +49,14 @@ const removeOutOfCart = (index) => {
   } else {
     userStatus.cart = controllers.delete(userStatus.cart, index);
   }
+  localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
+};
+const buyAndGetReceipt = () => {
+  userStatus = {
+    ...userStatus,
+    receipt: [...userStatus.receipt, userStatus.cart],
+  };
+  userStatus.cart = [];
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
 };
 // App
@@ -116,7 +123,6 @@ const App = () => {
             type: "",
           };
           addIntoCart(product);
-          updateUserList();
           render();
         };
       });
@@ -144,6 +150,17 @@ const App = () => {
       });
     };
     handleRemoveOutOfCart();
+    const handleBuy = () => {
+      const getBtn = document.querySelector(".buy");
+      getBtn.onclick = () => {
+        if (currentUser && userStatus.cart.length > 0) {
+          buyAndGetReceipt();
+          updateUserList();
+          render();
+        }
+      };
+    };
+    handleBuy();
   };
   render();
   const listPage = () => {
@@ -190,3 +207,9 @@ const App = () => {
   handleLogOut();
 };
 App();
+
+// Static
+document.querySelector("#toggleForm").onchange = () => {
+  document.querySelector("#toggleForm").checked &&
+    screen.orientation.lock("portrait-primary");
+};

@@ -1,8 +1,8 @@
-@media (max-width: 46.1875em) {
+@media (max-width: 1024px) {
   .container {
     width: 100%;
   }
-  .img {
+  #form .img {
     display: none;
   }
   h1 span {
