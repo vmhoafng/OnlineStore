@@ -21,14 +21,18 @@
         animation: typing 3.5s steps(30, end) infinite,
           blinking-cursor 0.5s step-end infinite;
       }
+      div[data-product] {
+        display: block;
+      }
     </style>
   </head>
   <body>
-    <input type="checkbox" id="toggleForm" />
     <div id="app"></div>
     <div class="cart"></div>
     <div class="listPage"></div>
     <div class="logout">Logout</div>
+    <input type="text" placeholder="Search" />
+    <input type="checkbox" id="toggleForm" />
     <div id="form" class="flex-center">
       <div class="wrapper">
         <input type="checkbox" checked id="float" />
@@ -288,119 +292,9 @@
         </section>
       </div>
       <label for="toggleForm"></label>
+      <script type="module" src="./login.js"></script>
+      <script type="module" src="./register.js"></script>
     </div>
-    <script type="module">
-      import Validator from "../controllers/validator.js";
-      Validator({
-        form: "#formLogin",
-        errorSelector: ".form-message",
-        rules: [
-          Validator.isRequired(
-            "#usernameLogin",
-            "Please enter a valid username"
-          ),
-          Validator.isRequired(
-            "#passwordLogin",
-            "Please enter a valid password"
-          ),
-        ],
-        onSubmit(data) {
-          console.log(data);
-          let inputs = document.querySelectorAll("input");
-          let id = data.id;
-          let password = data.password;
-          let user = localStorage.getItem(id);
-          let config = JSON.parse(user);
-          inputs.forEach((element) => {
-            element.value = "";
-            element.blur();
-          });
-          document.querySelector("#toggleForm").click();
-          if (user == null) {
-            alert("This account does not exist. Please try again.");
-            inputs.forEach((element) => {
-              element.value = null;
-            });
-            document.querySelector("input").focus();
-          } else if (config.isAdmin) {
-            if (confirm("Bạn có muốn chuyển sang trang Admin")) {
-              window.location = "../admin";
-            } else {
-              const userConfig = "currentUser";
-              let json = JSON.stringify(id);
-              localStorage.setItem(userConfig, json);
-              window.location.reload();
-            }
-          } else if (id == config.id && password == config.password) {
-            const userConfig = "currentUser";
-            let json = JSON.stringify(id);
-            localStorage.setItem(userConfig, json);
-            window.location.reload();
-          }
-        },
-      });
-    </script>
-    <script type="module">
-      import Validator from "../controllers/validator.js";
-      Validator({
-        form: "#formRegister",
-        errorSelector: ".form-message",
-        rules: [
-          Validator.isRequired(
-            "#usernameRegister",
-            "Please enter a valid username"
-          ),
-          Validator.isRequired(
-            "#passwordRegister",
-            "Please enter a valid password"
-          ),
-          Validator.isPassword("#passwordRegister", 8),
-          Validator.isRequired(
-            "#password_confirmationRegister",
-            "Please confirm your password"
-          ),
-          Validator.isPasswordConfirm(
-            "#password_confirmationRegister",
-            function () {
-              return document.querySelector("#formRegister #passwordRegister")
-                .value;
-            },
-            "Your password is not correct"
-          ),
-        ],
-        onSubmit(data) {
-          // let userList = JSON.parse(localStorage.getItem("USER_LIST"));
-          let inputs = document.querySelectorAll("input");
-          let id = data.id;
-          let password = data.password;
-          let getUsers = localStorage.getItem(id);
-          let config = JSON.parse(getUsers);
-          let user = {
-            id,
-            password,
-            isAdmin: false,
-            addresses: "",
-            phoneNumber: "",
-            cart: [],
-          };
-          inputs.forEach((element) => {
-            element.value = "";
-            element.blur();
-          });
-          if (getUsers == null) {
-            localStorage.setItem("currentUser", JSON.stringify(user.id));
-            localStorage.setItem(id, JSON.stringify(user));
-            window.location.reload();
-          } else {
-            alert('This "Username" is exist. Please try another one.');
-            inputs.forEach((element) => {
-              element.value = null;
-            });
-            document.querySelector("#usernameRegister").focus();
-          }
-        },
-      });
-    </script>
     <script type="module" src="./index.js"></script>
   </body>
 </html>

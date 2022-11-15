@@ -42,7 +42,7 @@ const deleteUser = (index) => {
 const render = () => {
   // RenderProduct
   const renderProduct = productList.map((product) => {
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 1280) {
       return `
       <table>
         <tr>
@@ -101,7 +101,7 @@ const render = () => {
   `;
     }
   });
-  if (window.innerWidth < 1024) {
+  if (window.innerWidth < 1280) {
     document.querySelector(".product div").innerHTML = renderProduct.join("");
   } else {
     document.querySelector(".product div").innerHTML = `
@@ -124,7 +124,7 @@ const render = () => {
   }
   // RenderUser
   const renderUser = userList.map((user, index) => {
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 1280) {
       return `  
       <table>
       <tr>
@@ -189,7 +189,23 @@ const render = () => {
     <td>${user.isAdmin}</td>
     <td>${user.addresses}</td>
     <td>${user.phoneNumber}</td>
-    <td>${user.cart}</td>
+    <td><ul>${
+      user.cart &&
+      user.cart
+        .map((item) => {
+          return `<li>
+          id: ${item.id},
+          quantity: ${item.quantity},
+          description: ${item.description},
+          img: ${item.img},
+          name: ${item.name},
+          price: ${item.price},
+          type: ${item.quantity},
+        </li>`;
+        })
+        .join("")
+    }
+      </ul></td>
     <td>
     <div class="flex item-center">
       <button class="btn" data-user=${user.id} type="delete">Delete</button>
@@ -200,7 +216,7 @@ const render = () => {
   `;
     }
   });
-  if (window.innerWidth < 1024) {
+  if (window.innerWidth < 1280) {
     document.querySelector(".user div").innerHTML = renderUser.join("");
   } else {
     document.querySelector(".user div").innerHTML = `

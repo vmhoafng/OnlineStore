@@ -12,7 +12,6 @@ let userStatus = JSON.parse(localStorage.getItem(currentUser));
 userStatus &&
   !userList.find((item) => item.id === userStatus.id) &&
   localStorage.setItem(USER_LIST, JSON.stringify([...userList, userStatus]));
-
 const updateUserList = () => {
   if (userList.find((item) => item.id === userStatus.id)) {
     userList = controllers.update(userList, userStatus.id, userStatus);
@@ -20,6 +19,14 @@ const updateUserList = () => {
   }
 };
 
+const searchFilter = (value = "") => {
+  return productList.filter(
+    (item) =>
+      item.name.toLowerCase().includes(value.toLowerCase()) ||
+      item.type.toLowerCase().includes(value.toLowerCase()) ||
+      item.description.toLowerCase().includes(value.toLowerCase())
+  );
+};
 const addIntoCart = (product) => {
   const existProduct = userStatus.cart.find((item) => item.id === product.id);
   if (existProduct) {
@@ -46,28 +53,32 @@ const removeOutOfCart = (index) => {
 };
 // App
 const App = () => {
+  const getInput = document.querySelector("input");
   // Paginators
   let current = 1;
   const limit = 4;
-  const totalPage = Math.ceil(productList.length / limit);
+  let totalPage = Math.ceil(searchFilter(getInput.value).length / limit);
   const render = () => {
     const start = limit * (current - 1);
     const end = limit * current - 1;
-    const newProductList = productList.map((product, index) => {
-      if (index >= start && index <= end) {
-        return `
-        <div>
-          <span data-product="${product.id}" class="id">${product.id}<span/>
-          <span data-product="${product.id}" class="name">${product.id}<span/>
-          <span data-product="${product.id}" class="price">${product.id}<span/>
-          <span data-product="${product.id}" class="description">${product.id}<span/>
-          <span data-product="${product.id}" class="img">${product.id}<span/>
-          <span data-product="${product.id}" class="type">${product.id}<span/>
+    console.log();
+    const newProductList = searchFilter(getInput.value).map(
+      (product, index) => {
+        if (index >= start && index <= end) {
+          return `
+        <div data-product="${product.id}">
+          <span data-product="${product.id}" class="id">${product.id}</span>
+          <span data-product="${product.id}" class="name">${product.name}</span>
+          <span data-product="${product.id}" class="price">${product.price}</span>
+          <span data-product="${product.id}" class="description">${product.id}</span>
+          <span data-product="${product.id}" class="img">${product.img}</span>
+          <span data-product="${product.id}" class="type">${product.type}</span>
           <button data-product="${product.id}" class="submit">Submit</button>
         </div>
             `;
+        }
       }
-    });
+    );
     document.querySelector("#app").innerHTML = newProductList.join("");
     const cartList =
       currentUser &&
@@ -134,6 +145,7 @@ const App = () => {
       });
     };
     handleRemoveOutOfCart();
+    console.log("render");
   };
   render();
   const listPage = () => {
@@ -144,7 +156,14 @@ const App = () => {
     document.querySelector(".listPage").innerHTML = pageArr.join("");
   };
   listPage();
+  const handleSearch = () => {
+    getInput.oninput = () => {
+      App();
+    };
+  };
+  handleSearch();
   const pageNumber = () => {
+    const getInput = document.querySelector("input");
     const pages = document.querySelectorAll("li");
     pages.forEach((page) => {
       page.onclick = () => {
@@ -155,9 +174,11 @@ const App = () => {
             .classList.remove("active");
         page.classList.add("active");
         render();
+        search(getInput.value);
       };
     });
-    document.querySelector("li[data-key='1']").classList.add("active");
+    document.querySelector("li[data-key='1']") &&
+      document.querySelector("li[data-key='1']").classList.add("active");
   };
   pageNumber();
   const handleLogOut = () => {
