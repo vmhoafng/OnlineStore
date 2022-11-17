@@ -41,206 +41,205 @@ const deleteUser = (index) => {
 // Render
 const render = () => {
   // RenderProduct
-  // const renderProduct = productList.map((product) => {
-  //   if (window.innerWidth < 1280) {
-  //     return `
-  //     <table>
-  //       <tr>
-  //         <th>ID</th>
-  //         <td data-product=${product.id} class="id">${product.id}</td>
-  //       </tr>
-  //       <tr>
-  //         <th>Product name</th>
-  //         <td data-product=${product.id} class="name">${product.name}</td>
-  //       </tr>
-  //       <tr>
-  //         <th>Type</th>
-  //         <td data-product=${product.id} class="type">${product.type}</td>
-  //       </tr>
-  //       <tr>
-  //         <th>Price</th>
-  //         <td data-product=${product.id} class="price">${product.price}</td>
-  //       </tr>
-  //       <tr>
-  //         <th>Image</th>
-  //         <td><img data-product=${product.id} class="img" src="${product.img}" alt=""></td>
-  //       </tr>
-  //       <tr>
-  //         <th>Description</th>
-  //         <td data-product=${product.id} class="description"><div>${product.description}</div></td>
-  //       </tr>
-  //       <tr>
-  //         <th>Action</th>
-  //         <td>
-  //           <div class="flex item-center">
-  //           <button class="btn" data-product=${product.id} type="delete">Delete</button>
-  //           <button class="btn" data-product=${product.id} type="update">Update</button>
-  //           <button class="btn" data-product=${product.id} type="save">save</button>
-  //           </div>
-  //         </td>
-  //       </tr>
-  //   </table>
-  // `;
-  //   } else {
-  //     return `
-  //   <tr>
-  //   <td class="id" data-product=${product.id}>${product.id}</td>
-  //   <td class="name" data-product=${product.id}>${product.name}</td>
-  //   <td class="type" data-product=${product.id}>${product.type}</td>
-  //   <td class="price" data-product=${product.id}>${product.price}</td>
-  //   <td><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
-  //   <td><div class="description" data-product=${product.id}>${product.description}</div></td>
-  //   <td>
-  //     <div class="flex item-center">
-  //     <button class="btn" data-product=${product.id} type="delete">Delete</button>
-  //     <button class="btn" data-product=${product.id} type="update">Update</button>
-  //     <button class="btn" data-product=${product.id} type="save">save</button>
-  //     </div>
-  //   </td>
-  //   </tr>
-  // `;
-  //   }
-  // });
-  // if (window.innerWidth < 1280) {
-  //   document.querySelector(".product div").innerHTML = renderProduct.join("");
-  // } else {
-  //   document.querySelector(".product div").innerHTML = `
-  //   <table>
-  //   <thead>
-  //     <tr>
-  //       <th>ID</th>
-  //       <th>Product name </th>
-  //       <th>Type</th>
-  //       <th>Price</th>
-  //       <th>Image</th>
-  //       <th>Description</th>
-  //       <th>Action</th>
-  //     </tr>
-  //   </thead>
-  //   <tbody></tbody>
-  // </table>`;
-  //   document.querySelector(".product div table tbody").innerHTML =
-  //     renderProduct.join("");
-  // }
-  // // RenderUser
-  // const renderUser = userList.map((user) => {
-  //   if (window.innerWidth < 1280) {
-  //     return `  
-  //     <table>
-  //     <tr>
-  //       <th>ID</th>
-  //       <td data-user=${user.id} class="id">${user.id}</td>
-  //     </tr>
-  //     <tr>
-  //       <th>Password</th>
-  //       <td data-user=${user.id} class="password"> ${user.password}</td>
-  //     </tr>
-  //     <tr>
-  //       <th>isAdmin</th>
-  //       <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
-  //     </tr>
-  //     <tr>
-  //       <th>Address</th>
-  //       <td data-user=${user.id} class="address">${user.addresses}</td>
-  //     </tr>
-  //     <tr>
-  //       <th>Phone numbers</th>
-  //       <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
-  //     </tr>
-  //     <tr>
-  //       <th>Cart</th>
-  //       <td data-user=${user.id} >
-  //         <ul>${
-  //           user.cart &&
-  //           user.cart
-  //             .map((item) => {
-  //               return `<li>
-  //               id: ${item.id},
-  //               quantity: ${item.quantity},
-  //               description: ${item.description},
-  //               img: ${item.img},
-  //               name: ${item.name},
-  //               price: ${item.price},
-  //               type: ${item.quantity},
-  //             </li>`;
-  //             })
-  //             .join("")
-  //         }
-  //           </ul>
-  //         </td>
-  //     </tr>
-  //     <tr>
-  //       <th>Action</th>
-  //       <td>
-  //         <div class="flex item-center">
-  //           <button class="btn" data-user=${
-  //             user.id
-  //           } type="delete">Delete</button>
-  //           <button class="btn" data-user=${
-  //             user.id
-  //           } type="update">Update</button>
-  //           <button class="btn" data-user=${user.id} type="save">save</button>
-  //         </div>
-  //       </td>
-  //   </tr>
-  // </table>`;
-  //   } else {
-  //     return `<tr>
-  //   <td data-user=${user.id} class="id">${user.id}</td>
-  //   <td data-user=${user.id} class="password">${user.password}</td>
-  //   <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
-  //   <td data-user=${user.id} class="addresses">${user.addresses}</td>
-  //   <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
-  //   <td data-user=${user.id}><ul>${
-  //       user.cart &&
-  //       user.cart
-  //         .map((item) => {
-  //           return `<li>
-  //         id: ${item.id},
-  //         quantity: ${item.quantity},
-  //         description: ${item.description},
-  //         img: ${item.img},
-  //         name: ${item.name},
-  //         price: ${item.price},
-  //         type: ${item.quantity},
-  //       </li>`;
-  //         })
-  //         .join("")
-  //     }
-  //     </ul></td>
-  //   <td>
-  //   <div class="flex item-center">
-  //     <button class="btn" data-user=${user.id} type="delete">Delete</button>
-  //     <button class="btn" data-user=${user.id} type="update">Update</button>
-  //     <button class="btn" data-user=${user.id} type="save">Save</button>
-  //     </div>
-  //   </td>
-  //   </tr>
-  // `;
-  //   }
-  // });
-  // if (window.innerWidth < 1280) {
-  //   document.querySelector(".user div").innerHTML = renderUser.join("");
-  // } else {
-  //   document.querySelector(".user div").innerHTML = `
-  //   <table>
-  //   <thead>
-  //     <tr>
-  //       <th>ID</th>
-  //       <th>Password </th>
-  //       <th>isAdmin</th>
-  //       <th>Address</th>
-  //       <th>Phone numbers</th>
-  //       <th>Cart</th>
-  //       <th>Action</th>
-  //     </tr>
-  //   </thead>
-  //   <tbody></tbody>
-  // </table>`;
-  //   document.querySelector(".user div table tbody").innerHTML =
-  //     renderUser.join("");
-  // }
-
+  const renderProduct = productList.map((product) => {
+    if (window.innerWidth < 1280) {
+      return `
+      <table>
+        <tr>
+          <th>ID</th>
+          <td data-product=${product.id} class="id">${product.id}</td>
+        </tr>
+        <tr>
+          <th>Product name</th>
+          <td data-product=${product.id} class="name">${product.name}</td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td data-product=${product.id} class="type">${product.type}</td>
+        </tr>
+        <tr>
+          <th>Price</th>
+          <td data-product=${product.id} class="price">${product.price}</td>
+        </tr>
+        <tr>
+          <th>Image</th>
+          <td><img data-product=${product.id} class="img" src="${product.img}" alt=""></td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td data-product=${product.id} class="description"><div>${product.description}</div></td>
+        </tr>
+        <tr>
+          <th>Action</th>
+          <td>
+            <div class="flex item-center">
+            <button class="btn" data-product=${product.id} type="delete">Delete</button>
+            <button class="btn" data-product=${product.id} type="update">Update</button>
+            <button class="btn" data-product=${product.id} type="save">save</button>
+            </div>
+          </td>
+        </tr>
+    </table>
+  `;
+    } else {
+      return `
+    <tr>
+    <td class="id" data-product=${product.id}>${product.id}</td>
+    <td class="name" data-product=${product.id}>${product.name}</td>
+    <td class="type" data-product=${product.id}>${product.type}</td>
+    <td class="price" data-product=${product.id}>${product.price}</td>
+    <td><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
+    <td><div class="description" data-product=${product.id}>${product.description}</div></td>
+    <td>
+      <div class="flex item-center">
+      <button class="btn" data-product=${product.id} type="delete">Delete</button>
+      <button class="btn" data-product=${product.id} type="update">Update</button>
+      <button class="btn" data-product=${product.id} type="save">save</button>
+      </div>
+    </td>
+    </tr>
+  `;
+    }
+  });
+  if (window.innerWidth < 1280) {
+    document.querySelector(".product div").innerHTML = renderProduct.join("");
+  } else {
+    document.querySelector(".product div").innerHTML = `
+    <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Product name </th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>`;
+    document.querySelector(".product div table tbody").innerHTML =
+      renderProduct.join("");
+  }
+  // RenderUser
+  const renderUser = userList.map((user) => {
+    if (window.innerWidth < 1280) {
+      return `  
+      <table>
+      <tr>
+        <th>ID</th>
+        <td data-user=${user.id} class="id">${user.id}</td>
+      </tr>
+      <tr>
+        <th>Password</th>
+        <td data-user=${user.id} class="password"> ${user.password}</td>
+      </tr>
+      <tr>
+        <th>isAdmin</th>
+        <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td data-user=${user.id} class="address">${user.addresses}</td>
+      </tr>
+      <tr>
+        <th>Phone numbers</th>
+        <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
+      </tr>
+      <tr>
+        <th>Cart</th>
+        <td data-user=${user.id} >
+          <ul>${
+            user.cart &&
+            user.cart
+              .map((item) => {
+                return `<li>
+                id: ${item.id},
+                quantity: ${item.quantity},
+                description: ${item.description},
+                img: ${item.img},
+                name: ${item.name},
+                price: ${item.price},
+                type: ${item.quantity},
+              </li>`;
+              })
+              .join("")
+          }
+            </ul>
+          </td>
+      </tr>
+      <tr>
+        <th>Action</th>
+        <td>
+          <div class="flex item-center">
+            <button class="btn" data-user=${
+              user.id
+            } type="delete">Delete</button>
+            <button class="btn" data-user=${
+              user.id
+            } type="update">Update</button>
+            <button class="btn" data-user=${user.id} type="save">save</button>
+          </div>
+        </td>
+    </tr>
+  </table>`;
+    } else {
+      return `<tr>
+    <td data-user=${user.id} class="id">${user.id}</td>
+    <td data-user=${user.id} class="password">${user.password}</td>
+    <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
+    <td data-user=${user.id} class="addresses">${user.addresses}</td>
+    <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
+    <td data-user=${user.id}><ul>${
+        user.cart &&
+        user.cart
+          .map((item) => {
+            return `<li>
+          id: ${item.id},
+          quantity: ${item.quantity},
+          description: ${item.description},
+          img: ${item.img},
+          name: ${item.name},
+          price: ${item.price},
+          type: ${item.quantity},
+        </li>`;
+          })
+          .join("")
+      }
+      </ul></td>
+    <td>
+    <div class="flex item-center">
+      <button class="btn" data-user=${user.id} type="delete">Delete</button>
+      <button class="btn" data-user=${user.id} type="update">Update</button>
+      <button class="btn" data-user=${user.id} type="save">Save</button>
+      </div>
+    </td>
+    </tr>
+  `;
+    }
+  });
+  if (window.innerWidth < 1280) {
+    document.querySelector(".user div").innerHTML = renderUser.join("");
+  } else {
+    document.querySelector(".user div").innerHTML = `
+    <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Password </th>
+        <th>isAdmin</th>
+        <th>Address</th>
+        <th>Phone numbers</th>
+        <th>Cart</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>`;
+    document.querySelector(".user div table tbody").innerHTML =
+      renderUser.join("");
+  }
   // handleEvents
   // add product
   const handleAddProduct = () => {
