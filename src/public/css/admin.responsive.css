@@ -26,17 +26,18 @@
   table {
     margin: auto;
     width: 80%;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
   }
   th,
   td {
     padding: 10px;
     text-align: left;
-    border: none;
   }
   th {
     width: 30%;
-    border-right: 1px solid #ddd;
+  }
+  td {
+    border-right: none;
   }
   div .btn {
     height: 50px;
@@ -56,10 +57,23 @@
   }
   #navbar-input:not(:checked) ~ .layer {
     display: block;
-    position: fixed;
+    position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background: rgba(0, 0, 0, 0.2);
+  }
+  #popup > h2 {
+    margin-top: 64px;
+  }
+  input[type="checkbox"] {
+    display: none;
+  }
+  form > div {
+    position: relative;
+  }
+  form > div button {
+    position: absolute;
+    bottom: 0;
   }
 }
 @media (min-width: 1280px) {

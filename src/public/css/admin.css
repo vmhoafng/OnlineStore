@@ -25,7 +25,7 @@ nav menu li {
   width: 200px;
 }
 nav a {
-  padding: 0.875rem;
+  padding: 14px 6px;
   text-decoration: none;
   font-size: 1rem;
   display: block;
@@ -34,6 +34,13 @@ nav a {
 }
 nav a:hover {
   color: #ff731d;
+}
+.subnav {
+  display: none;
+}
+li a:hover .subnav {
+  display: block;
+  min-width: 160px;
 }
 .layer {
   display: none;
@@ -107,7 +114,27 @@ nav a:hover {
 }
 
 /* Content */
-
+.content .button {
+  font-size: 13px;
+  padding: 5px 10px;
+  border: 1px solid #aaa;
+  background-color: #eee;
+  background-image: linear-gradient(top, #fff, #f0f0f0);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  color: #666;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.content .button:hover {
+  border-color: #999;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.content .button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
+}
 /* User */
 .content {
   flex: 1;
@@ -118,11 +145,15 @@ nav a:hover {
 }
 
 .product {
+  width: 100%;
   justify-content: space-around;
 }
 .product h1 {
   margin: 16px 0;
   font-size: 1.6rem;
+}
+.product > div {
+  width: 100%;
 }
 table {
   width: 100%;
@@ -132,11 +163,18 @@ th {
   padding: 10px;
 }
 
-td {
+.product td {
   border-right: 1px solid #ddd;
   height: var(--tr-height);
 }
-td div {
+.user {
+  width: 100%;
+}
+.user td {
+  border-right: 1px solid #ddd;
+  height: var(--tr-height);
+}
+td.description{
   height: var(--tr-height);
   overflow-y: scroll;
 }
@@ -153,9 +191,6 @@ td {
 td img {
   width: 110px;
   height: var(--tr-height);
-}
-.description {
-  overflow-y: scroll;
 }
 .btn {
   width: 100px;
@@ -201,9 +236,85 @@ button:hover {
 .user table thead tr th:nth-child(6) {
   width: 15%;
 }
+.user table tbody tr td:nth-child(7) {
+  border-right: none;
+}
 .content input[name="menu"] {
   display: none;
 }
 .content input:not(:checked) + section {
+  display: none;
+}
+
+/* Modal */
+input[type="checkbox"] {
+  display: none;
+}
+#add-product {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 30;
+}
+#add-product form {
+  border-radius: 10px;
+  background: var(--bg-color);
+}
+#add-product input {
+  height: 100%;
+  padding: 4px 16px;
+}
+#add-product button {
+  align-items: center;
+  margin: 16px;
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+}
+#add-product > label {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+#add-product #popup {
+  z-index: 30;
+}
+#adding-product:checked ~ #add-product {
+  display: none;
+}
+
+#add-user {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 30;
+}
+#add-user form {
+  border-radius: 10px;
+  background: var(--bg-color);
+}
+#add-user input {
+  height: 100%;
+  padding: 4px 32px;
+}
+#add-user button {
+  margin: 16px;
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+}
+#add-user > label {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+#add-user #popup-user {
+  z-index: 30;
+}
+#adding-user:checked ~ #add-user {
   display: none;
 }

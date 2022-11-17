@@ -19,7 +19,7 @@ const type = {
   clock: "clock",
   combo: "combo",
 };
-
+const typeList = Object.values(type);
 const defaultProductList = [
   {
     id: "0",
@@ -131,4 +131,4 @@ const defaultProductList = [
   },
 ];
 export default defaultProductList;
-export { PRODUCT_LIST };
+export { PRODUCT_LIST, typeList };

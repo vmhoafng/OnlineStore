@@ -1,5 +1,5 @@
 import controllers from "../controllers/controller.js";
-import { PRODUCT_LIST } from "../admin/list/productList.js";
+import { PRODUCT_LIST, typeList } from "../admin/list/productList.js";
 import { USER_LIST } from "../admin/list/userList.js";
 import defaultUserList from "../admin/list/userList.js";
 import defaultProductList from "../admin/list/productList.js";
@@ -19,8 +19,15 @@ const updateUserList = () => {
     localStorage.setItem(USER_LIST, JSON.stringify(userList));
   }
 };
+let filterArray = [];
+const setFilter = () => {
+  return productList.filter((item) =>
+    filterArray.length > 0 ? filterArray.includes(item.type) && item : item
+  );
+};
+
 const searchFilter = (value = "") => {
-  return productList.filter(
+  return setFilter().filter(
     (item) =>
       item.name.toLowerCase().includes(value.toLowerCase()) ||
       item.type.toLowerCase().includes(value.toLowerCase()) ||
@@ -70,7 +77,7 @@ const App = () => {
     const start = limit * (current - 1);
     const end = limit * current - 1;
     console.log();
-    const newProductList = searchFilter(getInputValue).map((product, index) => {
+    const productHTML = searchFilter(getInputValue).map((product, index) => {
       if (index >= start && index <= end) {
         return `
         <div data-product="${product.id}">
@@ -85,8 +92,8 @@ const App = () => {
             `;
       }
     });
-    document.querySelector("#app").innerHTML = newProductList.join("");
-    const cartList =
+    document.querySelector("#app").innerHTML = productHTML.join("");
+    const cartHTML =
       currentUser &&
       userStatus.cart.map((product) => {
         return `
@@ -98,7 +105,14 @@ const App = () => {
           `;
       });
     document.querySelector(".cart").innerHTML =
-      currentUser && cartList.join("");
+      currentUser && cartHTML.join("");
+
+    const typeHTML = typeList.map((type) => {
+      return `
+      <div data-type="${type}">${type}</div>
+      `;
+    });
+    document.querySelector(".filterList").innerHTML = typeHTML.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -161,6 +175,23 @@ const App = () => {
       };
     };
     handleBuy();
+    const handleFilter = () => {
+      const typeElement = document.querySelectorAll("div[data-type]");
+      typeElement.forEach((type) => {
+        type.onclick = () => {
+          console.log(type);
+          if (filterArray.includes(type.dataset.type)) {
+            filterArray = filterArray.filter(
+              (item) => item != type.dataset.type
+            );
+          } else {
+            filterArray.push(type.dataset.type);
+          }
+          App();
+        };
+      });
+    };
+    handleFilter();
   };
   render();
   const listPage = () => {
@@ -171,6 +202,24 @@ const App = () => {
     document.querySelector(".listPage").innerHTML = pageArr.join("");
   };
   listPage();
+  const pageNumber = () => {
+    const getInput = document.querySelector("input");
+    const pages = document.querySelectorAll("li");
+    pages.forEach((page) => {
+      page.onclick = () => {
+        current = Number(page.innerHTML);
+        document
+          .querySelector("li[data-key].active")
+          .classList.remove("active");
+        page.classList.add("active");
+        render();
+        searchFilter(getInput.value);
+      };
+    });
+    document.querySelector("li[data-key='1']") &&
+      document.querySelector("li[data-key='1']").classList.add("active");
+  };
+  pageNumber();
   const handleSearch = () => {
     const getInput = document.querySelector("input");
     getInput.oninput = () => {
@@ -178,25 +227,6 @@ const App = () => {
     };
   };
   handleSearch();
-  const pageNumber = () => {
-    const getInput = document.querySelector("input");
-    const pages = document.querySelectorAll("li");
-    pages.forEach((page) => {
-      page.onclick = () => {
-        current = Number(page.innerHTML);
-        document.querySelector("li[data-key='1'].active") &&
-          document
-            .querySelector("li[data-key='1'].active")
-            .classList.remove("active");
-        page.classList.add("active");
-        render();
-        search(getInput.value);
-      };
-    });
-    document.querySelector("li[data-key='1']") &&
-      document.querySelector("li[data-key='1']").classList.add("active");
-  };
-  pageNumber();
   const handleLogOut = () => {
     const getBtn = document.querySelector(".logout");
     getBtn.onclick = () => {

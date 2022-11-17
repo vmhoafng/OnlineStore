@@ -123,33 +123,33 @@ const render = () => {
       renderProduct.join("");
   }
   // RenderUser
-  const renderUser = userList.map((user, index) => {
+  const renderUser = userList.map((user) => {
     if (window.innerWidth < 1280) {
       return `  
       <table>
       <tr>
         <th>ID</th>
-        <td>${user.id}</td>
+        <td data-user=${user.id} class="id">${user.id}</td>
       </tr>
       <tr>
         <th>Password</th>
-        <td> ${user.password}</td>
+        <td data-user=${user.id} class="password"> ${user.password}</td>
       </tr>
       <tr>
         <th>isAdmin</th>
-        <td>${user.isAdmin}</td>
+        <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
       </tr>
       <tr>
         <th>Address</th>
-        <td>${user.addresses}</td>
+        <td data-user=${user.id} class="address">${user.addresses}</td>
       </tr>
       <tr>
         <th>Phone numbers</th>
-        <td>${user.phoneNumber}</td>
+        <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
       </tr>
       <tr>
         <th>Cart</th>
-        <td>
+        <td data-user=${user.id} >
           <ul>${
             user.cart &&
             user.cart
@@ -176,24 +176,26 @@ const render = () => {
             <button class="btn" data-user=${
               user.id
             } type="delete">Delete</button>
-            <button class="btn" type="update">Update</button>
-            <button class="btn" type="save">save</button>
+            <button class="btn" data-user=${
+              user.id
+            } type="update">Update</button>
+            <button class="btn" data-user=${user.id} type="save">save</button>
           </div>
         </td>
     </tr>
   </table>`;
     } else {
       return `<tr>
-    <td>${user.id}</td>
-    <td> ${user.password}</td>
-    <td>${user.isAdmin}</td>
-    <td>${user.addresses}</td>
-    <td>${user.phoneNumber}</td>
-    <td><ul>${
-      user.cart &&
-      user.cart
-        .map((item) => {
-          return `<li>
+    <td data-user=${user.id} class="id">${user.id}</td>
+    <td data-user=${user.id} class="password">${user.password}</td>
+    <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
+    <td data-user=${user.id} class="addresses">${user.addresses}</td>
+    <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
+    <td data-user=${user.id}><ul>${
+        user.cart &&
+        user.cart
+          .map((item) => {
+            return `<li>
           id: ${item.id},
           quantity: ${item.quantity},
           description: ${item.description},
@@ -202,14 +204,15 @@ const render = () => {
           price: ${item.price},
           type: ${item.quantity},
         </li>`;
-        })
-        .join("")
-    }
+          })
+          .join("")
+      }
       </ul></td>
     <td>
     <div class="flex item-center">
       <button class="btn" data-user=${user.id} type="delete">Delete</button>
-      <button class="btn" type="update">Update</button>
+      <button class="btn" data-user=${user.id} type="update">Update</button>
+      <button class="btn" data-user=${user.id} type="save">Save</button>
       </div>
     </td>
     </tr>
@@ -303,19 +306,18 @@ const render = () => {
     );
     const save = document.querySelectorAll("button[data-product][type=save]");
     update.forEach((item) => {
-      const index = Number(item.dataset.product);
+      const index = item.dataset.product;
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
         `.price[data-product="${index}"]`
       );
       const getDescription = document.querySelector(
-        `.description[data-product="${index}"]`
+        `.description[data-product="${index}"] div`
       );
       const getImg = document.querySelector(`.img[data-product="${index}"]`);
       const getType = document.querySelector(`.type[data-product="${index}"]`);
       item.onclick = () => {
-        console.log(item);
         getId.setAttribute("contenteditable", "true");
         getName.setAttribute("contenteditable", "true");
         getPrice.setAttribute("contenteditable", "true");
@@ -325,14 +327,14 @@ const render = () => {
       };
     });
     save.forEach((item) => {
-      const index = Number(item.dataset.product);
+      const index = item.dataset.product;
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
         `.price[data-product="${index}"]`
       );
       const getDescription = document.querySelector(
-        `.description[data-product="${index}"]`
+        `.description[data-product="${index}"] div`
       );
       const getImg = document.querySelector(`.img[data-product="${index}"]`);
       const getType = document.querySelector(`.type[data-product="${index}"]`);
@@ -345,7 +347,6 @@ const render = () => {
           img: getImg.src,
           type: getType.innerHTML,
         };
-        console.log(index.toString(), product, productList);
         updateProduct(index.toString(), product);
         getId.setAttribute("contenteditable", "false");
         getName.setAttribute("contenteditable", "false");
@@ -398,7 +399,7 @@ const render = () => {
     const getBtn = document.querySelectorAll("button[data-user][type=delete]");
     getBtn.forEach((element) => {
       element.onclick = () => {
-        // if (!confirm("Xoá")) return;
+        if (!confirm("Xoá")) return;
         deleteUser(element.dataset.user);
         render();
       };
@@ -407,35 +408,71 @@ const render = () => {
   handleDeleteUser();
   // handleUpdateuser
   const handleUpdateUser = () => {
-    const submit = document.querySelectorAll(".submit");
-    submit.forEach((item) => {
-      const index = Number(item.dataset.user);
-      const getId = document.querySelector(`.id[data-user="${index}"]`);
-      const getName = document.querySelector(`.name[data-user="${index}"]`);
-      const getPrice = document.querySelector(`.price[data-user="${index}"]`);
-      const getDescription = document.querySelector(
-        `.description[data-user="${index}"]`
+    const update = document.querySelectorAll("button[data-user][type=update]");
+    const save = document.querySelectorAll("button[data-user][type=save]");
+    update.forEach((item) => {
+      console.log(
+        "🚀 ~ file: index.js ~ line 437 ~ handleUpdateUser ~ item",
+        item
       );
-      const getImg = document.querySelector(`.img[data-user="${index}"]`);
-      const getType = document.querySelector(`.type[data-user="${index}"]`);
+      const index = item.dataset.user;
+      const getId = document.querySelector(`.id[data-user="${index}"]`);
+      const getPassword = document.querySelector(
+        `.password[data-user="${index}"]`
+      );
+      const getIsAdmin = document.querySelector(
+        `.isAdmin[data-user="${index}"]`
+      );
+      const getAddresses = document.querySelector(
+        `.addresses[data-user="${index}"]`
+      );
+      const getPhoneNumber = document.querySelector(
+        `.phoneNumber[data-user="${index}"]`
+      );
+      item.onclick = () => {
+        getId.setAttribute("contenteditable", "true");
+        getPassword.setAttribute("contenteditable", "true");
+        getIsAdmin.setAttribute("contenteditable", "true");
+        getAddresses.setAttribute("contenteditable", "true");
+        getPhoneNumber.setAttribute("contenteditable", "true");
+      };
+    });
+    save.forEach((item) => {
+      const index = item.dataset.user;
+      const getId = document.querySelector(`.id[data-user="${index}"]`);
+      const getPassword = document.querySelector(
+        `.password[data-user="${index}"]`
+      );
+      const getIsAdmin = document.querySelector(
+        `.isAdmin[data-user="${index}"]`
+      );
+      const getAddress = document.querySelector(
+        `.address[data-user="${index}"]`
+      );
+      const getPhoneNumber = document.querySelector(
+        `.phoneNumber[data-user="${index}"]`
+      );
       item.onclick = () => {
         const user = {
-          id: Number(getId.value),
-          name: getName.value,
-          price: getPrice.value,
-          description: getDescription.value,
-          img: getImg.value,
-          type: getType.value,
+          id: getId.innerHTML,
+          password: getPassword.innerHTML,
+          isAdmin: getIsAdmin.innerHTML,
+          address: getAddress.innerHTML,
+          phoneNumber: getPhoneNumber.innerHTML,
         };
         if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu"))
           return;
+        getId.setAttribute("contenteditable", "true");
+        getPassword.setAttribute("contenteditable", "true");
+        getIsAdmin.setAttribute("contenteditable", "true");
+        getAddress.setAttribute("contenteditable", "true");
+        getPhoneNumber.setAttribute("contenteditable", "true");
         updateUser(index, user);
-        console.log(userList);
         render();
       };
     });
   };
-  // handleUpdateUser();
+  handleUpdateUser();
   window.onresize = () => {
     render();
   };

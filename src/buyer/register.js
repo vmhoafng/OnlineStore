@@ -31,6 +31,7 @@ Validator({
       addresses: "",
       phoneNumber: "",
       cart: [],
+      receipt: [],
     };
     inputs.forEach((element) => {
       element.value = "";

@@ -4,14 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../public/css/admin.css" />
-    <link rel="stylesheet" href="../public/css/admin.responsive.css" />
     <link rel="stylesheet" href="../public/css/base.css" />
     <link rel="stylesheet" href="../public/css/setup.css" />
+    <link rel="stylesheet" href="../public/css/admin.css" />
+    <link rel="stylesheet" href="../public/css/admin.responsive.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="app">
+      <input type="checkbox" checked id="adding-product" />
+      <input type="checkbox" checked id="adding-user" />
       <input type="checkbox" checked id="navbar-input" />
       <div class="content">
         <div class="header__navbar flex justify-between item-center">
@@ -31,7 +33,7 @@
             </button>
           </form>
           <div class="header__navbar-admin flex">
-            <img src="../public/icon/admin.svg" alt="" />
+            <img src="./../public/icon/admin.svg" alt="" />
             <span class="admin">Admin</span>
           </div>
         </div>
@@ -45,12 +47,67 @@
           <h2>Users list</h2>
           <div></div>
         </section>
-        <div
-          class="add-product"
-          style="display: none; background: #fff; border-radius: 10px">
-          <h2 class="heading">Adding products</h2>
+      </div>
+      <div id="add-user" class="flex-center">
+        <div id="popup-user">
           <form action="">
             <table class="form__add">
+              <h2 class="text-center" style="padding: 16px 0">Add users</h2>
+              <tr>
+                <td>User name:</td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength="max-content"
+                    id="nameuser"
+                    name="nameuser"
+                    value=""
+                    placeholder="Enter user name" />
+                </td>
+              </tr>
+              <tr>
+                <td>User address:</td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength=""
+                    id="useraddress"
+                    value=""
+                    placeholder="Enter user address" />
+                </td>
+              </tr>
+              <tr>
+                <td>User phone numbers</td>
+                <td>
+                  <input
+                    type="text"
+                    id="phoneuser"
+                    value=""
+                    placeholder="Enter user phone numbers" />
+                </td>
+              </tr>
+              <tr>
+                <td>User info:</td>
+                <td>
+                  <input
+                    id="info-user"
+                    name="info"
+                    placeholder="Enter user info" />
+                </td>
+              </tr>
+            </table>
+            <div class="flex-center">
+              <button type="button" class="submit">Add</button>
+            </div>
+          </form>
+        </div>
+        <label for="adding-user"></label>
+      </div>
+      <div id="add-product" class="flex-center">
+        <div id="popup">
+          <form action="">
+            <table>
+              <h2 class="text-center" style="padding: 16px 0">Add products</h2>
               <tr>
                 <td><label for="name-product">Product name:</label></td>
                 <td>
@@ -59,7 +116,8 @@
                     maxlength="max-content"
                     id="nameproduct"
                     name="nameproduct"
-                    value="" />
+                    value=""
+                    placeholder="Enter product name" />
                 </td>
               </tr>
               <tr>
@@ -84,7 +142,8 @@
                     maxlength=""
                     id="priceproduct"
                     name="price"
-                    value="" />
+                    value=""
+                    placeholder="Enter product price" />
                 </td>
               </tr>
               <tr>
@@ -94,64 +153,31 @@
                     type="file"
                     id="imgproduct"
                     name="imgproduct"
-                    value="" />
+                    value=""
+                    placeholder="Choose file" />
                 </td>
               </tr>
               <tr>
                 <td>Description:</td>
                 <td>
-                  <input id="description-product" name="description" />
-                </td>
-              </tr>
-            </table>
-            <button type="button" class="submit">Add</button>
-          </form>
-        </div>
-
-        <div
-          class="add-user"
-          style="display: none; background: #fff; border-radius: 10px">
-          <h2 class="heading">Adding users</h2>
-          <form action="">
-            <table class="form__add">
-              <tr>
-                <td>User name:</td>
-                <td>
                   <input
-                    type="text"
-                    maxlength="max-content"
-                    id="nameuser"
-                    name="nameuser"
-                    value="" />
-                </td>
-              </tr>
-              <tr>
-                <td>User address:</td>
-                <td>
-                  <input type="text" maxlength="" id="useraddress" value="" />
-                </td>
-              </tr>
-              <tr>
-                <td>User phone numbers</td>
-                <td>
-                  <input type="text" id="phoneuser" value="" />
-                </td>
-              </tr>
-              <tr>
-                <td>User info:</td>
-                <td>
-                  <input id="info-user" name="info" />
+                    id="description-product"
+                    name="description"
+                    placeholder="Description" />
                 </td>
               </tr>
             </table>
-            <button type="button" class="submit">Add</button>
+            <div class="flex-center">
+              <button type="button" class="submit">Add</button>
+            </div>
           </form>
         </div>
+        <label for="adding-product"></label>
       </div>
       <nav class="flex flex-col">
         <label for="navbar-input" id="logo" class="flex item-center">
           <img
-            src="../public/img/Composition-table-laptop_preview.png"
+            src="./../public/img/Composition-table-laptop_preview.png"
             alt="" />
         </label>
         <hr />
@@ -159,37 +185,44 @@
           <li class="navbar-item">
             <a
               ><img
-                src="../public/icon/house.svg"
+                src="./../public/icon/house.svg"
                 style="padding: 2px"
-                alt="" />Trang chủ</a
+                alt="" />Home page</a
             >
           </li>
           <li class="navbar-item">
             <label for="user">
               <a
-                ><img src="../public/icon/users.svg" alt="" />Quản lý khách hàng
+                ><img src="./../public/icon/users.svg" alt="" />Users Management
               </a>
+              <li>
+                <label for="adding-user"> <a>Add user</a> </label>
+              </li>
             </label>
           </li>
           <li class="navbar-item">
             <label for="product">
               <a
-                ><img src="../public/icon/products.svg" alt="" /> Quản lý sản
-                phẩm</a
-              ></label
-            >
+                ><img src="./../public/icon/products.svg" alt="" /> Products
+                Management
+              </a>
+              <li>
+                <label for="adding-product"> <a>Add product</a> </label>
+              </li>
+            </label>
           </li>
           <li class="navbar-item">
             <a
-              ><img src="../public/icon/orders.svg" alt="" /> Quản lý đơn
-              hàng</a
+              ><img src="./../public/icon/orders.svg" alt="" /> Receipts
+              Management</a
             >
           </li>
           <li class="navbar-item">
-            <a><img src="../public/icon/stats.svg" alt="" /> Thống kê</a>
+            <a><img src="./../public/icon/stats.svg" alt="" /> Statistics</a>
           </li>
+          <hr />
           <div class="app__logout">
-            <a><img src="../public/icon/logout.svg" alt="" />Logout</a>
+            <a><img src="./../public/icon/logout.svg" alt="" />Logout</a>
           </div>
         </menu>
       </nav>

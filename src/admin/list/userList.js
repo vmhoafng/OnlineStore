@@ -10,6 +10,7 @@ const defaultUserList = [
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
     cart: [],
+    receipt: [],
   },
   {
     id: "kophaiminhhoang",
@@ -18,6 +19,7 @@ const defaultUserList = [
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
     cart: [],
+    receipt: [],
   },
   {
     id: "vmhoafng",
@@ -26,6 +28,7 @@ const defaultUserList = [
     addresses: "Ho Chi Minh, VietNam",
     phoneNumber: "+84 0929829783",
     cart: [],
+    receipt: [],
   },
 ];
 defaultUserList.forEach((user) => {
