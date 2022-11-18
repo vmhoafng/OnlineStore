@@ -27,7 +27,7 @@ Validator({
       alert("Nhập sai mật khẩu");
       return;
     } else if (id == config.id && password == config.password) {
-      document.querySelector("#toggleForm").click();
+      document.querySelector("#Form").click();
       if (config.isAdmin && confirm("Bạn có muốn chuyển sang trang Admin")) {
         window.location = "../admin";
       } else {

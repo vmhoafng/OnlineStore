@@ -5,6 +5,8 @@ import defaultUserList from "./list/userList.js";
 import defaultProductList from "./list/productList.js";
 import { validateValue } from "../controllers/validator.js";
 // Get list
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let userStatus = JSON.parse(localStorage.getItem(currentUser));
 let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 console.log("🚀 ~ file: index.js ~ line 9 ~ productList", productList);
@@ -473,10 +475,9 @@ const render = () => {
   };
   handleUpdateUser();
   const handleLogOut = () => {
-    const getBtn = document.querySelector(".logout");
+    const getBtn = document.querySelector(".app__logout");
     getBtn.onclick = () => {
       localStorage.setItem("currentUser", JSON.stringify(null));
-      window.location.reload();
     };
   };
   handleLogOut();
@@ -485,6 +486,6 @@ const render = () => {
   };
 };
 render();
-
+console.log(userStatus);
 localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
 localStorage.setItem(USER_LIST, JSON.stringify(userList));

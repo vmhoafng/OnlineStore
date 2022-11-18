@@ -28,7 +28,7 @@
   height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
 }
-#toggleForm:checked ~ #form {
+#Form:checked ~ #form {
   display: flex;
   transform: translateY(0);
   animation: formShow 1.5s ease-in-out;

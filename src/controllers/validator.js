@@ -77,15 +77,6 @@ Validator.isRequired = function (seclector, message) {
     },
   };
 };
-Validator.isEmail = function (seclector, message) {
-  return {
-    seclector,
-    test(value) {
-      let regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-      return regex.test(value) ? undefined : message;
-    },
-  };
-};
 Validator.isPassword = function (seclector, min, message) {
   return {
     seclector,

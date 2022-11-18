@@ -21,9 +21,13 @@ const updateUserList = () => {
 };
 let filterArray = [];
 const setFilter = () => {
-  return productList.filter((item) =>
-    filterArray.length > 0 ? filterArray.includes(item.type) && item : item
-  );
+  return productList.filter((item) => {
+    if (filterArray.length) {
+      if (filterArray.includes(item.type)) return item;
+    } else {
+      return item;
+    }
+  });
 };
 
 const searchFilter = (value = "") => {
@@ -68,31 +72,40 @@ const buyAndGetReceipt = () => {
 };
 // App
 const App = () => {
-  const getInputValue = removeTones(document.querySelector("input").value);
+  const getInputValue = removeTones(
+    document.querySelector("input[name=search]").value
+  );
   // Paginators
   let current = 1;
-  const limit = 4;
+  const limit = 8;
   let totalPage = Math.ceil(searchFilter(getInputValue).length / limit);
   const render = () => {
     const start = limit * (current - 1);
     const end = limit * current - 1;
     console.log();
     const productHTML = searchFilter(getInputValue).map((product, index) => {
+      //   <div data-product="${product.id}">
+      //   <span data-product="${product.id}" class="id">${product.id}</span>
+      //   <span data-product="${product.id}" class="name">${product.name}</span>
+      //   <span data-product="${product.id}" class="price">${product.price}</span>
+      //   <span data-product="${product.id}" class="description">${product.id}</span>
+      //   <span data-product="${product.id}" class="img">${product.img}</span>
+      //   <span data-product="${product.id}" class="type">${product.type}</span>
+      //   <button data-product="${product.id}" class="submit">Submit</button>
+      // </div>
       if (index >= start && index <= end) {
         return `
-        <div data-product="${product.id}">
-          <span data-product="${product.id}" class="id">${product.id}</span>
-          <span data-product="${product.id}" class="name">${product.name}</span>
-          <span data-product="${product.id}" class="price">${product.price}</span>
-          <span data-product="${product.id}" class="description">${product.id}</span>
-          <span data-product="${product.id}" class="img">${product.img}</span>
-          <span data-product="${product.id}" class="type">${product.type}</span>
-          <button data-product="${product.id}" class="submit">Submit</button>
+        <div data-product=${product.id} class="card flex-center">
+          <img data-product=${product.id} src="${product.img}" alt="" />
+          <div  class="show flex-center flex-col">
+            <button type="add" data-product=${product.id}>Add to cart</button>
+            <button data-product=${product.id}>View detail</button>
+          </div>
         </div>
             `;
       }
     });
-    document.querySelector("#app").innerHTML = productHTML.join("");
+    document.querySelector(".product").innerHTML = productHTML.join("");
     const cartHTML =
       currentUser &&
       userStatus.cart.map((product) => {
@@ -104,19 +117,25 @@ const App = () => {
       </div>
           `;
       });
-    document.querySelector(".cart").innerHTML =
-      currentUser && cartHTML.join("");
+    // document.querySelector(".cart").innerHTML =
+    //   currentUser && cartHTML.join("");
 
     const typeHTML = typeList.map((type) => {
-      return `
-      <div data-type="${type}">${type}</div>
-      `;
+      if (filterArray.includes(type)) {
+        return `
+        <li data-type="${type}" class="active">${type}</li>
+        `;
+      } else {
+        return `
+        <li data-type="${type}" class="">${type}</li>
+        `;
+      }
     });
-    document.querySelector(".filterList").innerHTML = typeHTML.join("");
+    document.querySelector("menu ul").innerHTML = typeHTML.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
-      const getBtn = document.querySelectorAll(".submit");
+      const getBtn = document.querySelectorAll("button[type=add]");
       getBtn.forEach((item) => {
         item.onclick = () => {
           const getQuantity = document.querySelector(
@@ -124,17 +143,13 @@ const App = () => {
           );
           if (JSON.parse(localStorage.getItem("currentUser")) === null) {
             alert("Use need to login to buy products");
-            document.querySelector("#toggleForm").click();
+            document.querySelector("#Form").click();
             return;
           }
           const product = {
             id: item.dataset.product,
             quantity: (getQuantity && getQuantity.innerHTML) || 1,
-            name: "",
-            price: "",
-            description: "",
-            img: "",
-            type: "",
+            ...productList[item.dataset.product],
           };
           addIntoCart(product);
           render();
@@ -174,12 +189,11 @@ const App = () => {
         }
       };
     };
-    handleBuy();
+    // handleBuy();
     const handleFilter = () => {
-      const typeElement = document.querySelectorAll("div[data-type]");
+      const typeElement = document.querySelectorAll("menu ul li");
       typeElement.forEach((type) => {
         type.onclick = () => {
-          console.log(type);
           if (filterArray.includes(type.dataset.type)) {
             filterArray = filterArray.filter(
               (item) => item != type.dataset.type
@@ -187,6 +201,8 @@ const App = () => {
           } else {
             filterArray.push(type.dataset.type);
           }
+          setFilter(filterArray);
+          searchFilter();
           App();
         };
       });
@@ -199,12 +215,11 @@ const App = () => {
     for (let index = 1; index < totalPage + 1; index++) {
       pageArr.push(`<li data-key=${index}>${index}</li>`);
     }
-    document.querySelector(".listPage").innerHTML = pageArr.join("");
+    document.querySelector("section ul").innerHTML = pageArr.join("");
   };
   listPage();
   const pageNumber = () => {
-    const getInput = document.querySelector("input");
-    const pages = document.querySelectorAll("li");
+    const pages = document.querySelectorAll("li[data-key]");
     pages.forEach((page) => {
       page.onclick = () => {
         current = Number(page.innerHTML);
@@ -213,7 +228,7 @@ const App = () => {
           .classList.remove("active");
         page.classList.add("active");
         render();
-        searchFilter(getInput.value);
+        searchFilter(getInputValue);
       };
     });
     document.querySelector("li[data-key='1']") &&
@@ -221,14 +236,14 @@ const App = () => {
   };
   pageNumber();
   const handleSearch = () => {
-    const getInput = document.querySelector("input");
+    const getInput = document.querySelector("input[name=search]");
     getInput.oninput = () => {
       App();
     };
   };
   handleSearch();
   const handleLogOut = () => {
-    const getBtn = document.querySelector(".logout");
+    const getBtn = document.querySelector(".user div");
     getBtn.onclick = () => {
       localStorage.setItem("currentUser", JSON.stringify(null));
       window.location.reload();
@@ -239,7 +254,12 @@ const App = () => {
 App();
 
 // Static
-document.querySelector("#toggleForm").onchange = () => {
-  document.querySelector("#toggleForm").checked &&
-    screen.orientation.lock("portrait-primary");
-};
+currentUser
+  ? (document.querySelector(".user").style = "display: block;") &&
+    (document.querySelector(".gotoform").style = "display: none;")
+  : (document.querySelector(".user").style = "display: none;") &&
+    (document.querySelector(".gotoform").style = "display: block;");
+// document.querySelector("#Form").onchange = () => {
+//   document.querySelector("#Form").checked &&
+//     screen.orientation.lock("portrait-primary");
+// };

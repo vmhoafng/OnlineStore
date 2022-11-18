@@ -174,7 +174,7 @@ th {
   border-right: 1px solid #ddd;
   height: var(--tr-height);
 }
-td.description{
+td.description {
   height: var(--tr-height);
   overflow-y: scroll;
 }

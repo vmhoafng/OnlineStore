@@ -1,0 +1,53 @@
+/*Phone*/
+@media (max-width: 1280px) {
+    :root {
+      --cart-w: 310px;
+    }
+    main{
+      width: auto;
+    }
+    .product {
+      grid-template-columns: auto auto;
+    }
+    .card{
+      margin: auto;
+    }
+    header .left ul{
+      display: none;
+    }
+    section ul{
+      flex-wrap: wrap;
+    }
+    menu{
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width:50vw;
+      z-index: 20;
+      background: #ea9782;
+      padding-top: 38px ;
+      transition: all 0.5s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+    }
+    #toggleMenu:checked ~.app main menu{
+      opacity: 1;
+      visibility:visible;
+    }
+    menu label{
+      display: block;
+      position: absolute;
+      top: 0;
+      right: -60vw;
+      background-color: #cccccc4D;
+      width: 60vw;
+      top: 0;
+      bottom: 0;
+    }
+  }
+  @media (max-width:768px) {
+    .product {
+      grid-template-columns:auto;
+    }
+  }

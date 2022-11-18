@@ -23,7 +23,6 @@ Validator({
     let id = data.id;
     let password = data.password;
     let getUsers = localStorage.getItem(id);
-    let config = JSON.parse(getUsers);
     let user = {
       id,
       password,
