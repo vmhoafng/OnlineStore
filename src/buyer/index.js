@@ -149,7 +149,7 @@ const App = () => {
     const totalCart = totalArray.reduce((total, price) => {
       return total + price;
     }, 0);
-    document.querySelector(".total .price").innerHTML = totalCart+"$";
+    document.querySelector(".total .price").innerHTML = totalCart + "$";
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -198,14 +198,12 @@ const App = () => {
     const handleBuy = () => {
       const getBtn = document.querySelector(".buy");
       getBtn.onclick = () => {
-        if (currentUser && userStatus.cart.length > 0) {
-          buyAndGetReceipt();
-          updateUserList();
-          render();
-        }
-        if (confirm("Xác nhận đơn hàng của bạn")) {
-          document.querySelector("#Cart").click();
-        }
+        if (!currentUser && !userStatus.cart.length > 0) return;
+        if (!confirm("Xác nhận đơn hàng của bạn")) return;
+        document.querySelector("#Cart").click();
+        buyAndGetReceipt();
+        updateUserList();
+        render();
       };
     };
     handleBuy();

@@ -44,6 +44,9 @@
     width: 55vw;
     bottom: 0;
   }
+  .cart h2 {
+    width: 100%;
+  }
   .cart {
     width: 100vw;
   }
@@ -53,9 +56,26 @@
   .cart label {
     display: none;
   }
+
+  header .left button {
+    visibility: visible;
+  }
+  menu li {
+    color: var(--bg-color);
+  }
 }
 @media (max-width: 768px) {
   .product {
     grid-template-columns: auto;
+  }
+  .box img {
+    width: 75px;
+    height: 75px;
+  }
+  .detail h3 {
+    font-size: 22px;
+  }
+  .total {
+    width: calc(100vw - 40px);
   }
 }

@@ -29,6 +29,7 @@ hr {
 header {
   width: 80%;
   align-items: center;
+  min-height: 60px;
 }
 header .left ul {
   gap: 28px;
@@ -88,9 +89,12 @@ header button {
   background-color: #ea9782;
   color: var(--title-color);
 }
+header .left button {
+  visibility: hidden;
+}
 header button svg {
   position: absolute;
-  top: 7px;
+  top: 5px;
   left: 7px;
 }
 header .gotoform {
@@ -135,10 +139,9 @@ h2 {
 }
 h3 {
   text-align: center;
-  margin: 10px 0;
 }
 menu li {
-  color: #aaa;
+  color: #00000080;
   padding-left: 50px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -277,7 +280,7 @@ section ul li.active {
 }
 .content {
   margin-top: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 190px;
 }
 .box {
   margin-top: 1rem;
