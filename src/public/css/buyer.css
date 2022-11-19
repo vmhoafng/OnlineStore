@@ -110,10 +110,15 @@ header button {
 header .left button {
   visibility: hidden;
 }
-header button svg {
+header .right button svg {
   position: absolute;
   top: 5px;
-  left: 7px;
+  left: 6px;
+}
+header .left button svg {
+  position: absolute;
+  top: 5.5px;
+  left: 6.5px;
 }
 header .gotoform {
   color: var(--title-color);
@@ -437,7 +442,6 @@ section ul li.active {
   font-weight: 700;
   color: var(--title-color);
   padding: 36px 0;
-  width: 80%;
 }
 #receipt section {
   margin-top: 100px;
@@ -458,6 +462,10 @@ section ul li.active {
   font-weight: 700;
   color: var(--title-color);
 }
+#receipt section > div > span:last-child {
+  margin-top: 1rem;
+}
 #receipt h2 label {
   visibility: hidden;
+  cursor: pointer;
 }

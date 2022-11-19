@@ -13,6 +13,9 @@ Validator({
     let password = data.password;
     let user = localStorage.getItem(id);
     let config = JSON.parse(user);
+    let json = JSON.stringify(id);
+
+    const userConfig = "currentUser";
     inputs.forEach((element) => {
       element.value = "";
       element.blur();
@@ -30,9 +33,8 @@ Validator({
       document.querySelector("#Form").click();
       if (config.isAdmin && confirm("Bạn có muốn chuyển sang trang Admin")) {
         window.location = "../admin";
+        localStorage.setItem(userConfig, json);
       } else {
-        const userConfig = "currentUser";
-        let json = JSON.stringify(id);
         localStorage.setItem(userConfig, json);
         window.location.reload();
       }

@@ -30,3 +30,8 @@ section::-webkit-scrollbar {
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
 }
+.description div::-webkit-scrollbar {
+  width: 0 !important;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}

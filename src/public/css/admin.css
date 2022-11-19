@@ -3,10 +3,11 @@
   display: flex;
   position: relative;
   flex-direction: row-reverse;
+  max-width: 100vw;
 }
 
 nav {
-  width: 200px;
+  width: 240px;
   min-height: 100vh;
   z-index: 2;
   background-color: var(--bg-color);
@@ -105,28 +106,6 @@ li a:hover .subnav {
   padding: 24px;
 }
 
-/* Content */
-.content .button {
-  font-size: 13px;
-  padding: 5px 10px;
-  border: 1px solid #aaa;
-  background-color: #eee;
-  background-image: linear-gradient(top, #fff, #f0f0f0);
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  color: #666;
-  text-decoration: none;
-  text-shadow: 0 1px 0 #fff;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
-}
-.content .button:hover {
-  border-color: #999;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-}
-.content .button:active {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
-}
 /* User */
 .content {
   flex: 1;
@@ -148,28 +127,34 @@ li a:hover .subnav {
   width: 100%;
 }
 table {
-  width: 100%;
   border-collapse: collapse;
+  width: 100%;
 }
 th {
   padding: 10px;
 }
-
-.product td {
+td {
   border-right: 1px solid #ddd;
   height: var(--tr-height);
 }
-.user {
+td.description div {
+  overflow-y: scroll;
+  height: var(--tr-height);
+}
+/* .product td {
+  border-right: 1px solid #ddd;
+  height: var(--tr-height);
+} */
+section {
   width: 100%;
 }
-.user td {
+section div {
+  width: 100%;
+}
+/* .user td {
   border-right: 1px solid #ddd;
   height: var(--tr-height);
-}
-td.description {
-  height: var(--tr-height);
-  overflow-y: scroll;
-}
+} */
 tr {
   border-bottom: 2px solid #ddd;
   height: var(--tr-height);
@@ -178,15 +163,15 @@ tr,
 td {
   text-align: center;
   outline: none;
-  padding: 10px;
+  padding: 5px;
 }
 td img {
   width: 110px;
   height: var(--tr-height);
 }
 .btn {
+  height: 50px;
   width: 100px;
-  height: 50%;
   margin: 0 10px;
   border-radius: 10px;
   color: #fff;
@@ -224,11 +209,10 @@ button:hover {
 .product table tbody tr td:nth-child(6) {
   text-align: left;
 }
-
-.user table thead tr th:nth-child(6) {
-  width: 15%;
+.user table thead tr th:nth-child(4) {
+  width: 35%;
 }
-.user table tbody tr td:nth-child(7) {
+.user table tbody tr td:nth-child(5) {
   border-right: none;
 }
 .content input[name="menu"] {

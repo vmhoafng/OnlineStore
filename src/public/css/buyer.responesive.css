@@ -67,6 +67,12 @@
   .title label {
     visibility: visible;
   }
+  #receipt h2 label {
+    visibility: visible;
+  }
+  #receipt h2 {
+    width: 70%;
+  }
 }
 @media (max-width: 768px) {
   .product {
@@ -84,10 +90,9 @@
   }
   #receipt h2 {
     font-size: 28px;
+    width: 80%;
   }
-  #receipt h2 label {
-    visibility: visible;
-  }
+
   .user div {
     right: -16vw;
   }

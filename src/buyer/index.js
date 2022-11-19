@@ -49,6 +49,7 @@ const addIntoCart = (product) => {
     userStatus.cart = controllers.add(userStatus.cart, product);
   }
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
+  updateUserList();
 };
 const removeOutOfCart = (index) => {
   const existProduct = userStatus.cart.find((item) => item.id === index);
@@ -61,8 +62,9 @@ const removeOutOfCart = (index) => {
     userStatus.cart = controllers.delete(userStatus.cart, index);
   }
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
+  updateUserList();
 };
-const buyAndGetReceipt = (total) => {
+const buyAndGetReceipt = (total, address, phoneNumber) => {
   const date = new Date();
   const getDate = `${date.getDate()}/${
     date.getMonth() + 1
@@ -73,7 +75,10 @@ const buyAndGetReceipt = (total) => {
   }`;
   userStatus = {
     ...userStatus,
-    receipt: [[...userStatus.cart, getDate, total], ...userStatus.receipt],
+    receipt: [
+      [...userStatus.cart, address, phoneNumber, getDate, total],
+      ...userStatus.receipt,
+    ],
   };
   userStatus.cart = [];
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
@@ -167,9 +172,10 @@ const App = () => {
         return /*html */ `
     <div class="flex flex-col">
       <span>Date: ${product[product.length - 2]}</span>
-      ${product.map((item) => {
-        if (typeof item == "object") {
-          return /*html*/ `
+      ${product
+        .map((item) => {
+          if (typeof item == "object") {
+            return /*html*/ `
       <div class="box flex justify-between">
         <div class="detail flex-center">
           <img src=${item.img} alt="" />
@@ -182,15 +188,15 @@ const App = () => {
           <span class="quantity">${item.quantity}</span>
         </div>
       </div>`;
-        }
-      })}
+          }
+        })
+        .join("")}
       <span>Total: ${product[product.length - 1]}$</span>
     </div>
       `;
       });
-    console.log(userStatus.receipt[0]);
-
-    document.querySelector("#receipt section").innerHTML = receiptHTML.join("");
+    document.querySelector("#receipt section").innerHTML =
+      currentUser && receiptHTML.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -241,9 +247,11 @@ const App = () => {
       getBtn.onclick = () => {
         if (!currentUser) return;
         if (!userStatus.cart.length) return;
+        const address = prompt("Nhập địa chỉ giao hàng:");
+        const phoneNumber = prompt("Nhập số điện thoại:");
         if (!confirm("Xác nhận đơn hàng của bạn")) return;
         document.querySelector("#Cart").click();
-        buyAndGetReceipt(totalCart);
+        buyAndGetReceipt(totalCart, address, phoneNumber);
         updateUserList();
         render();
       };

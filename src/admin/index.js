@@ -74,7 +74,7 @@ const render = () => {
         <tr>
           <th>Action</th>
           <td>
-            <div class="flex item-center">
+            <div class="flex-center">
             <button class="btn" data-product=${product.id} type="delete">Delete</button>
             <button class="btn" data-product=${product.id} type="update">Update</button>
             <button class="btn" data-product=${product.id} type="save">save</button>
@@ -91,7 +91,7 @@ const render = () => {
     <td class="type" data-product=${product.id}>${product.type}</td>
     <td class="price" data-product=${product.id}>${product.price}</td>
     <td><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
-    <td><div class="description" data-product=${product.id}>${product.description}</div></td>
+    <td class="description" data-product=${product.id}><div>${product.description}</div></td>
     <td>
       <div class="flex item-center">
       <button class="btn" data-product=${product.id} type="delete">Delete</button>
@@ -142,32 +142,18 @@ const render = () => {
         <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
       </tr>
       <tr>
-        <th>Address</th>
-        <td data-user=${user.id} class="address">${user.addresses}</td>
-      </tr>
-      <tr>
-        <th>Phone numbers</th>
-        <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
-      </tr>
-      <tr>
         <th>Cart</th>
         <td data-user=${user.id} >
-          <ul>${
-            user.cart &&
-            user.cart
-              .map((item) => {
-                return `<li>
+          <ul>${user.cart
+            .map((item) => {
+              console.log(item);
+              return `<li>
                 id: ${item.id},
                 quantity: ${item.quantity},
-                description: ${item.description},
-                img: ${item.img},
                 name: ${item.name},
-                price: ${item.price},
-                type: ${item.quantity},
               </li>`;
-              })
-              .join("")
-          }
+            })
+            .join("")}
             </ul>
           </td>
       </tr>
@@ -187,28 +173,23 @@ const render = () => {
     </tr>
   </table>`;
     } else {
+      console.log(user);
+
       return `<tr>
     <td data-user=${user.id} class="id">${user.id}</td>
     <td data-user=${user.id} class="password">${user.password}</td>
     <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
-    <td data-user=${user.id} class="addresses">${user.addresses}</td>
-    <td data-user=${user.id} class="phoneNumber">${user.phoneNumber}</td>
-    <td data-user=${user.id}><ul>${
-        user.cart &&
-        user.cart
-          .map((item) => {
-            return `<li>
+    <td data-user=${user.id} class="cart">
+    <ul>${user.cart
+      .map((item) => {
+        console.log(item);
+        return `<li>
           id: ${item.id},
           quantity: ${item.quantity},
-          description: ${item.description},
-          img: ${item.img},
           name: ${item.name},
-          price: ${item.price},
-          type: ${item.quantity},
         </li>`;
-          })
-          .join("")
-      }
+      })
+      .join("")}
       </ul></td>
     <td>
     <div class="flex item-center">
@@ -222,24 +203,22 @@ const render = () => {
     }
   });
   if (window.innerWidth < 1280) {
-    document.querySelector(".user div").innerHTML = renderUser.join("");
+    document.querySelector(".user > div").innerHTML = renderUser.join("");
   } else {
-    document.querySelector(".user div").innerHTML = `
+    document.querySelector(".user > div").innerHTML = `
     <table>
     <thead>
       <tr>
         <th>ID</th>
         <th>Password </th>
         <th>isAdmin</th>
-        <th>Address</th>
-        <th>Phone numbers</th>
         <th>Cart</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>`;
-    document.querySelector(".user div table tbody").innerHTML =
+    document.querySelector(".user > div table tbody").innerHTML =
       renderUser.join("");
   }
   // handleEvents
@@ -387,10 +366,6 @@ const render = () => {
       getImg.value = "";
       getType.value = "";
       addUser(user);
-      console.log(
-        "🚀 ~ file: index.js ~ line 101 ~ handleAdduser ~ userList",
-        userList
-      );
       render();
     };
   };
@@ -412,10 +387,6 @@ const render = () => {
     const update = document.querySelectorAll("button[data-user][type=update]");
     const save = document.querySelectorAll("button[data-user][type=save]");
     update.forEach((item) => {
-      console.log(
-        "🚀 ~ file: index.js ~ line 437 ~ handleUpdateUser ~ item",
-        item
-      );
       const index = item.dataset.user;
       const getId = document.querySelector(`.id[data-user="${index}"]`);
       const getPassword = document.querySelector(
@@ -486,6 +457,5 @@ const render = () => {
   };
 };
 render();
-console.log(userStatus);
 localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
 localStorage.setItem(USER_LIST, JSON.stringify(userList));
