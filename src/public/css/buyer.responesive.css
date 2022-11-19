@@ -17,6 +17,7 @@
   }
   section ul {
     flex-wrap: wrap;
+    margin-bottom: 50px;
   }
   menu {
     position: fixed;
@@ -53,7 +54,7 @@
   .total {
     width: calc(100vw - 40px);
   }
-  .cart label {
+  .cart > label {
     display: none;
   }
 
@@ -62,6 +63,9 @@
   }
   menu li {
     color: var(--bg-color);
+  }
+  .title label {
+    visibility: visible;
   }
 }
 @media (max-width: 768px) {
@@ -77,5 +81,17 @@
   }
   .total {
     width: calc(100vw - 40px);
+  }
+  #receipt h2 {
+    font-size: 28px;
+  }
+  #receipt h2 label {
+    visibility: visible;
+  }
+  .user div {
+    right: -16vw;
+  }
+  .user div::before {
+    right: 16.5vw;
   }
 }

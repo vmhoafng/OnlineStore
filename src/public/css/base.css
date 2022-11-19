@@ -3,6 +3,8 @@
   --bdr-input: 10px;
   --bdr-img: 23px;
   --bdr-btn: 10px;
+  --tr-height: 80px;
+  --cart-w: 210px;
   --title-color: #514e62;
   --bg-color: #fddfd7;
   --submit-color: #f82444;
@@ -14,6 +16,16 @@ html::-webkit-scrollbar {
   -ms-overflow-style: none;
 }
 .cart::-webkit-scrollbar {
+  width: 0 !important;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+.wrapper::-webkit-scrollbar {
+  width: 0 !important;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+section::-webkit-scrollbar {
   width: 0 !important;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;

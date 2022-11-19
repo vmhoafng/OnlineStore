@@ -62,10 +62,18 @@ const removeOutOfCart = (index) => {
   }
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
 };
-const buyAndGetReceipt = () => {
+const buyAndGetReceipt = (total) => {
+  const date = new Date();
+  const getDate = `${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()} ${
+    Number(date.getHours()) < 10 ? "0" + date.getHours() : date.getHours()
+  }:${date.getMinutes()}:${
+    Number(date.getSeconds()) < 10 ? "0" + date.getSeconds() : date.getSeconds()
+  }`;
   userStatus = {
     ...userStatus,
-    receipt: [...userStatus.receipt, userStatus.cart],
+    receipt: [[...userStatus.cart, getDate, total], ...userStatus.receipt],
   };
   userStatus.cart = [];
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
@@ -94,8 +102,9 @@ const App = () => {
       //   <button data-product="${product.id}" class="submit">Submit</button>
       // </div>
       if (index >= start && index <= end) {
-        return `
+        return /*html */ `
         <div data-product=${product.id} class="card flex-center">
+          <div>${product.price}$</div>
           <img data-product=${product.id} src="${product.img}" alt="" />
           <div  class="show flex-center flex-col">
             <button type="add" data-product=${product.id}>Add to cart</button>
@@ -109,7 +118,7 @@ const App = () => {
     const cartHTML =
       currentUser &&
       userStatus.cart.map((product) => {
-        return `
+        return /*html */ `
         <div class="box flex justify-between">
             <div class="detail flex-center">
               <img
@@ -130,26 +139,57 @@ const App = () => {
       });
     document.querySelector(".cart .content").innerHTML =
       currentUser && cartHTML.join("");
-
     const typeHTML = typeList.map((type) => {
       if (filterArray.includes(type)) {
-        return `
+        return /*html */ `
         <li data-type="${type}" class="active">${type}</li>
         `;
       } else {
-        return `
+        return /*html */ `
         <li data-type="${type}" class="">${type}</li>
         `;
       }
     });
     document.querySelector("menu ul").innerHTML = typeHTML.join("");
-    const totalArray = userStatus.cart.map(
-      (product) => product.price * product.quantity
-    );
-    const totalCart = totalArray.reduce((total, price) => {
-      return total + price;
-    }, 0);
-    document.querySelector(".total .price").innerHTML = totalCart + "$";
+    const totalArray =
+      currentUser &&
+      userStatus.cart.map((product) => product.price * product.quantity);
+    const totalCart =
+      currentUser &&
+      totalArray.reduce((total, price) => {
+        return total + price;
+      }, 0);
+    document.querySelector(".total .price").innerHTML = (totalCart || 0) + "$";
+
+    const receiptHTML =
+      currentUser &&
+      userStatus.receipt.map((product) => {
+        return /*html */ `
+    <div class="flex flex-col">
+      <span>Date: ${product[product.length - 2]}</span>
+      ${product.map((item) => {
+        if (typeof item == "object") {
+          return /*html*/ `<div class="box flex justify-between">
+        <div class="detail flex-center">
+          <img src=${item.img} alt="" />
+          <div class="flex flex-col">
+            <h3>${item.name}</h3>
+            <div class="price">${item.price}$</div>
+          </div>
+        </div>
+        <div class="flex-center">
+          <span class="quantity">${item.quantity}</span>
+        </div>
+      </div>`;
+        }
+      })}
+      <span>Total: ${product[product.length - 1]}$</span>
+    </div>
+      `;
+      });
+    console.log(userStatus.receipt[0]);
+
+    document.querySelector("#receipt section").innerHTML = receiptHTML.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -198,10 +238,11 @@ const App = () => {
     const handleBuy = () => {
       const getBtn = document.querySelector(".buy");
       getBtn.onclick = () => {
-        if (!currentUser && !userStatus.cart.length > 0) return;
+        if (!currentUser) return;
+        if (!userStatus.cart.length) return;
         if (!confirm("Xác nhận đơn hàng của bạn")) return;
         document.querySelector("#Cart").click();
-        buyAndGetReceipt();
+        buyAndGetReceipt(totalCart);
         updateUserList();
         render();
       };
@@ -260,7 +301,7 @@ const App = () => {
   };
   handleSearch();
   const handleLogOut = () => {
-    const getBtn = document.querySelector(".user div");
+    const getBtn = document.querySelector(".user .logout");
     getBtn.onclick = () => {
       localStorage.setItem("currentUser", JSON.stringify(null));
       window.location.reload();
@@ -271,12 +312,24 @@ const App = () => {
 App();
 
 // Static
-currentUser
-  ? (document.querySelector(".user").style = "display: block;") &&
-    (document.querySelector(".gotoform").style = "display: none;")
-  : (document.querySelector(".user").style = "display: none;") &&
-    (document.querySelector(".gotoform").style = "display: block;");
+
+if (currentUser) {
+  document.querySelector(".user").style = "display: block;";
+  document.querySelector(".gotoform").style = "display: none;";
+} else {
+  document.querySelector(".user").style = "display: none;";
+  document.querySelector(".gotoform").style = "display: block;";
+}
 // document.querySelector("#Form").onchange = () => {
 //   document.querySelector("#Form").checked &&
 //     screen.orientation.lock("portrait-primary");
 // };
+const date = new Date();
+const getDate = `${date.getDate()}/${
+  date.getMonth() + 1
+}/${date.getFullYear()} ${
+  Number(date.getHours()) < 10 ? "0" + date.getHours() : date.getHours()
+}:${date.getMinutes()}:${
+  Number(date.getSeconds()) < 10 ? "0" + date.getSeconds() : date.getSeconds()
+}`;
+console.log(getDate);

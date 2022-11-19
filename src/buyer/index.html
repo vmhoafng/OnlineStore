@@ -29,6 +29,8 @@
     </style>
   </head>
   <body>
+    <input type="checkbox" name="toggle" id="Receipt" />
+    <input type="checkbox" name="toggle" id="Float" />
     <input type="checkbox" name="toggle" id="Menu" />
     <input type="checkbox" name="toggle" id="Form" />
     <input type="checkbox" name="toggle" id="Cart" />
@@ -59,30 +61,33 @@
         </div>
         <div class="right flex-center">
           <div class="user">
-            <div class="flex item-center justify-between">
-              <span>Logout</span
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
-                height="24"
-                width="24">
-                <path
-                  stroke="#514e62"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9.5 10.5V12.5C9.5 12.7652 9.39464 13.0196 9.20711 13.2071C9.01957 13.3946 8.76522 13.5 8.5 13.5H1.5C1.23478 13.5 0.98043 13.3946 0.792893 13.2071C0.605357 13.0196 0.5 12.7652 0.5 12.5V1.5C0.5 1.23478 0.605357 0.98043 0.792893 0.792893C0.98043 0.605357 1.23478 0.5 1.5 0.5H8.5C8.76522 0.5 9.01957 0.605357 9.20711 0.792893C9.39464 0.98043 9.5 1.23478 9.5 1.5V3.5"></path>
-                <path
-                  stroke="#514e62"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.5 7H13.5"></path>
-                <path
-                  stroke="#514e62"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.5 5L13.5 7L11.5 9"></path>
-              </svg>
+            <div class="flex flex-col item-start justify-around">
+              <label for="Receipt">Xem lại các đơn hàng của bạn</label>
+              <span class="logout flex justify-between"
+                >Log out
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 14"
+                  height="24"
+                  width="24">
+                  <path
+                    stroke="#514e62"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.5 10.5V12.5C9.5 12.7652 9.39464 13.0196 9.20711 13.2071C9.01957 13.3946 8.76522 13.5 8.5 13.5H1.5C1.23478 13.5 0.98043 13.3946 0.792893 13.2071C0.605357 13.0196 0.5 12.7652 0.5 12.5V1.5C0.5 1.23478 0.605357 0.98043 0.792893 0.792893C0.98043 0.605357 1.23478 0.5 1.5 0.5H8.5C8.76522 0.5 9.01957 0.605357 9.20711 0.792893C9.39464 0.98043 9.5 1.23478 9.5 1.5V3.5"></path>
+                  <path
+                    stroke="#514e62"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6.5 7H13.5"></path>
+                  <path
+                    stroke="#514e62"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11.5 5L13.5 7L11.5 9"></path>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="gotoform">
@@ -134,116 +139,14 @@
               </div>
             </div>
           </div>
-          <ul class="flex justify-center">
-            <li class="prev">Prev</li>
-            <li class="active">1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li class="next">Next</li>
-          </ul>
+          <ul class="flex justify-center"></ul>
         </section>
       </main>
       <div class="cart">
-        <h2 class="title">Your Cart</h2>
-        <div class="content">
-          <div class="box flex justify-between">
-            <div class="detail flex-center">
-              <img
-                src="../public/img/Electric_clock-removebg-preview.png"
-                alt="" />
-              <div class="flex flex-col">
-                <h3>Electric Clock</h3>
-                <div class="price">$120</div>
-              </div>
-            </div>
-            <div class="flex-center">
-              <button class="descrease">-</button>
-              <span class="quantity">2</span>
-              <button class="increase">+</button>
-            </div>
-          </div>
-          <div class="box flex justify-between">
-            <div class="detail flex-center">
-              <img
-                src="../public/img/Electric_clock-removebg-preview.png"
-                alt="" />
-              <div class="flex flex-col">
-                <h3>Electric Clock</h3>
-                <div class="price">$120</div>
-              </div>
-            </div>
-            <div class="flex-center">
-              <button class="descrease">-</button>
-              <span class="quantity">2</span>
-              <button class="increase">+</button>
-            </div>
-          </div>
-          <div class="box flex justify-between">
-            <div class="detail flex-center">
-              <img
-                src="../public/img/Electric_clock-removebg-preview.png"
-                alt="" />
-              <div class="flex flex-col">
-                <h3>Electric Clock</h3>
-                <div class="price">$120</div>
-              </div>
-            </div>
-            <div class="flex-center">
-              <button class="descrease">-</button>
-              <span class="quantity">2</span>
-              <button class="increase">+</button>
-            </div>
-          </div>
-          <div class="box flex justify-between">
-            <div class="detail flex-center">
-              <img
-                src="../public/img/Electric_clock-removebg-preview.png"
-                alt="" />
-              <div class="flex flex-col">
-                <h3>Electric Clock</h3>
-                <div class="price">$120</div>
-              </div>
-            </div>
-            <div class="flex-center">
-              <button class="descrease">-</button>
-              <span class="quantity">2</span>
-              <button class="increase">+</button>
-            </div>
-          </div>
-          <div class="box flex justify-between">
-            <div class="detail flex-center">
-              <img
-                src="../public/img/Electric_clock-removebg-preview.png"
-                alt="" />
-              <div class="flex flex-col">
-                <h3>Electric Clock</h3>
-                <div class="price">$120</div>
-              </div>
-            </div>
-            <div class="flex-center">
-              <button class="descrease">-</button>
-              <span class="quantity">2</span>
-              <button class="increase">+</button>
-            </div>
-          </div>
-          <div class="box flex justify-between">
-            <div class="detail flex-center">
-              <img
-                src="../public/img/Electric_clock-removebg-preview.png"
-                alt="" />
-              <div class="flex flex-col">
-                <h3>Electric Clock</h3>
-                <div class="price">$120</div>
-              </div>
-            </div>
-            <div class="flex-center">
-              <button class="descrease">-</button>
-              <span class="quantity">2</span>
-              <button class="increase">+</button>
-            </div>
-          </div>
-        </div>
+        <h2 class="title flex justify-between">
+          <span>Your Cart</span><label for="Cart">&times;</label>
+        </h2>
+        <div class="content"></div>
         <div class="total flex flex-col">
           <div class="title">Total</div>
           <div class="price">$0</div>
@@ -254,7 +157,6 @@
     </div>
     <div id="form" class="flex-center">
       <div class="wrapper">
-        <input type="checkbox" checked id="float" />
         <div
           class="container img flex-center"
           style="background-color: #fddfd7">
@@ -279,7 +181,7 @@
             name="login">
             <div style="right: 0; margin-right: 4.75rem" class="direction">
               <span>Not A Member? </span>
-              <a class="text-rose-500"><label for="float">Register</label></a>
+              <a class="text-rose-500"><label for="Float">Register</label></a>
             </div>
             <h1 title="login">
               <span>Hello Again!</span>
@@ -392,7 +294,7 @@
             name="register">
             <div style="left: 0; margin-left: 1.75rem" class="direction">
               <span>Already A Member? </span>
-              <a class="text-rose-500"><label for="float">Log in</label></a>
+              <a class="text-rose-500"><label for="Float">Log in</label></a>
             </div>
             <h1 title="register">
               <span>Create New Account!</span>
@@ -513,6 +415,15 @@
       <label for="Form"></label>
       <script type="module" src="./login.js"></script>
       <script type="module" src="./register.js"></script>
+    </div>
+    <div id="receipt" class="flex-center">
+      <div class="wrapper flex-col item-start">
+        <h2 class="flex item-center justify-between">
+          <span>Purchasing history</span><label for="Receipt">&times;</label>
+        </h2>
+        <section></section>
+      </div>
+      <label for="Receipt"></label>
     </div>
     <script type="module" src="./index.js"></script>
   </body>

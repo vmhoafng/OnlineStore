@@ -1,8 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
-* {
-  font-family: "Roboto", sans-serif;
-}
-
 #form {
   position: fixed;
   display: none;
@@ -34,19 +29,6 @@
   animation: formShow 1.5s ease-in-out;
 }
 
-#form .wrapper {
-  width: 960px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 86%;
-  box-shadow: 0 0 25px 5px var(--bg-color);
-  border-radius: var(--bdr-outline);
-  position: relative;
-  margin: 0 1rem;
-  z-index: 10;
-  background-color: #fff;
-}
 .container {
   height: 97%;
   width: 50%;
@@ -59,20 +41,18 @@
   z-index: 2;
   transition: all 0.5s ease-in-out;
 }
-#form #float {
-  display: none;
-}
-#float:checked ~ .img {
+
+#Float:not(:checked) ~ #form .img {
   transform: translateX(calc(50% - 10px));
 }
-#float:checked ~ .register {
+#Float:not(:checked) ~ #form .register {
   visibility: hidden;
   opacity: 0;
 }
-#float:not(:checked) ~ .img {
+#Float:checked ~ #form .img {
   transform: translateX(calc(-50% + 10px));
 }
-#float:not(:checked) ~ .login {
+#Float:checked ~ #form .login {
   visibility: hidden;
   opacity: 0;
 }

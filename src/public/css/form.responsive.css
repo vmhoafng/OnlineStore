@@ -1,4 +1,4 @@
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .container {
     width: 100%;
   }
@@ -11,10 +11,10 @@
   .description {
     font-size: 0.9375rem;
   }
-  #float:checked ~ .container.register {
+  #Float:not(:checked) ~ #form .register {
     display: none;
   }
-  #float:not(:checked) ~ .container.login {
+  #Float:checked ~ #form .login {
     display: none;
   }
 }
