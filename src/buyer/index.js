@@ -169,7 +169,8 @@ const App = () => {
       <span>Date: ${product[product.length - 2]}</span>
       ${product.map((item) => {
         if (typeof item == "object") {
-          return /*html*/ `<div class="box flex justify-between">
+          return /*html*/ `
+      <div class="box flex justify-between">
         <div class="detail flex-center">
           <img src=${item.img} alt="" />
           <div class="flex flex-col">
@@ -312,7 +313,6 @@ const App = () => {
 App();
 
 // Static
-
 if (currentUser) {
   document.querySelector(".user").style = "display: block;";
   document.querySelector(".gotoform").style = "display: none;";
@@ -324,12 +324,3 @@ if (currentUser) {
 //   document.querySelector("#Form").checked &&
 //     screen.orientation.lock("portrait-primary");
 // };
-const date = new Date();
-const getDate = `${date.getDate()}/${
-  date.getMonth() + 1
-}/${date.getFullYear()} ${
-  Number(date.getHours()) < 10 ? "0" + date.getHours() : date.getHours()
-}:${date.getMinutes()}:${
-  Number(date.getSeconds()) < 10 ? "0" + date.getSeconds() : date.getSeconds()
-}`;
-console.log(getDate);
