@@ -31,6 +31,7 @@
   <body>
     <input type="checkbox" name="toggle" id="Menu" />
     <input type="checkbox" name="toggle" id="Form" />
+    <input type="checkbox" name="toggle" id="Cart" />
     <div class="app flex flex-col item-center">
       <header class="flex justify-between">
         <div class="left">
@@ -74,28 +75,30 @@
             >
           </div>
           <button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 14"
-              height="28"
-              width="28">
-              <path
-                stroke="#514e62"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M0.507528 0.5L2.9497 0.5L3.8197 9.15C3.85586 9.38845 3.97698 9.6058 4.16075 9.762C4.34451 9.9182 4.57854 10.0027 4.8197 10H11.1197C11.3378 10.0114 11.5536 9.95107 11.7341 9.82829C11.9147 9.7055 12.0501 9.52698 12.1197 9.32L13.4497 5.32C13.4993 5.16962 13.5125 5.0096 13.4881 4.85314C13.4638 4.69667 13.4026 4.54822 13.3097 4.42C13.2129 4.28368 13.0834 4.17381 12.9332 4.10043C12.783 4.02706 12.6167 3.99253 12.4497 4H3.2997"></path>
-              <path
-                stroke="#514e62"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M10.9497 13.5C10.6736 13.5 10.4497 13.2761 10.4497 13C10.4497 12.7239 10.6736 12.5 10.9497 12.5C11.2258 12.5 11.4497 12.7239 11.4497 13C11.4497 13.2761 11.2258 13.5 10.9497 13.5Z"></path>
-              <path
-                stroke="#514e62"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M4.44971 13.5C4.17356 13.5 3.94971 13.2761 3.94971 13C3.94971 12.7239 4.17356 12.5 4.44971 12.5C4.72585 12.5 4.94971 12.7239 4.94971 13C4.94971 13.2761 4.72585 13.5 4.44971 13.5Z"></path>
-            </svg>
+            <label for="Cart">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 14"
+                height="28"
+                width="28">
+                <path
+                  stroke="#514e62"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M0.507528 0.5L2.9497 0.5L3.8197 9.15C3.85586 9.38845 3.97698 9.6058 4.16075 9.762C4.34451 9.9182 4.57854 10.0027 4.8197 10H11.1197C11.3378 10.0114 11.5536 9.95107 11.7341 9.82829C11.9147 9.7055 12.0501 9.52698 12.1197 9.32L13.4497 5.32C13.4993 5.16962 13.5125 5.0096 13.4881 4.85314C13.4638 4.69667 13.4026 4.54822 13.3097 4.42C13.2129 4.28368 13.0834 4.17381 12.9332 4.10043C12.783 4.02706 12.6167 3.99253 12.4497 4H3.2997"></path>
+                <path
+                  stroke="#514e62"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M10.9497 13.5C10.6736 13.5 10.4497 13.2761 10.4497 13C10.4497 12.7239 10.6736 12.5 10.9497 12.5C11.2258 12.5 11.4497 12.7239 11.4497 13C11.4497 13.2761 11.2258 13.5 10.9497 13.5Z"></path>
+                <path
+                  stroke="#514e62"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4.44971 13.5C4.17356 13.5 3.94971 13.2761 3.94971 13C3.94971 12.7239 4.17356 12.5 4.44971 12.5C4.72585 12.5 4.94971 12.7239 4.94971 13C4.94971 13.2761 4.72585 13.5 4.44971 13.5Z"></path>
+              </svg>
+            </label>
           </button>
         </div>
       </header>
@@ -136,31 +139,111 @@
         </section>
       </main>
       <div class="cart">
-        <h2 class="cart-title">Your Cart</h2>
-        <!-- Content -->
-        <div class="cart-content">
-          <div class="cart-box">
-            <img
-              src="/src/public/img/Electric_clock-removebg-preview.png"
-              alt="" />
-            <div class="cart-detail">
-              <div class="cart-product-title">Electric Clock</div>
-              <div class="cart-price">$120</div>
-              <input type="number" value="1" class="cart-quantity" />
+        <h2 class="title">Your Cart</h2>
+        <div class="content">
+          <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src="../public/img/Electric_clock-removebg-preview.png"
+                alt="" />
+              <div class="flex flex-col">
+                <h3>Electric Clock</h3>
+                <div class="price">$120</div>
+              </div>
             </div>
-            <!-- Remove Cart -->
-            <i class="fa-solid fa-trash" id="cart-remove"></i>
+            <div class="flex-center">
+              <button class="descrease">-</button>
+              <span class="quantity">2</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+          <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src="../public/img/Electric_clock-removebg-preview.png"
+                alt="" />
+              <div class="flex flex-col">
+                <h3>Electric Clock</h3>
+                <div class="price">$120</div>
+              </div>
+            </div>
+            <div class="flex-center">
+              <button class="descrease">-</button>
+              <span class="quantity">2</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+          <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src="../public/img/Electric_clock-removebg-preview.png"
+                alt="" />
+              <div class="flex flex-col">
+                <h3>Electric Clock</h3>
+                <div class="price">$120</div>
+              </div>
+            </div>
+            <div class="flex-center">
+              <button class="descrease">-</button>
+              <span class="quantity">2</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+          <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src="../public/img/Electric_clock-removebg-preview.png"
+                alt="" />
+              <div class="flex flex-col">
+                <h3>Electric Clock</h3>
+                <div class="price">$120</div>
+              </div>
+            </div>
+            <div class="flex-center">
+              <button class="descrease">-</button>
+              <span class="quantity">2</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+          <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src="../public/img/Electric_clock-removebg-preview.png"
+                alt="" />
+              <div class="flex flex-col">
+                <h3>Electric Clock</h3>
+                <div class="price">$120</div>
+              </div>
+            </div>
+            <div class="flex-center">
+              <button class="descrease">-</button>
+              <span class="quantity">2</span>
+              <button class="increase">+</button>
+            </div>
+          </div>
+          <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src="../public/img/Electric_clock-removebg-preview.png"
+                alt="" />
+              <div class="flex flex-col">
+                <h3>Electric Clock</h3>
+                <div class="price">$120</div>
+              </div>
+            </div>
+            <div class="flex-center">
+              <button class="descrease">-</button>
+              <span class="quantity">2</span>
+              <button class="increase">+</button>
+            </div>
           </div>
         </div>
-        <!-- Total -->
-        <div class="total">
-          <div class="total-title">Total</div>
-          <div class="total-price">$0</div>
+        <div class="total flex flex-col">
+          <div class="title">Total</div>
+          <div class="price">$0</div>
+          <button type="button" class="buy">Buy Now</button>
         </div>
-        <!-- Buy Button -->
-        <button type="button" class="btn-buy">Buy Now</button>
-        <!-- Cart Close -->
-        <i class="fa-solid fa-x" id="cart-close"></i>
+        <label for="Cart"></label>
       </div>
     </div>
     <div id="form" class="flex-center">

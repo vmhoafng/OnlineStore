@@ -16,6 +16,10 @@ select,
 textarea {
   outline: none;
   border: none;
+  cursor: pointer;
+}
+input {
+  cursor: text;
 }
 
 .flex {

@@ -110,15 +110,26 @@ const App = () => {
       currentUser &&
       userStatus.cart.map((product) => {
         return `
-      <div>
-        <span data-product="${product.id}" class="id">${product.id}</span>
-        <span data-product="${product.id}" class="quantity">${product.quantity}</span>
-        <button type="delete" data-product="${product.id}">Delete</button>
-      </div>
+        <div class="box flex justify-between">
+            <div class="detail flex-center">
+              <img
+                src=${product.img}
+                alt="" />
+              <div class="flex flex-col">
+                <h3>${product.name}</h3>
+                <div class="price">${product.price}$</div>
+              </div>
+            </div>
+            <div class="flex-center">
+              <button type="delete" data-product=${product.id} class="descrease">-</button>
+              <span class="quantity" data-product=${product.id}>${product.quantity}</span>
+              <button type="add" data-product=${product.id} class="increase">+</button>
+            </div>
+          </div>
           `;
       });
-    // document.querySelector(".cart").innerHTML =
-    //   currentUser && cartHTML.join("");
+    document.querySelector(".cart .content").innerHTML =
+      currentUser && cartHTML.join("");
 
     const typeHTML = typeList.map((type) => {
       if (filterArray.includes(type)) {
@@ -132,6 +143,13 @@ const App = () => {
       }
     });
     document.querySelector("menu ul").innerHTML = typeHTML.join("");
+    const totalArray = userStatus.cart.map(
+      (product) => product.price * product.quantity
+    );
+    const totalCart = totalArray.reduce((total, price) => {
+      return total + price;
+    }, 0);
+    document.querySelector(".total .price").innerHTML = totalCart+"$";
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -159,9 +177,7 @@ const App = () => {
     handleAddIntoCart();
     // delete product
     const handleRemoveOutOfCart = () => {
-      const getBtn = document.querySelectorAll(
-        "button[data-product][type=delete]"
-      );
+      const getBtn = document.querySelectorAll("button[type=delete]");
       getBtn.forEach((element) => {
         element.onclick = () => {
           const getQuantity = document.querySelector(
@@ -187,9 +203,12 @@ const App = () => {
           updateUserList();
           render();
         }
+        if (confirm("Xác nhận đơn hàng của bạn")) {
+          document.querySelector("#Cart").click();
+        }
       };
     };
-    // handleBuy();
+    handleBuy();
     const handleFilter = () => {
       const typeElement = document.querySelectorAll("menu ul li");
       typeElement.forEach((type) => {

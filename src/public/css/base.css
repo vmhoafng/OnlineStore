@@ -8,3 +8,13 @@
   --submit-color: #f82444;
 }
 
+html::-webkit-scrollbar {
+  width: 0 !important;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+.cart::-webkit-scrollbar {
+  width: 0 !important;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
