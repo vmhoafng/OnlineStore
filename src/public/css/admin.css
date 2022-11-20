@@ -214,19 +214,19 @@ button:hover {
   color: #000000;
 }
 
-.product table thead tr th:nth-child(1) {
+.product th:nth-child(1) {
   width: 7%;
 }
-.product table thead tr th:nth-child(2) {
+.product th:nth-child(2) {
   width: 7%;
 }
-.product table thead tr th:nth-child(3) {
+.product th:nth-child(3) {
   width: 7%;
 }
-.product table thead tr th:nth-child(4) {
+.product th:nth-child(4) {
   width: 7%;
 }
-.product table thead tr th:nth-child(5) {
+.product th:nth-child(5) {
   width: 7%;
 }
 /* .description */
@@ -234,10 +234,10 @@ button:hover {
   text-align: left;
 }
 
-.user table thead tr th:nth-child(6) {
+.user th:nth-child(6) {
   width: 15%;
 }
-.user table tbody tr td:nth-child(7) {
+.user td:nth-child(7) {
   border-right: none;
 }
 .content input[name="menu"] {

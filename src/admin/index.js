@@ -254,10 +254,6 @@ const render = () => {
       getImg.value = "";
       getType.value = "";
       addProduct(product);
-      console.log(
-        "🚀 ~ file: index.js ~ line 101 ~ handleAddProduct ~ productList",
-        productList
-      );
       render();
     };
   };
@@ -287,6 +283,9 @@ const render = () => {
       const index = item.dataset.product;
       const tr = document.querySelectorAll(`tr[data-product="${index}"]`);
       const td = document.querySelectorAll(`td[data-product="${index}"]`);
+      const imgInput = document.querySelectorAll(
+        `input[data-product="${index}"]`
+      );
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
@@ -310,6 +309,7 @@ const render = () => {
         td.forEach((td) => {
           td.classList.add("active");
         });
+        imgInput.style = "display: block";
       };
     });
     save.forEach((item) => {
@@ -334,13 +334,6 @@ const render = () => {
           type: getType.innerHTML,
         };
         updateProduct(index.toString(), product);
-        getId.setAttribute("contenteditable", "false");
-        getName.setAttribute("contenteditable", "false");
-        getPrice.setAttribute("contenteditable", "false");
-        getDescription.setAttribute("contenteditable", "false");
-        getImg.setAttribute("contenteditable", "false");
-        getType.setAttribute("contenteditable", "false");
-
         render();
       };
     });
@@ -456,6 +449,7 @@ const render = () => {
     const getBtn = document.querySelector(".app__logout");
     getBtn.onclick = () => {
       localStorage.setItem("currentUser", JSON.stringify(null));
+      window.location = "../buyer";
     };
   };
   handleLogOut();
