@@ -18,6 +18,7 @@ const type = {
   lamp: "lamp",
   clock: "clock",
   combo: "combo",
+  all: "",
 };
 const typeList = Object.values(type);
 const defaultProductList = [

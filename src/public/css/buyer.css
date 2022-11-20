@@ -151,7 +151,6 @@ header label:hover {
 }
 main {
   display: flex;
-  width: 80%;
 }
 menu {
   width: 20%;

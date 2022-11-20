@@ -70,7 +70,9 @@ const buyAndGetReceipt = (total, address, phoneNumber) => {
     date.getMonth() + 1
   }/${date.getFullYear()} ${
     Number(date.getHours()) < 10 ? "0" + date.getHours() : date.getHours()
-  }:${date.getMinutes()}:${
+  }:${
+    Number(date.getMinutes()) < 10 ? "0" + date.getMinutes() : date.getMinutes()
+  }:${
     Number(date.getSeconds()) < 10 ? "0" + date.getSeconds() : date.getSeconds()
   }`;
   userStatus = {
