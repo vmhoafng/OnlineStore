@@ -50,44 +50,42 @@
       </div>
       <div id="add-user" class="flex-center">
         <div id="popup-user">
-          <form action="">
-            <table class="form__add">
-              <h2 class="text-center" style="padding: 16px 0">Add users</h2>
-              <tr>
-                <td>User name:</td>
-                <td>
-                  <input
-                    type="text"
-                    maxlength="max-content"
-                    id="nameuser"
-                    name="nameuser"
-                    value=""
-                    placeholder="Enter user name" />
-                </td>
-              </tr>
-              <tr>
-                <td>User password:</td>
-                <td>
-                  <input
-                    id="info-user"
-                    name="info"
-                    placeholder="Enter user info" />
-                </td>
-              </tr>
-              <tr>
-                <td>Is Admin</td>
-                <td>
-                  <select name="" id="">
-                    <option value="false">false</option>  
-                    <option value="true">true</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-            <div class="flex-center">
-              <button type="button" class="submit">Add</button>
-            </div>
-          </form>
+          <table class="form__add">
+            <h2 class="text-center" style="padding: 16px 0">Add users</h2>
+            <tr>
+              <td>User name:</td>
+              <td>
+                <input
+                  type="text"
+                  maxlength="max-content"
+                  id="nameuser"
+                  name="nameuser"
+                  value=""
+                  placeholder="Enter user name" />
+              </td>
+            </tr>
+            <tr>
+              <td>User password:</td>
+              <td>
+                <input
+                  id="info-user"
+                  name="info"
+                  placeholder="Enter user info" />
+              </td>
+            </tr>
+            <tr>
+              <td>Is Admin</td>
+              <td>
+                <select name="" id="">
+                  <option value="false">false</option>
+                  <option value="true">true</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+          <div class="flex-center">
+            <button type="button" id="adduser">Add</button>
+          </div>
         </div>
         <label for="adding-user"></label>
       </div>
@@ -156,7 +154,7 @@
               </tr>
             </table>
             <div class="flex-center">
-              <button type="button" class="submit">Add</button>
+              <button type="button" id="addproduct">Add</button>
             </div>
           </form>
         </div>

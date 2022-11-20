@@ -160,7 +160,7 @@ const render = () => {
       <tr>
         <th>Action</th>
         <td>
-          <div class="flex item-center">
+          <div class="flex-center">
             <button class="btn" data-user=${
               user.id
             } type="delete">Delete</button>
@@ -173,8 +173,6 @@ const render = () => {
     </tr>
   </table>`;
     } else {
-      console.log(user);
-
       return `<tr>
     <td data-user=${user.id} class="id">${user.id}</td>
     <td data-user=${user.id} class="password">${user.password}</td>
@@ -182,7 +180,6 @@ const render = () => {
     <td data-user=${user.id} class="cart">
     <ul>${user.cart
       .map((item) => {
-        console.log(item);
         return `<li>
           id: ${item.id},
           quantity: ${item.quantity},
@@ -192,7 +189,7 @@ const render = () => {
       .join("")}
       </ul></td>
     <td>
-    <div class="flex item-center">
+    <div class="flex-center">
       <button class="btn" data-user=${user.id} type="delete">Delete</button>
       <button class="btn" data-user=${user.id} type="update">Update</button>
       <button class="btn" data-user=${user.id} type="save">Save</button>
@@ -224,13 +221,13 @@ const render = () => {
   // handleEvents
   // add product
   const handleAddProduct = () => {
-    const submit = document.querySelector(".submit");
-    const getId = document.querySelector(".id");
-    const getName = document.querySelector(".name");
-    const getPrice = document.querySelector(".price");
-    const getDescription = document.querySelector(".description");
-    const getImg = document.querySelector(".img");
-    const getType = document.querySelector(".type");
+    const submit = document.querySelector("#addproduct");
+    const getId = document.querySelector("#idproduct");
+    const getName = document.querySelector("#nameproduct");
+    const getPrice = document.querySelector("#priceproduct");
+    const getDescription = document.querySelector("#description-product");
+    const getImg = document.querySelector("#imgproduct");
+    const getType = document.querySelector("#type-select");
     submit.onclick = () => {
       const product = {
         id: getId.value,
