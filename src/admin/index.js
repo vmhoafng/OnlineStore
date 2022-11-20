@@ -47,33 +47,33 @@ const render = () => {
     if (window.innerWidth < 1280) {
       return `
       <table>
-        <tr>
+        <tr data-product=${product.id}>
           <th>ID</th>
           <td data-product=${product.id} class="id">${product.id}</td>
         </tr>
-        <tr>
+        <tr data-product=${product.id}>
           <th>Product name</th>
           <td data-product=${product.id} class="name">${product.name}</td>
         </tr>
-        <tr>
+        <tr data-product=${product.id}>
           <th>Type</th>
           <td data-product=${product.id} class="type">${product.type}</td>
         </tr>
-        <tr>
+        <tr data-product=${product.id}>
           <th>Price</th>
           <td data-product=${product.id} class="price">${product.price}</td>
         </tr>
-        <tr>
+        <tr data-product=${product.id}>
           <th>Image</th>
-          <td><img data-product=${product.id} class="img" src="${product.img}" alt=""></td>
+          <td data-product=${product.id}><img data-product=${product.id} class="img" src="${product.img}" alt=""></td>
         </tr>
-        <tr>
+        <tr data-product=${product.id}>
           <th>Description</th>
           <td data-product=${product.id} class="description"><div>${product.description}</div></td>
         </tr>
-        <tr>
+        <tr data-product=${product.id}>
           <th>Action</th>
-          <td>
+          <td data-product=${product.id}>
             <div class="flex-center">
             <button class="btn" data-product=${product.id} type="delete">Delete</button>
             <button class="btn" data-product=${product.id} type="update">Update</button>
@@ -85,14 +85,14 @@ const render = () => {
   `;
     } else {
       return `
-    <tr>
+    <tr data-product=${product.id}>
     <td class="id" data-product=${product.id}>${product.id}</td>
     <td class="name" data-product=${product.id}>${product.name}</td>
     <td class="type" data-product=${product.id}>${product.type}</td>
     <td class="price" data-product=${product.id}>${product.price}</td>
-    <td><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
+    <td data-product=${product.id}><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
     <td class="description" data-product=${product.id}><div>${product.description}</div></td>
-    <td>
+    <td data-product=${product.id}>
       <div class="flex item-center">
       <button class="btn" data-product=${product.id} type="delete">Delete</button>
       <button class="btn" data-product=${product.id} type="update">Update</button>
@@ -282,8 +282,11 @@ const render = () => {
       "button[data-product][type=update]"
     );
     const save = document.querySelectorAll("button[data-product][type=save]");
+
     update.forEach((item) => {
       const index = item.dataset.product;
+      const tr = document.querySelectorAll(`tr[data-product="${index}"]`);
+      const td = document.querySelectorAll(`td[data-product="${index}"]`);
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
@@ -301,6 +304,12 @@ const render = () => {
         getDescription.setAttribute("contenteditable", "true");
         getImg.setAttribute("contenteditable", "true");
         getType.setAttribute("contenteditable", "true");
+        tr.forEach((tr) => {
+          tr.classList.add("active");
+        });
+        td.forEach((td) => {
+          td.classList.add("active");
+        });
       };
     });
     save.forEach((item) => {
@@ -331,6 +340,7 @@ const render = () => {
         getDescription.setAttribute("contenteditable", "false");
         getImg.setAttribute("contenteditable", "false");
         getType.setAttribute("contenteditable", "false");
+
         render();
       };
     });

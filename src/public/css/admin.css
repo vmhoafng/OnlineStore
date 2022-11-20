@@ -1,13 +1,13 @@
 /* Header */
+
 .app {
   display: flex;
   position: relative;
   flex-direction: row-reverse;
-  max-width: 100vw;
 }
 
 nav {
-  width: 240px;
+  width: 200px;
   min-height: 100vh;
   z-index: 2;
   background-color: var(--bg-color);
@@ -106,6 +106,28 @@ li a:hover .subnav {
   padding: 24px;
 }
 
+/* Content */
+.content .button {
+  font-size: 13px;
+  padding: 5px 10px;
+  border: 1px solid #aaa;
+  background-color: #eee;
+  background-image: linear-gradient(top, #fff, #f0f0f0);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  color: #666;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.content .button:hover {
+  border-color: #999;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.content .button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset;
+}
 /* User */
 .content {
   flex: 1;
@@ -127,51 +149,52 @@ li a:hover .subnav {
   width: 100%;
 }
 table {
-  border-collapse: collapse;
   width: 100%;
+  border-collapse: collapse;
 }
 th {
   padding: 10px;
 }
-td {
-  border-right: 1px solid #ddd;
+
+.content td {
+  border: 2px solid var(--title-color);
   height: var(--tr-height);
 }
-td.description div {
+.user {
+  width: 100%;
+}
+
+td div {
+  height: var(--tr-height);
   overflow-y: scroll;
-  height: var(--tr-height);
 }
-/* .product td {
-  border-right: 1px solid #ddd;
-  height: var(--tr-height);
-} */
-section {
-  width: 100%;
-}
-section div {
-  width: 100%;
-}
-/* .user td {
-  border-right: 1px solid #ddd;
-  height: var(--tr-height);
-} */
 tr {
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid var(--title-color);
   height: var(--tr-height);
 }
 tr,
 td {
   text-align: center;
-  outline: none;
   padding: 5px;
 }
+tr.active,
+td.active {
+  border-color: var(--submit-color);
+}
 td img {
-  width: 110px;
   height: var(--tr-height);
 }
+input::placeholder {
+  font-size: 1rem;
+}
+input[type="file"]::file-selector-button {
+  margin: 4px;
+  height: 30px;
+  width: 150px;
+}
 .btn {
-  height: 50px;
   width: 100px;
+  height: 50%;
   margin: 0 10px;
   border-radius: 10px;
   color: #fff;
@@ -188,6 +211,7 @@ button[type="save"] {
 button:hover {
   background-color: rgb(229, 226, 226);
   cursor: pointer;
+  color: #000000;
 }
 
 .product table thead tr th:nth-child(1) {
@@ -209,10 +233,11 @@ button:hover {
 .product table tbody tr td:nth-child(6) {
   text-align: left;
 }
-.user table thead tr th:nth-child(4) {
-  width: 35%;
+
+.user table thead tr th:nth-child(6) {
+  width: 15%;
 }
-.user table tbody tr td:nth-child(5) {
+.user table tbody tr td:nth-child(7) {
   border-right: none;
 }
 .content input[name="menu"] {
@@ -233,19 +258,33 @@ input[type="checkbox"] {
   z-index: 30;
 }
 #add-product form {
+  padding: 16px;
   border-radius: 10px;
   background: var(--bg-color);
 }
 #add-product input {
+  border-bottom: 1px solid var(--title-color);
+  background: transparent;
   height: 100%;
-  padding: 4px 16px;
+  padding: 0 5px;
+}
+#add-product select {
+  border-bottom: 1px solid var(--title-color);
+  background: transparent;
 }
 #add-product button {
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: var(--submit-color);
   align-items: center;
   margin: 16px;
-  height: 30px;
+  height: 50px;
   width: 200px;
-  border-radius: 5px;
+  border-radius: 10px;
+}
+#add-product button:hover {
+  background: #ccc;
+  color: #000000;
 }
 #add-product > label {
   width: 100%;
@@ -254,9 +293,7 @@ input[type="checkbox"] {
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.2);
 }
-#add-product #popup {
-  z-index: 30;
-}
+
 #adding-product:checked ~ #add-product {
   display: none;
 }
@@ -267,19 +304,30 @@ input[type="checkbox"] {
   width: 100vw;
   z-index: 30;
 }
-#add-user form {
+.container {
+  padding: 16px;
   border-radius: 10px;
   background: var(--bg-color);
 }
 #add-user input {
+  border-bottom: 1px solid var(--title-color);
+  background: transparent;
   height: 100%;
-  padding: 4px 32px;
+  padding: 0 5px;
 }
 #add-user button {
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: var(--submit-color);
+  align-items: center;
   margin: 16px;
-  height: 30px;
+  height: 50px;
   width: 200px;
-  border-radius: 5px;
+  border-radius: 10px;
+}
+#add-user button:hover {
+  background: #ccc;
+  color: #000000;
 }
 #add-user > label {
   width: 100%;
@@ -288,9 +336,12 @@ input[type="checkbox"] {
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.2);
 }
-#add-user #popup-user {
+.add-modal {
   z-index: 30;
 }
 #adding-user:checked ~ #add-user {
   display: none;
+}
+section div {
+  width: 100%;
 }

@@ -14,7 +14,7 @@ html::-webkit-scrollbar,
 .cart::-webkit-scrollbar,
 .wrapper::-webkit-scrollbar,
 section::-webkit-scrollbar,
-.description div::-webkit-scrollbar {
+div::-webkit-scrollbar {
   width: 0 !important;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;

@@ -14,7 +14,9 @@
     <div class="app">
       <input type="checkbox" checked id="adding-product" />
       <input type="checkbox" checked id="adding-user" />
+      <!-- Header -->
       <input type="checkbox" checked id="navbar-input" />
+      <!-- Content -->
       <div class="content">
         <div class="header__navbar flex justify-between item-center">
           <label for="navbar-input" class="menu-btn">
@@ -37,6 +39,9 @@
             <span class="admin">Admin</span>
           </div>
         </div>
+
+        <!-- List -->
+
         <input type="radio" checked name="menu" id="product" />
         <section class="product flex-col flex-center">
           <h2>Products list</h2>
@@ -48,52 +53,73 @@
           <div></div>
         </section>
       </div>
+
       <div id="add-user" class="flex-center">
-        <div id="popup-user">
-          <table class="form__add">
-            <h2 class="text-center" style="padding: 16px 0">Add users</h2>
-            <tr>
-              <td>User name:</td>
-              <td>
-                <input
-                  type="text"
-                  maxlength="max-content"
-                  id="nameuser"
-                  name="nameuser"
-                  value=""
-                  placeholder="Enter user name" />
-              </td>
-            </tr>
-            <tr>
-              <td>User password:</td>
-              <td>
-                <input
-                  id="info-user"
-                  name="info"
-                  placeholder="Enter user info" />
-              </td>
-            </tr>
-            <tr>
-              <td>Is Admin</td>
-              <td>
-                <select name="" id="">
-                  <option value="false">false</option>
-                  <option value="true">true</option>
-                </select>
-              </td>
-            </tr>
-          </table>
-          <div class="flex-center">
-            <button type="button" id="adduser">Add</button>
+        <div class="add-modal">
+          <div class="container">
+            <table class="form__add">
+              <h2 class="text-center" style="padding: 16px 0">Add users</h2>
+              <tr>
+                <td>User ID:</td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength="max-content"
+                    id="iduser"
+                    name="iduser"
+                    value=""
+                    placeholder="Enter user id" />
+                </td>
+              </tr>
+              <tr>
+                <td>User name:</td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength="max-content"
+                    id="nameuser"
+                    name="nameuser"
+                    value=""
+                    placeholder="Enter user name" />
+                </td>
+              </tr>
+              <tr>
+                <td>Is Admin:</td>
+                <td>
+                  <select name="" id="">
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <div class="flex-center">
+              <button class="btn" id="addproduct" type="button" class="submit">
+                Add
+              </button>
+            </div>
           </div>
         </div>
         <label for="adding-user"></label>
       </div>
+
       <div id="add-product" class="flex-center">
-        <div id="popup">
-          <form action="">
+        <div class="add-modal">
+          <div class="container">
             <table>
               <h2 class="text-center" style="padding: 16px 0">Add products</h2>
+              <tr>
+                <td><label for="name-product">Product ID:</label></td>
+                <td>
+                  <input
+                    type="text"
+                    maxlength="max-content"
+                    id="idproduct"
+                    name="idproduct"
+                    value=""
+                    placeholder="Enter product id" />
+                </td>
+              </tr>
               <tr>
                 <td><label for="name-product">Product name:</label></td>
                 <td>
@@ -133,14 +159,15 @@
                 </td>
               </tr>
               <tr>
-                <td><label for="img-product">Product image:</label></td>
+                <td>Product image:</td>
                 <td>
+                  <img id="imgpreview" />
                   <input
                     type="file"
                     id="imgproduct"
                     name="imgproduct"
-                    value=""
-                    placeholder="Choose file" />
+                    accept="image/*" />
+                  <label class="img-product" for="imgproduct"> </label>
                 </td>
               </tr>
               <tr>
@@ -154,12 +181,13 @@
               </tr>
             </table>
             <div class="flex-center">
-              <button type="button" id="addproduct">Add</button>
+              <button id="addproduct" type="button" class="submit">Add</button>
             </div>
-          </form>
+          </div>
         </div>
         <label for="adding-product"></label>
       </div>
+
       <nav class="flex flex-col">
         <label for="navbar-input" id="logo" class="flex item-center">
           <img
@@ -177,7 +205,7 @@
             >
           </li>
           <li class="navbar-item">
-            <label for="user">
+            <label for="user" id="user">
               <a
                 ><img src="./../public/icon/users.svg" alt="" />Users Management
               </a>
@@ -187,7 +215,7 @@
             </label>
           </li>
           <li class="navbar-item">
-            <label for="product">
+            <label for="product" id="product">
               <a
                 ><img src="./../public/icon/products.svg" alt="" /> Products
                 Management
@@ -215,5 +243,23 @@
       <label for="navbar-input" class="layer"></label>
     </div>
     <script type="module" src="./index.js"></script>
+    <script>
+      const imgPreview = document.getElementById("imgpreview");
+      const imgProduct = document.getElementById("imgproduct");
+      imgProduct.addEventListener("change", function () {
+        getImgData();
+      });
+      function getImgData() {
+        const files = imgProduct.files[0];
+        if (files) {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(files);
+          fileReader.addEventListener("load", function () {
+            imgPreview.style.display = "block";
+            imgPreview.src = this.result;
+          });
+        }
+      }
+    </script>
   </body>
 </html>

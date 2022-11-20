@@ -39,9 +39,9 @@
   td {
     border-right: none;
   }
-  td div {
-    flex-wrap: wrap;
-    gap: 16px;
+  div .btn {
+    height: 50px;
+    width: 200px;
   }
   nav {
     position: absolute;
@@ -74,9 +74,6 @@
   form > div button {
     position: absolute;
     bottom: 0;
-  }
-  .btn{
-    width: 120px;
   }
 }
 @media (min-width: 1280px) {
