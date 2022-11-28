@@ -1,12 +1,20 @@
 import controllers from "../controllers/controller.js";
 import { PRODUCT_LIST, typeList } from "../admin/list/productList.js";
 import { USER_LIST } from "../admin/list/userList.js";
+import { RECEIPT_LIST } from "../admin/list/receiptList.js";
 import defaultUserList from "../admin/list/userList.js";
 import defaultProductList from "../admin/list/productList.js";
+import defaultReceiptList from "../admin/list/receiptList.js";
+console.log(
+  "🚀 ~ file: index.js ~ line 8 ~ defaultReceiptList",
+  defaultReceiptList
+);
 import removeTones from "./removeTones.js";
 let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
+let receiptList =
+  JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultReceiptList;
 localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let userStatus = JSON.parse(localStorage.getItem(currentUser));
@@ -64,6 +72,10 @@ const removeOutOfCart = (index) => {
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
   updateUserList();
 };
+const addReceipt = (receipt) => {
+  receiptList = controllers.add(receiptList, receipt);
+  localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
+};
 const buyAndGetReceipt = (total, address, phoneNumber) => {
   const date = new Date();
   const getDate = `${date.getDate()}/${
@@ -82,6 +94,14 @@ const buyAndGetReceipt = (total, address, phoneNumber) => {
       ...userStatus.receipt,
     ],
   };
+  addReceipt({
+    receiptId: receiptList.length + 1,
+    userId: currentUser,
+    address,
+    phoneNumber,
+    cart: [...userStatus.cart],
+    status: false,
+  });
   userStatus.cart = [];
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
 };
@@ -99,23 +119,33 @@ const App = () => {
     const end = limit * current - 1;
     console.log();
     const productHTML = searchFilter(getInputValue).map((product, index) => {
-      //   <div data-product="${product.id}">
-      //   <span data-product="${product.id}" class="id">${product.id}</span>
-      //   <span data-product="${product.id}" class="name">${product.name}</span>
-      //   <span data-product="${product.id}" class="price">${product.price}</span>
-      //   <span data-product="${product.id}" class="description">${product.id}</span>
-      //   <span data-product="${product.id}" class="img">${product.img}</span>
-      //   <span data-product="${product.id}" class="type">${product.type}</span>
-      //   <button data-product="${product.id}" class="submit">Submit</button>
-      // </div>
       if (index >= start && index <= end) {
         return /*html */ `
+        <input type="checkbox" name="detail" id="p${product.id}"/>
+        <div class="Detail flex-center">
+        <div class="wrapper">
+            <img src="${product.img}" alt="" />
+            <div class="wrapper flex-col item-start">
+              <h2 class="flex item-center justify-between">${product.name}</h2>
+              <h3>Price: ${product.price}$</h3>
+              <input value="1" min="1" type="number"/>
+              <div>
+                Description:
+                <p>
+                ${product.description}
+                </p>
+              </div>
+            <button type="add" data-product=${product.id}>Add to cart</button>
+            </div>
+          </div>
+          <label for="p${product.id}"></label>
+        </div>
         <div data-product=${product.id} class="card flex-center">
           <div>${product.price}$</div>
           <img data-product=${product.id} src="${product.img}" alt="" />
           <div  class="show flex-center flex-col">
             <button type="add" data-product=${product.id}>Add to cart</button>
-            <button data-product=${product.id}>View detail</button>
+            <button data-product=${product.id}><label for="p${product.id}">View detail</label></button>
           </div>
         </div>
             `;
@@ -208,6 +238,7 @@ const App = () => {
           const getQuantity = document.querySelector(
             `.quantity[data-product="${item.dataset.product}"]`
           );
+          const getQuantityInput = document.querySelector(`.Detail input`);
           if (JSON.parse(localStorage.getItem("currentUser")) === null) {
             alert("Use need to login to buy products");
             document.querySelector("#Form").click();
@@ -215,7 +246,10 @@ const App = () => {
           }
           const product = {
             id: item.dataset.product,
-            quantity: (getQuantity && getQuantity.innerHTML) || 1,
+            quantity:
+              (getQuantityInput && getQuantityInput.value) ||
+              (getQuantity && getQuantity.innerHTML) ||
+              1,
             ...productList[item.dataset.product],
           };
           addIntoCart(product);

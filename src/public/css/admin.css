@@ -7,7 +7,7 @@
 }
 
 nav {
-  width: 200px;
+  width: 220px;
   min-height: 100vh;
   z-index: 2;
   background-color: var(--bg-color);
@@ -155,7 +155,9 @@ table {
 th {
   padding: 10px;
 }
-
+.imgproduct {
+  display: none;
+}
 .content td {
   border: 2px solid var(--title-color);
   height: var(--tr-height);
@@ -198,6 +200,7 @@ input[type="file"]::file-selector-button {
   margin: 0 10px;
   border-radius: 10px;
   color: #fff;
+  transition: 0.2s;
 }
 button[type="delete"] {
   background-color: red;
@@ -206,39 +209,39 @@ button[type="update"] {
   background-color: rgb(28, 223, 28);
 }
 button[type="save"] {
+  display: none;
   background-color: aquamarine;
 }
 button:hover {
-  background-color: rgb(229, 226, 226);
   cursor: pointer;
-  color: #000000;
+  color: var(--title-color);
 }
 
-.product th:nth-child(1) {
+.product table thead tr th:nth-child(1) {
   width: 7%;
 }
-.product th:nth-child(2) {
+.product table thead tr th:nth-child(2) {
+  width: 10%;
+}
+.product table thead tr th:nth-child(3) {
   width: 7%;
 }
-.product th:nth-child(3) {
+.product table thead tr th:nth-child(4) {
   width: 7%;
 }
-.product th:nth-child(4) {
-  width: 7%;
-}
-.product th:nth-child(5) {
-  width: 7%;
+.product table thead tr th:nth-child(5) {
+  width: 8%;
 }
 /* .description */
 .product table tbody tr td:nth-child(6) {
   text-align: left;
 }
-
-.user th:nth-child(6) {
-  width: 15%;
+.user table thead tr th:nth-child(4) {
+  width: 20%;
 }
-.user td:nth-child(7) {
-  border-right: none;
+
+.user table thead tr th:nth-child(5) {
+  width: 200px;
 }
 .content input[name="menu"] {
   display: none;
@@ -305,7 +308,7 @@ input[type="checkbox"] {
   z-index: 30;
 }
 .container {
-  padding: 16px;
+  padding: 40px;
   border-radius: 10px;
   background: var(--bg-color);
 }
@@ -341,6 +344,9 @@ input[type="checkbox"] {
 }
 #adding-user:checked ~ #add-user {
   display: none;
+}
+section {
+  width: 100%;
 }
 section div {
   width: 100%;

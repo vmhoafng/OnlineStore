@@ -14,8 +14,12 @@ html::-webkit-scrollbar,
 .cart::-webkit-scrollbar,
 .wrapper::-webkit-scrollbar,
 section::-webkit-scrollbar,
-div::-webkit-scrollbar {
+div::-webkit-scrollbar,
+p::-webkit-scrollbar {
   width: 0 !important;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
+}
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
 }

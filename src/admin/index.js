@@ -1,17 +1,23 @@
 import controllers from "../controllers/controller.js";
 import { USER_LIST } from "./list/userList.js";
 import { PRODUCT_LIST } from "./list/productList.js";
+import { RECEIPT_LIST } from "./list/receiptList.js";
 import defaultUserList from "./list/userList.js";
 import defaultProductList from "./list/productList.js";
+import defaultReceiptList from "./list/receiptList.js";
 import { validateValue } from "../controllers/validator.js";
 // Get list
-let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-let userStatus = JSON.parse(localStorage.getItem(currentUser));
 let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 console.log("🚀 ~ file: index.js ~ line 9 ~ productList", productList);
 let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
 console.log("🚀 ~ file: index.js ~ line 12 ~ userList", userList);
+let receiptList =
+  JSON.parse(localStorage.getItem(RECEIPT_LIST)) ?? defaultReceiptList;
+console.log(
+  "🚀 ~ file: index.js ~ line 20 ~ defaultReceiptList",
+  defaultReceiptList
+);
 
 // Control productList
 const addProduct = (product) => {
@@ -39,6 +45,19 @@ const deleteUser = (index) => {
   userList = controllers.delete(userList, index);
   localStorage.setItem(USER_LIST, JSON.stringify(userList));
 };
+// Control receiptList
+const addReceipt = (receipt) => {
+  receiptList = controllers.add(receiptList, receipt);
+  localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
+};
+const updateReceipt = (index, receipt) => {
+  receiptList = controllers.update(receiptList, index, receipt);
+  localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
+};
+const deleteReceipt = (index) => {
+  receiptList = controllers.delete(receiptList, index);
+  localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
+};
 
 // Render
 const render = () => {
@@ -65,7 +84,15 @@ const render = () => {
         </tr>
         <tr data-product=${product.id}>
           <th>Image</th>
-          <td data-product=${product.id}><img data-product=${product.id} class="img" src="${product.img}" alt=""></td>
+          <td data-product=${product.id}><img id="imgId" data-product=${product.id} class="img" src="${product.img}" alt="">
+          <input
+          data-product=${product.id}
+                    type="file"
+                    class="imgproduct"
+                    name="imgproduct"
+                    accept="image/*"
+                  />
+          </td>
         </tr>
         <tr data-product=${product.id}>
           <th>Description</th>
@@ -77,7 +104,7 @@ const render = () => {
             <div class="flex-center">
             <button class="btn" data-product=${product.id} type="delete">Delete</button>
             <button class="btn" data-product=${product.id} type="update">Update</button>
-            <button class="btn" data-product=${product.id} type="save">save</button>
+            <button class="btn" data-product=${product.id} type="save">Save</button>
             </div>
           </td>
         </tr>
@@ -90,13 +117,21 @@ const render = () => {
     <td class="name" data-product=${product.id}>${product.name}</td>
     <td class="type" data-product=${product.id}>${product.type}</td>
     <td class="price" data-product=${product.id}>${product.price}</td>
-    <td data-product=${product.id}><img class="img" data-product=${product.id} src="${product.img}" alt=""></td>
+    <td data-product=${product.id}><img id="imgId" class="img" data-product=${product.id} src="${product.img}" alt="">
+    <input
+    data-product=${product.id}
+    type="file"
+    class="imgproduct"
+    name="imgproduct"
+    accept="image/*"
+  />
+    </td>
     <td class="description" data-product=${product.id}><div>${product.description}</div></td>
     <td data-product=${product.id}>
       <div class="flex item-center">
       <button class="btn" data-product=${product.id} type="delete">Delete</button>
       <button class="btn" data-product=${product.id} type="update">Update</button>
-      <button class="btn" data-product=${product.id} type="save">save</button>
+      <button class="btn" data-product=${product.id} type="save">Save</button>
       </div>
     </td>
     </tr>
@@ -142,32 +177,12 @@ const render = () => {
         <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
       </tr>
       <tr>
-        <th>Cart</th>
-        <td data-user=${user.id} >
-          <ul>${user.cart
-            .map((item) => {
-              console.log(item);
-              return `<li>
-                id: ${item.id},
-                quantity: ${item.quantity},
-                name: ${item.name},
-              </li>`;
-            })
-            .join("")}
-            </ul>
-          </td>
-      </tr>
-      <tr>
         <th>Action</th>
-        <td>
+        <td data-user=${user.id}>
           <div class="flex-center">
-            <button class="btn" data-user=${
-              user.id
-            } type="delete">Delete</button>
-            <button class="btn" data-user=${
-              user.id
-            } type="update">Update</button>
-            <button class="btn" data-user=${user.id} type="save">save</button>
+            <button class="btn" data-user=${user.id} type="delete">Delete</button>
+            <button class="btn" data-user=${user.id} type="update">Update</button>
+            <button class="btn" data-user=${user.id} type="save">Save</button>
           </div>
         </td>
     </tr>
@@ -177,22 +192,11 @@ const render = () => {
     <td data-user=${user.id} class="id">${user.id}</td>
     <td data-user=${user.id} class="password">${user.password}</td>
     <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
-    <td data-user=${user.id} class="cart">
-    <ul>${user.cart
-      .map((item) => {
-        return `<li>
-          id: ${item.id},
-          quantity: ${item.quantity},
-          name: ${item.name},
-        </li>`;
-      })
-      .join("")}
-      </ul></td>
-    <td>
+    <td data-user=${user.id} >
     <div class="flex-center">
       <button class="btn" data-user=${user.id} type="delete">Delete</button>
-      <button class="btn" data-user=${user.id} type="update">Update</button>
-      <button class="btn" data-user=${user.id} type="save">Save</button>
+      <button class="btn" id="update" data-user=${user.id} type="update">Update</button>
+      <button class="btn" id="save" data-user=${user.id} type="save">Save</button>
       </div>
     </td>
     </tr>
@@ -209,7 +213,6 @@ const render = () => {
         <th>ID</th>
         <th>Password </th>
         <th>isAdmin</th>
-        <th>Cart</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -218,6 +221,79 @@ const render = () => {
     document.querySelector(".user > div table tbody").innerHTML =
       renderUser.join("");
   }
+  //render Receipt
+  const renderReceipt = receiptList.map((receipt) => {
+    if (window.innerWidth < 1280) {
+      return `  
+      <table>
+      <tr>
+        <th>ID</th>
+        <td data-receipt=${receipt.receiptId} class="id">${receipt.receiptId}</td>
+      </tr>
+      <tr>
+        <th>Product ID</th>
+        <td data-receipt=${receipt.receiptId} class="productId">${receipt.id}</td>
+      </tr>
+      <tr>
+        <th>Quantity</th>
+        <td data-receipt=${receipt.receiptId} class="quantity"> ${receipt.quantity}</td>
+      </tr>
+      <tr>
+        <th>User ID</th>
+        <td data-receipt=${receipt.receiptId} class="userId">${receipt.userId}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td data-receipt=${receipt.receiptId} class="status">${receipt.status}</td>
+      </tr>
+      <tr>
+        <th>Action</th>
+        <td data-receipt=${receipt.id}>
+          <div class="flex-center">
+            <button class="btn" data-receipt=${receipt.id} type="delete">Delete</button>
+            <button class="btn" data-receipt=${receipt.id} type="update">Update</button>
+            <button class="btn" data-receipt=${receipt.id} type="save">Save</button>
+          </div>
+        </td>
+    </tr>
+  </table>`;
+    } else {
+      return `<tr>
+    <td data-receipt=${receipt.id} class="id">${receipt.id}</td>
+    <td data-receipt=${receipt.id} class="password">${receipt.password}</td>
+    <td data-receipt=${receipt.id} class="isAdmin">${receipt.isAdmin}</td>
+    <td data-receipt=${receipt.id} >
+    <div class="flex-center">
+      <button class="btn" data-receipt=${receipt.id} type="delete">Delete</button>
+      <button class="btn" id="update" data-receipt=${receipt.id} type="update">Update</button>
+      <button class="btn" id="save" data-receipt=${receipt.id} type="save">Save</button>
+      </div>
+    </td>
+    </tr>
+  `;
+    }
+  });
+  if (window.innerWidth < 1280) {
+    document.querySelector(".receipt > div").innerHTML = renderReceipt.join("");
+  } else {
+    document.querySelector(".receipt > div").innerHTML = `
+    <table>
+    <thead>
+      <tr>
+        <th>Receipt Id</th>
+        <th>Product Id </th>
+        <th>Quantity</th>
+        <th>User Id</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>`;
+    document.querySelector(".receipt > div table tbody").innerHTML =
+      renderReceipt.join("");
+  }
+
   // handleEvents
   // add product
   const handleAddProduct = () => {
@@ -226,7 +302,7 @@ const render = () => {
     const getName = document.querySelector("#nameproduct");
     const getPrice = document.querySelector("#priceproduct");
     const getDescription = document.querySelector("#description-product");
-    const getImg = document.querySelector("#imgproduct");
+    const getImg = document.getElementById("imgpreview");
     const getType = document.querySelector("#type-select");
     submit.onclick = () => {
       const product = {
@@ -234,7 +310,7 @@ const render = () => {
         name: getName.value,
         price: getPrice.value,
         description: getDescription.value,
-        img: getImg.value,
+        img: getImg.src,
         type: getType.value,
       };
       // Validate values
@@ -251,7 +327,7 @@ const render = () => {
       getName.value = "";
       getPrice.value = "";
       getDescription.value = "";
-      getImg.value = "";
+      getImg.src = "";
       getType.value = "";
       addProduct(product);
       render();
@@ -265,7 +341,7 @@ const render = () => {
     );
     getBtn.forEach((element) => {
       element.onclick = () => {
-        // if (!confirm("Xoá")) return;
+        if (!confirm("Bạn có chắc chắn xóa không?")) return;
         deleteProduct(element.dataset.product);
         render();
       };
@@ -277,15 +353,12 @@ const render = () => {
     const update = document.querySelectorAll(
       "button[data-product][type=update]"
     );
-    const save = document.querySelectorAll("button[data-product][type=save]");
 
+    const save = document.querySelectorAll("button[data-product][type=save]");
     update.forEach((item) => {
       const index = item.dataset.product;
       const tr = document.querySelectorAll(`tr[data-product="${index}"]`);
       const td = document.querySelectorAll(`td[data-product="${index}"]`);
-      const imgInput = document.querySelectorAll(
-        `input[data-product="${index}"]`
-      );
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
@@ -295,8 +368,20 @@ const render = () => {
         `.description[data-product="${index}"] div`
       );
       const getImg = document.querySelector(`.img[data-product="${index}"]`);
+      const imgProduct = document.querySelector(
+        `.imgproduct[data-product="${index}"]`
+      );
+
       const getType = document.querySelector(`.type[data-product="${index}"]`);
+      const getUpdateBtn = document.querySelector(
+        `button[type="update"][data-product="${index}"]`
+      );
+      const getSaveBtn = document.querySelector(
+        `button[type="save"][data-product="${index}"]`
+      );
       item.onclick = () => {
+        getUpdateBtn.style.display = "none";
+        getSaveBtn.style.display = "block";
         getId.setAttribute("contenteditable", "true");
         getName.setAttribute("contenteditable", "true");
         getPrice.setAttribute("contenteditable", "true");
@@ -309,7 +394,21 @@ const render = () => {
         td.forEach((td) => {
           td.classList.add("active");
         });
-        imgInput.style = "display: block";
+        imgProduct.style.display = "block";
+        imgProduct.addEventListener("change", function () {
+          getImgData();
+        });
+        function getImgData() {
+          const files = imgProduct.files[0];
+          if (files) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(files);
+            fileReader.addEventListener("load", function () {
+              getImg.style.display = "block";
+              getImg.src = this.result;
+            });
+          }
+        }
       };
     });
     save.forEach((item) => {
@@ -334,6 +433,13 @@ const render = () => {
           type: getType.innerHTML,
         };
         updateProduct(index.toString(), product);
+        getId.setAttribute("contenteditable", "false");
+        getName.setAttribute("contenteditable", "false");
+        getPrice.setAttribute("contenteditable", "false");
+        getDescription.setAttribute("contenteditable", "false");
+        getImg.setAttribute("contenteditable", "false");
+        getType.setAttribute("contenteditable", "false");
+
         render();
       };
     });
@@ -341,41 +447,32 @@ const render = () => {
   handleUpdateProduct();
   // add user
   const handleAdduser = () => {
-    const submit = document.querySelector(".submit");
-    const getName = document.querySelector(".name");
-    const getPassword = document.querySelector(".password");
-    const getIsAdmin = document.querySelector(".isAdmin");
-    const getAddresses = document.querySelector(".addresses");
-    const getPhoneNumber = document.querySelector(".phoneNumber");
-    const getCart = document.querySelector(".cart");
+    const submit = document.querySelector("#adduser");
+    const getId = document.querySelector("#iduser");
+    const getPassword = document.querySelector("#passworduser");
+    const getIsAdmin = document.querySelector("#checkadmin");
     submit.onclick = () => {
       const user = {
-        name: getName.values,
+        id: getId.value,
         password: getPassword.value,
         isAdmin: getIsAdmin.value,
-        addresses: getAddresses.value,
-        phoneNumber: getPhoneNumber.value,
-        cart: getCart.value,
       };
       // Validate values
       if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu")) return;
       getId.value = "";
-      getName.value = "";
-      getPrice.value = "";
-      getDescription.value = "";
-      getImg.value = "";
-      getType.value = "";
+      getPassword.value = "";
+      getIsAdmin.value = "";
       addUser(user);
       render();
     };
   };
-  // handleAdduser();
+  handleAdduser();
   // delete user
   const handleDeleteUser = () => {
     const getBtn = document.querySelectorAll("button[data-user][type=delete]");
     getBtn.forEach((element) => {
       element.onclick = () => {
-        if (!confirm("Xoá")) return;
+        if (!confirm("Bạn có chắc chắn xóa không?")) return;
         deleteUser(element.dataset.user);
         render();
       };
@@ -388,6 +485,8 @@ const render = () => {
     const save = document.querySelectorAll("button[data-user][type=save]");
     update.forEach((item) => {
       const index = item.dataset.user;
+      const tr = document.querySelectorAll(`tr[data-user="${index}"]`);
+      const td = document.querySelectorAll(`td[data-user="${index}"]`);
       const getId = document.querySelector(`.id[data-user="${index}"]`);
       const getPassword = document.querySelector(
         `.password[data-user="${index}"]`
@@ -395,18 +494,24 @@ const render = () => {
       const getIsAdmin = document.querySelector(
         `.isAdmin[data-user="${index}"]`
       );
-      const getAddresses = document.querySelector(
-        `.addresses[data-user="${index}"]`
+      const getUpdateBtn = document.querySelector(
+        `button[type="update"][data-user="${index}"]`
       );
-      const getPhoneNumber = document.querySelector(
-        `.phoneNumber[data-user="${index}"]`
+      const getSaveBtn = document.querySelector(
+        `button[type="save"][data-user="${index}"]`
       );
       item.onclick = () => {
+        getUpdateBtn.style.display = "none";
+        getSaveBtn.style.display = "block";
         getId.setAttribute("contenteditable", "true");
         getPassword.setAttribute("contenteditable", "true");
         getIsAdmin.setAttribute("contenteditable", "true");
-        getAddresses.setAttribute("contenteditable", "true");
-        getPhoneNumber.setAttribute("contenteditable", "true");
+        tr.forEach((tr) => {
+          tr.classList.add("active");
+        });
+        td.forEach((td) => {
+          td.classList.add("active");
+        });
       };
     });
     save.forEach((item) => {
@@ -418,28 +523,18 @@ const render = () => {
       const getIsAdmin = document.querySelector(
         `.isAdmin[data-user="${index}"]`
       );
-      const getAddress = document.querySelector(
-        `.address[data-user="${index}"]`
-      );
-      const getPhoneNumber = document.querySelector(
-        `.phoneNumber[data-user="${index}"]`
-      );
       item.onclick = () => {
         const user = {
           id: getId.innerHTML,
           password: getPassword.innerHTML,
           isAdmin: getIsAdmin.innerHTML,
-          address: getAddress.innerHTML,
-          phoneNumber: getPhoneNumber.innerHTML,
         };
         if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu"))
           return;
         getId.setAttribute("contenteditable", "true");
         getPassword.setAttribute("contenteditable", "true");
         getIsAdmin.setAttribute("contenteditable", "true");
-        getAddress.setAttribute("contenteditable", "true");
-        getPhoneNumber.setAttribute("contenteditable", "true");
-        updateUser(index, user);
+        updateUser(index.toString(), user);
         render();
       };
     });

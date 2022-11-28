@@ -81,7 +81,4 @@
     scale: 0;
     user-select: none;
   }
-  .header__navbar {
-    justify-content: flex-end;
-  }
 }
