@@ -7,22 +7,16 @@ const defaultUserList = [
     id: "Administrator",
     password: "Administrator",
     isAdmin: true,
-    cart: [],
-    receipt: [],
   },
   {
     id: "kophaiminhhoang",
     password: "vmhoafng",
     isAdmin: false,
-    cart: [],
-    receipt: [],
   },
   {
     id: "vmhoafng",
     password: "vmhoafng",
     isAdmin: false,
-    cart: [],
-    receipt: [],
   },
 ];
 defaultUserList.forEach((user) => {

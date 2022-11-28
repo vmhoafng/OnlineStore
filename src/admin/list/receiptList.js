@@ -3,7 +3,7 @@ export const RECEIPT_LIST = "RECEIPT_LIST";
 
 const defaultReceiptList = [
   {
-    receiptId: "abc",
+    receiptId: 1,
     userId: "kophaiminhhoang",
     status: 1,
     address: "",
