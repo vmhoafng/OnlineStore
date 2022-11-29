@@ -73,7 +73,20 @@ const render = () => {
         </tr>
         <tr data-product=${product.id}>
           <th>Type</th>
-          <td data-product=${product.id} class="type">${product.type}</td>
+          <td data-product=${product.id} class="type">${product.type}
+          <td><label for="type-product">Product types:</label></td>
+          <td>
+            <select id="type-select" name="typeproduct">
+              <option value="">Select Product Type</option>
+              <option value="table">Table</option>
+              <option value="chair">Chair</option>
+              <option value="clock">Clock</option>
+              <option value="light">Light</option>
+              <option value="sofa">Sofa</option>
+              <option value="other">Other</option>
+            </select>
+          </td>
+          </td>
         </tr>
         <tr data-product=${product.id}>
           <th>Price</th>
@@ -112,7 +125,17 @@ const render = () => {
     <tr data-product=${product.id}>
     <td class="id" data-product=${product.id}>${product.id}</td>
     <td class="name" data-product=${product.id}>${product.name}</td>
-    <td class="type" data-product=${product.id}>${product.type}</td>
+    <td class="type" data-product=${product.id}><span>${product.type}</span>
+            <select id="type-select" name="typeproduct">
+              <option value="">Select Product Type</option>
+              <option value="Table">Table</option>
+              <option value="Chair">Chair</option>
+              <option value="Clock">Clock</option>
+              <option value="Light">Light</option>
+              <option value="Sofa">Sofa</option>
+              <option value="Other">Other</option>
+            </select>
+    </td>
     <td class="price" data-product=${product.id}>${product.price}</td>
     <td data-product=${product.id}><img id="imgId" class="img" data-product=${product.id} src="${product.img}" alt="">
     <input
@@ -171,7 +194,13 @@ const render = () => {
       </tr>
       <tr>
         <th>isAdmin</th>
-        <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
+        <td class="type" data-user=${user.id} class="isAdmin"><span>${user.isAdmin}</span>
+        <select id="user-select" name="typeproduct">
+        <option value="">Select Product Type</option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+        </select>
+        </td>
       </tr>
       <tr>
         <th>Action</th>
@@ -188,7 +217,13 @@ const render = () => {
       return `<tr>
     <td data-user=${user.id} class="id">${user.id}</td>
     <td data-user=${user.id} class="password">${user.password}</td>
-    <td data-user=${user.id} class="isAdmin">${user.isAdmin}</td>
+    <td data-user=${user.id} class="isAdmin"><span>${user.isAdmin}</span>
+    <select id="user-select" name="typeproduct">
+              <option value="">Select Product Type</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+     </select>         
+    </td>
     <td data-user=${user.id} >
     <div class="flex-center">
       <button class="btn" data-user=${user.id} type="delete">Delete</button>
@@ -429,7 +464,7 @@ const render = () => {
         `.description[data-product="${index}"] div`
       );
       const getImg = document.querySelector(`.img[data-product="${index}"]`);
-      const getType = document.querySelector(`.type[data-product="${index}"]`);
+      const getType = document.querySelector(`.type[data-product="${index}"] select`);
       item.onclick = () => {
         const product = {
           id: getId.innerHTML,
@@ -437,7 +472,7 @@ const render = () => {
           price: getPrice.innerHTML,
           description: getDescription.innerHTML,
           img: getImg.src,
-          type: getType.innerHTML,
+          type: getType.value,
         };
         updateProduct(index.toString(), product);
         render();
@@ -523,13 +558,13 @@ const render = () => {
         `.password[data-user="${index}"]`
       );
       const getIsAdmin = document.querySelector(
-        `.isAdmin[data-user="${index}"]`
+        `.isAdmin[data-user="${index}"] select`
       );
       item.onclick = () => {
         const user = {
           id: getId.innerHTML,
           password: getPassword.innerHTML,
-          isAdmin: getIsAdmin.innerHTML,
+          isAdmin: getIsAdmin.value,
         };
         if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu"))
           return;

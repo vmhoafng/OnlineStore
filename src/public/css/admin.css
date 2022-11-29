@@ -254,6 +254,12 @@ button:hover {
 input[name="toggle"] {
   display: none;
 }
+.type select,.type.active span,.isAdmin select,.isAdmin.active span{
+  display: none;
+}
+.type.active select,.isAdmin.active select{
+  display: block;
+}
 #add-product {
   position: fixed;
   height: 100vh;
