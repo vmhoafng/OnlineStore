@@ -163,7 +163,7 @@ menu {
 menu h2 {
   padding-left: 10px;
 }
-h3 {
+menu h3 {
   text-align: center;
 }
 menu li {
@@ -247,7 +247,8 @@ main section {
   height: 100%;
   opacity: 1;
 }
-.card button {
+.card button,
+.card label {
   font-size: 16px;
   background-color: var(--title-color);
   color: #fff;
@@ -256,8 +257,10 @@ main section {
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
   font-weight: 700;
+  text-align: center;
 }
-.card button:hover {
+.card button:hover,
+.card label:hover {
   color: var(--title-color);
   background-color: #ea9782;
 }
@@ -479,6 +482,8 @@ section ul li.active {
   left: 0;
   transition: all 0.5s ease-in-out;
   z-index: 10;
+  opacity: 1;
+  visibility: visible;
 }
 .Detail img {
   width: 40%;
@@ -500,10 +505,13 @@ section ul li.active {
   align-items: flex-start;
   padding: 30px;
   gap: 20px;
+  height: 95%;
 }
-input[name="detail"]:not(:checked) + div {
-  display: none;
+input[name="detail"]:not(:checked) + .Detail {
+  opacity: 0;
+  visibility: hidden;
 }
+
 .Detail label {
   position: absolute;
   width: 100%;
@@ -511,11 +519,12 @@ input[name="detail"]:not(:checked) + div {
   background-color: rgba(255, 255, 255, 0.5);
 }
 .wrapper .wrapper > div {
-  height: 60%;
+  max-height: 60%;
 }
 .wrapper .wrapper p {
   height: 100%;
   overflow-y: scroll;
+  font-size: 20px;
 }
 .wrapper .wrapper input {
   width: 100%;

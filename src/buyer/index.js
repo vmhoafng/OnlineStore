@@ -14,8 +14,10 @@ let productList =
   JSON.parse(localStorage.getItem(PRODUCT_LIST)) ?? defaultProductList;
 let userList = JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultUserList;
 let receiptList =
-  JSON.parse(localStorage.getItem(USER_LIST)) ?? defaultReceiptList;
+  JSON.parse(localStorage.getItem(RECEIPT_LIST)) ?? defaultReceiptList;
 localStorage.setItem(PRODUCT_LIST, JSON.stringify(productList));
+localStorage.setItem(USER_LIST, JSON.stringify(userList));
+localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let userStatus = JSON.parse(localStorage.getItem(currentUser));
 userStatus &&
@@ -47,13 +49,14 @@ const searchFilter = (value = "") => {
   );
 };
 const addIntoCart = (product) => {
-  const existProduct = userStatus.cart.find((item) => item.id === product.id);
+  const existProduct =
+    userStatus.cart && userStatus.cart.find((item) => item.id === product.id);
   if (existProduct) {
     userStatus.cart = controllers.update(userStatus.cart, existProduct.id, {
       ...existProduct,
       quantity: ++existProduct.quantity,
     });
-  } else if (userStatus) {
+  } else if (userStatus.cart) {
     userStatus.cart = controllers.add(userStatus.cart, product);
   }
   localStorage.setItem(currentUser, JSON.stringify({ ...userStatus }));
@@ -95,7 +98,7 @@ const buyAndGetReceipt = (total, address, phoneNumber) => {
     ],
   };
   addReceipt({
-    receiptId: receiptList.length + 1,
+    id: receiptList.length + 1,
     userId: currentUser,
     address,
     phoneNumber,
@@ -128,9 +131,9 @@ const App = () => {
             <div class="wrapper flex-col item-start">
               <h2 class="flex item-center justify-between">${product.name}</h2>
               <h3>Price: ${product.price}$</h3>
-              <input value="1" min="1" type="number"/>
+              <input data-product=${product.id} value="1" min="1" type="number"/>
               <div>
-                Description:
+                <h3>Description:</h3>
                 <p>
                 ${product.description}
                 </p>
@@ -145,7 +148,7 @@ const App = () => {
           <img data-product=${product.id} src="${product.img}" alt="" />
           <div  class="show flex-center flex-col">
             <button type="add" data-product=${product.id}>Add to cart</button>
-            <button data-product=${product.id}><label for="p${product.id}">View detail</label></button>
+            <label for="p${product.id}">View detail</label>
           </div>
         </div>
             `;
@@ -154,6 +157,7 @@ const App = () => {
     document.querySelector(".product").innerHTML = productHTML.join("");
     const cartHTML =
       currentUser &&
+      userStatus.cart &&
       userStatus.cart.map((product) => {
         return /*html */ `
         <div class="box flex justify-between">
@@ -175,7 +179,7 @@ const App = () => {
           `;
       });
     document.querySelector(".cart .content").innerHTML =
-      currentUser && cartHTML.join("");
+      currentUser && userStatus.cart && cartHTML.join("");
     const typeHTML = typeList.map((type) => {
       if (filterArray.includes(type)) {
         return /*html */ `
@@ -190,9 +194,11 @@ const App = () => {
     document.querySelector("menu ul").innerHTML = typeHTML.join("");
     const totalArray =
       currentUser &&
+      userStatus.cart &&
       userStatus.cart.map((product) => product.price * product.quantity);
     const totalCart =
       currentUser &&
+      userStatus.cart &&
       totalArray.reduce((total, price) => {
         return total + price;
       }, 0);
@@ -200,6 +206,7 @@ const App = () => {
 
     const receiptHTML =
       currentUser &&
+      userStatus.receipt &&
       userStatus.receipt.map((product) => {
         return /*html */ `
     <div class="flex flex-col">
@@ -228,7 +235,7 @@ const App = () => {
       `;
       });
     document.querySelector("#receipt section").innerHTML =
-      currentUser && receiptHTML.join("");
+      currentUser && userStatus.receipt && receiptHTML.join("");
     // handleEvents
     // add product
     const handleAddIntoCart = () => {
@@ -238,7 +245,9 @@ const App = () => {
           const getQuantity = document.querySelector(
             `.quantity[data-product="${item.dataset.product}"]`
           );
-          const getQuantityInput = document.querySelector(`.Detail input`);
+          const getQuantityInput = document.querySelector(
+            `.Detail input[data-product="${item.dataset.product}"]`
+          );
           if (JSON.parse(localStorage.getItem("currentUser")) === null) {
             alert("Use need to login to buy products");
             document.querySelector("#Form").click();
@@ -246,10 +255,7 @@ const App = () => {
           }
           const product = {
             id: item.dataset.product,
-            quantity:
-              (getQuantityInput && getQuantityInput.value) ||
-              (getQuantity && getQuantity.innerHTML) ||
-              1,
+            quantity: (getQuantityInput && getQuantityInput.value) || 1,
             ...productList[item.dataset.product],
           };
           addIntoCart(product);

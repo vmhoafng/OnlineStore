@@ -14,7 +14,6 @@ Validator({
     let user = localStorage.getItem(id);
     let config = JSON.parse(user);
     let json = JSON.stringify(id);
-
     const userConfig = "currentUser";
     inputs.forEach((element) => {
       element.value = "";
@@ -29,15 +28,18 @@ Validator({
     } else if (password !== config.password) {
       alert("Nhập sai mật khẩu");
       return;
+    } else if (
+      config.isAdmin == "true" &&
+      id == config.id &&
+      password == config.password &&
+      confirm("Bạn có muốn chuyển sang trang Admin")
+    ) {
+      window.location = "../admin";
+      localStorage.setItem(userConfig, json);
     } else if (id == config.id && password == config.password) {
       document.querySelector("#Form").click();
-      if (config.isAdmin && confirm("Bạn có muốn chuyển sang trang Admin")) {
-        window.location = "../admin";
-        localStorage.setItem(userConfig, json);
-      } else {
-        localStorage.setItem(userConfig, json);
-        window.location.reload();
-      }
+      localStorage.setItem(userConfig, json);
+      window.location.reload();
     }
   },
 });

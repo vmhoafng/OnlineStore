@@ -251,7 +251,7 @@ button:hover {
 }
 
 /* Modal */
-input[type="checkbox"] {
+input[name="toggle"] {
   display: none;
 }
 #add-product {

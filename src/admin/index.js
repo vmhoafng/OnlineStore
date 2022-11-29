@@ -36,6 +36,7 @@ const deleteProduct = (index) => {
 const addUser = (user) => {
   userList = controllers.add(userList, user);
   localStorage.setItem(USER_LIST, JSON.stringify(userList));
+  localStorage.setItem(user.id, JSON.stringify(user));
 };
 const updateUser = (index, user) => {
   userList = controllers.update(userList, index, user);
@@ -44,21 +45,17 @@ const updateUser = (index, user) => {
 const deleteUser = (index) => {
   userList = controllers.delete(userList, index);
   localStorage.setItem(USER_LIST, JSON.stringify(userList));
+  localStorage.removeItem(user.id);
 };
 // Control receiptList
-const addReceipt = (receipt) => {
-  receiptList = controllers.add(receiptList, receipt);
+const updateStatus = (index, newStatus) => {
+  console.log(Number(index), receiptList[index - 1]);
+  receiptList = controllers.update(receiptList, Number(index), {
+    ...receiptList[Number(index) - 1],
+    status: newStatus,
+  });
   localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
 };
-const updateReceipt = (index, receipt) => {
-  receiptList = controllers.update(receiptList, index, receipt);
-  localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
-};
-const deleteReceipt = (index) => {
-  receiptList = controllers.delete(receiptList, index);
-  localStorage.setItem(RECEIPT_LIST, JSON.stringify(receiptList));
-};
-
 // Render
 const render = () => {
   // RenderProduct
@@ -228,46 +225,56 @@ const render = () => {
       <table>
       <tr>
         <th>ID</th>
-        <td data-receipt=${receipt.receiptId} class="id">${receipt.receiptId}</td>
+        <td data-receipt=${receipt.id} class="id">${receipt.id}</td>
       </tr>
       <tr>
-        <th>Product ID</th>
-        <td data-receipt=${receipt.receiptId} class="productId">${receipt.id}</td>
-      </tr>
-      <tr>
-        <th>Quantity</th>
-        <td data-receipt=${receipt.receiptId} class="quantity"> ${receipt.quantity}</td>
+        <th>Cart</th>
+        <td data-receipt=${receipt.id} class="cart"> ${receipt.cart}</td>
       </tr>
       <tr>
         <th>User ID</th>
-        <td data-receipt=${receipt.receiptId} class="userId">${receipt.userId}</td>
+        <td data-receipt=${receipt.id} class="userId">${receipt.userId}
+        </td>
       </tr>
+      <tr>
+        <th>Address</th>
+        <td data-receipt=${receipt.id} class="cart"> ${receipt.address}</td>
+      </tr>
+      <tr>
+      <th>Phone number</th>
+      <td data-receipt=${receipt.id} class="cart"> ${receipt.phoneNumber}</td>
+    </tr>
       <tr>
         <th>Status</th>
-        <td data-receipt=${receipt.receiptId} class="status">${receipt.status}</td>
-      </tr>
-      <tr>
-        <th>Action</th>
-        <td data-receipt=${receipt.id}>
-          <div class="flex-center">
-            <button class="btn" data-receipt=${receipt.id} type="delete">Delete</button>
-            <button class="btn" data-receipt=${receipt.id} type="update">Update</button>
-            <button class="btn" data-receipt=${receipt.id} type="save">Save</button>
-          </div>
+        <td data-receipt=${receipt.id} class="status">
+        <input data-receipt=${receipt.id} class="checkbox" type="checkbox" ${
+        receipt.status ? "checked" : " "
+      }/>
         </td>
-    </tr>
+      </tr>
+    
   </table>`;
     } else {
       return `<tr>
     <td data-receipt=${receipt.id} class="id">${receipt.id}</td>
-    <td data-receipt=${receipt.id} class="password">${receipt.password}</td>
-    <td data-receipt=${receipt.id} class="isAdmin">${receipt.isAdmin}</td>
-    <td data-receipt=${receipt.id} >
-    <div class="flex-center">
-      <button class="btn" data-receipt=${receipt.id} type="delete">Delete</button>
-      <button class="btn" id="update" data-receipt=${receipt.id} type="update">Update</button>
-      <button class="btn" id="save" data-receipt=${receipt.id} type="save">Save</button>
-      </div>
+    <td data-receipt=${receipt.id} class="cart"> ${receipt.cart
+        .map(
+          (item) => `
+    <ul class="flex justify-between">
+      <li>Id: ${item.id}</li>
+      <li>Name: ${item.name}</li>
+      <li>Quantity: ${item.quantity}</li>
+    </ul>
+    `
+        )
+        .join("")}</td>
+    <td data-receipt=${receipt.id} class="userId">${receipt.userId}</td>
+    <td data-receipt=${receipt.id} class="cart"> ${receipt.address}</td>
+    <td data-receipt=${receipt.id} class="cart"> ${receipt.phoneNumber}</td>
+    <td data-receipt=${receipt.id} class="status">
+    <input data-receipt=${receipt.id} class="checkbox" type="checkbox" ${
+        receipt.status ? "checked" : ""
+      }/>
     </td>
     </tr>
   `;
@@ -281,11 +288,11 @@ const render = () => {
     <thead>
       <tr>
         <th>Receipt Id</th>
-        <th>Product Id </th>
-        <th>Quantity</th>
+        <th>Cart</th>
         <th>User Id</th>
+        <th>Address</th>
+        <th>Phone number</th>
         <th>Status</th>
-        <th>Action</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -433,13 +440,6 @@ const render = () => {
           type: getType.innerHTML,
         };
         updateProduct(index.toString(), product);
-        getId.setAttribute("contenteditable", "false");
-        getName.setAttribute("contenteditable", "false");
-        getPrice.setAttribute("contenteditable", "false");
-        getDescription.setAttribute("contenteditable", "false");
-        getImg.setAttribute("contenteditable", "false");
-        getType.setAttribute("contenteditable", "false");
-
         render();
       };
     });
@@ -456,6 +456,8 @@ const render = () => {
         id: getId.value,
         password: getPassword.value,
         isAdmin: getIsAdmin.value,
+        cart: [],
+        receipt: [],
       };
       // Validate values
       if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu")) return;
@@ -531,9 +533,6 @@ const render = () => {
         };
         if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu"))
           return;
-        getId.setAttribute("contenteditable", "true");
-        getPassword.setAttribute("contenteditable", "true");
-        getIsAdmin.setAttribute("contenteditable", "true");
         updateUser(index.toString(), user);
         render();
       };
@@ -548,6 +547,19 @@ const render = () => {
     };
   };
   handleLogOut();
+  const handleUpdateStatus = () => {
+    const getStatus = document.querySelectorAll(".status input");
+    getStatus.forEach((item) => {
+      item.onchange = (e) => {
+        console.log(item.dataset.receipt);
+        if (item.checked) {
+          updateStatus(item.dataset.receipt, true);
+        }
+        render();
+      };
+    });
+  };
+  handleUpdateStatus();
   window.onresize = () => {
     render();
   };

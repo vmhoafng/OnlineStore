@@ -27,8 +27,6 @@ Validator({
       id,
       password,
       isAdmin: false,
-      addresses: "",
-      phoneNumber: "",
       cart: [],
       receipt: [],
     };

@@ -17,7 +17,8 @@ li {
 button,
 input,
 select,
-textarea {
+textarea,
+label {
   outline: none;
   border: none;
   cursor: pointer;
