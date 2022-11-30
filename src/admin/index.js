@@ -90,7 +90,7 @@ const render = () => {
         </tr>
         <tr data-product=${product.id}>
           <th>Price</th>
-          <td data-product=${product.id} class="price">${product.price}</td>
+          <td data-product=${product.id} class="price"><span>${product.price}</span>$</td>
         </tr>
         <tr data-product=${product.id}>
           <th>Image</th>
@@ -136,7 +136,7 @@ const render = () => {
               <option value="Other">Other</option>
             </select>
     </td>
-    <td class="price" data-product=${product.id}>${product.price}</td>
+    <td class="price" data-product=${product.id}><span>${product.price}</span>$</td>
     <td data-product=${product.id}><img id="imgId" class="img" data-product=${product.id} src="${product.img}" alt="">
     <input
     data-product=${product.id}
@@ -196,9 +196,9 @@ const render = () => {
         <th>isAdmin</th>
         <td class="type" data-user=${user.id} class="isAdmin"><span>${user.isAdmin}</span>
         <select id="user-select" name="typeproduct">
-        <option value="">Select Product Type</option>
-        <option value="true">True</option>
-        <option value="false">False</option>
+        <option value="">Select type</option>
+        <option value="true">true</option>
+        <option value="false">false</option>
         </select>
         </td>
       </tr>
@@ -219,9 +219,9 @@ const render = () => {
     <td data-user=${user.id} class="password">${user.password}</td>
     <td data-user=${user.id} class="isAdmin"><span>${user.isAdmin}</span>
     <select id="user-select" name="typeproduct">
-              <option value="">Select Product Type</option>
-              <option value="true">True</option>
-              <option value="false">False</option>
+              <option value="">Select type</option>
+              <option value="true">true</option>
+              <option value="false">false</option>
      </select>         
     </td>
     <td data-user=${user.id} >
@@ -282,9 +282,7 @@ const render = () => {
       <tr>
         <th>Status</th>
         <td data-receipt=${receipt.id} class="status">
-        <input data-receipt=${receipt.id} class="checkbox" type="checkbox" ${
-        receipt.status ? "checked" : " "
-      }/>
+        ${receipt.status ? `<input data-receipt=${receipt.id} type='checkbox' /> ` : ""}
         </td>
       </tr>
     
@@ -307,9 +305,7 @@ const render = () => {
     <td data-receipt=${receipt.id} class="cart"> ${receipt.address}</td>
     <td data-receipt=${receipt.id} class="cart"> ${receipt.phoneNumber}</td>
     <td data-receipt=${receipt.id} class="status">
-    <input data-receipt=${receipt.id} class="checkbox" type="checkbox" ${
-        receipt.status ? "checked" : ""
-      }/>
+${receipt.status ? "Hoàn thành <img class=check src='./../public/icon/check.svg' alt='' />":`<input data-receipt=${receipt.id} type='checkbox' /> ` }
     </td>
     </tr>
   `;
@@ -404,7 +400,7 @@ const render = () => {
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
-        `.price[data-product="${index}"]`
+        `.price[data-product="${index}"] span`
       );
       const getDescription = document.querySelector(
         `.description[data-product="${index}"] div`
@@ -458,7 +454,7 @@ const render = () => {
       const getId = document.querySelector(`.id[data-product="${index}"]`);
       const getName = document.querySelector(`.name[data-product="${index}"]`);
       const getPrice = document.querySelector(
-        `.price[data-product="${index}"]`
+        `.price[data-product="${index}"] span`
       );
       const getDescription = document.querySelector(
         `.description[data-product="${index}"] div`
@@ -567,7 +563,6 @@ const render = () => {
           isAdmin: getIsAdmin.value,
         };
         if (!validateValue(userList, user, "UserID đã tồn tại", "Thiếu"))
-          return;
         updateUser(index.toString(), user);
         render();
       };
