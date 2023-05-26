@@ -25,19 +25,22 @@ Validator({
         element.value = null;
       });
       document.querySelector("input").focus();
-    } else if (password !== config.password) {
+    }
+    if (password !== config.password) {
       alert("Nhập sai mật khẩu");
       return;
-    } else if (
+    }
+    if (
       config.isAdmin == "true" &&
       id == config.id &&
-      password == config.password &&
-      confirm("Bạn có muốn chuyển sang trang Admin")
+      password == config.password
     ) {
       console.log(config.isAdmin);
       window.location = "https://vmhoafng.github.io/OnlineStore/src/admin";
       localStorage.setItem(userConfig, json);
-    } else if (id == config.id && password == config.password) {
+    }
+
+    if (id == config.id && password == config.password) {
       document.querySelector("#Form").click();
       localStorage.setItem(userConfig, json);
       window.location.reload();
