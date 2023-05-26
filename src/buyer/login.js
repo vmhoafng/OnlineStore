@@ -34,6 +34,7 @@ Validator({
       password == config.password &&
       confirm("Bạn có muốn chuyển sang trang Admin")
     ) {
+      console.log(config.isAdmin);
       window.location = "https://vmhoafng.github.io/OnlineStore/src/admin";
       localStorage.setItem(userConfig, json);
     } else if (id == config.id && password == config.password) {
