@@ -171,6 +171,7 @@ menu li {
   padding-left: 50px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  width: -moz-fit-content;
   width: fit-content;
 }
 menu li:hover,
